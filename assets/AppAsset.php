@@ -23,6 +23,8 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/bootstrap.css',
         'css/style.css',
+        'css/admin-style.css',
+        'css/site.css',
         'css/flexslider.css',
         'css/component.css',
         'libs/font-awesome/css/fontawesome-all.min.css'
@@ -35,9 +37,10 @@ class AppAsset extends AssetBundle
         'js/cbpViewModeSwitch.js',
         'js/products-page.js',
         'js/reviews.js',
+        'js/cart.js',
         'js/responsive-tabs.js',
         'js/responsiveslides.min.js',
-        'js/imagezoom.js'
+        'js/select-category-products-admin.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

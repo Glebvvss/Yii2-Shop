@@ -9,8 +9,9 @@
 namespace app\models;
 
 use app\traits\TBuildTree;
+use app\interfaces\ISearchChildrenOfNodes;
 
-class SearchChildrenOfNodes {
+class SearchChildrenOfNodes implements ISearchChildrenOfNodes {
 
     use TBuildTree;
 

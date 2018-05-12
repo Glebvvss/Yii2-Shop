@@ -29,7 +29,7 @@
                     <? $f = ActiveForm::begin([
                         'enableClientValidation' => false,
                         'enableAjaxValidation' => true,
-                        'validationUrl' => '/web/site/registration',
+                        'validationUrl' => '/site/registration',
                         'options' => ['enctype' => 'multipart/form-data']
                     ]); ?>
                         <ul>

@@ -65,6 +65,10 @@
         <div class="clearfix"></div>
         <div class="clearfix"></div>
 
+        <? if ( !$products ) : ?>
+            <p style="color: #B9B4B5;">No products in this category...</p>
+        <? endif; ?>
+
         <div>
             <? foreach($products as $product) : ?>
                 <div class="col-md-4">
@@ -81,7 +85,7 @@
                                             <div class="cart-left">
                                                 <p class="title"><?=$product['name_product']?></p>
                                             </div>
-                                            <div class="pricey"><span class="item_price">$<?=$product['price']?></span></div>
+                                            <div class="pricey"><span class="item_price">$<?= sprintf("%.2f", $product['price']/100); ?></span></div>
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
@@ -94,23 +98,11 @@
                     </div>
                     <div class="down-block">
                         <div class="button-cart">
-                            <a class="cbp-vm-icon cbp-vm-add item_add" href="#">Add to cart</a>
+                            <button class="cbp-vm-icon cbp-vm-add add-to-cart" id="to-cart-<?= $product['id'] ?>" >Add to cart</button>
                         </div>
                     </div>
                 </div>
             <? endforeach; ?>
         </div>
-
-        <style>
-            .down-block {
-                display: flex;
-                margin-bottom: 20px;
-            }
-
-            .button-cart {
-                margin: auto;
-            }
-        </style>
-
     </div>
 </div>

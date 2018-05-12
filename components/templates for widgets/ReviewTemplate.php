@@ -1,29 +1,45 @@
-<textarea class="form-control" style="resize: none;"></textarea>
+
+<? if ( !Yii::$app->user->isGuest ) : ?>
+    <div class="">
+        <textarea class="form-control" id="textarea-0" data-id="<?= $id_product ?>" style="resize: none;"></textarea>
+        <button class="btn write-review add-review" id="add-subreview-to-0">Add Review</button>
+    </div>
+<? endif; ?>
 
 <? function rec($tree_reviews, $margin) { ?>
     <? foreach( $tree_reviews as $review ) : ?>
         <div class="media response-info">
-            <div class="media-left response-text-left">
+
+            <div class="review-left">
                 <a href="#">
-                    <img class="media-object" src="images/icon1.png" alt="" />
+                    <img class="img-review" src="/images/user/<?= $review['users']['image_name'] ?>" alt="" />
                 </a>
-                <h5><a href="#">Username</a></h5>
+                <h5 class="username-review"><a href="#"><?= $review['users']['username'] ?></a></h5>
             </div>
+
             <div class="media-body response-text-right">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <div class="text-review"><p><?= $review['review'] ?></p></div>
                 <ul>
-                    <li>MARCH 21, 2015</li>
-                    <li><p class="reply" id="review-<?=$review['id']?>">Reply</p></li>
+                    <li><?= Yii::$app->formatter->asDate($review['date'], 'medium') ?></li>
+                    <? if ( !Yii::$app->user->isGuest ) : ?>
+                        <li><p class="reviews-crud reply" id="add-<?=$review['id']?>">Reply</p></li>
+                        <? if ( Yii::$app->user->getId() == $review['id_user'] ) : ?>
+                            <li><p class="reviews-crud delete-review" id="delete-<?=$review['id']?>">Delete</p></li>
+                        <? endif; ?>
+                    <? endif; ?>
                 </ul>
 
-                <div class="review-on-review">
-                    <textarea class="form-control" style="resize: none;" id="textarea-<?=$review['id']?>"></textarea>
-                </div>
+                <? if ( !Yii::$app->user->isGuest ) : ?>
+                    <div class="review-on-review" id="crud-<?=$review['id']?>" data-id="<?= $id_product ?>">
+                        <textarea class="form-control" style="resize: none;" id="textarea-<?=$review['id']?>"></textarea>
+                        <button class="btn btn-xs write-subreview add-review" id="add-subreview-to-<?=$review['id']?>">Add Review</button>
+                    </div>
+                <? endif; ?>
+
             </div>
             <? if ( $review['subreviews'] ) : ?>
                 <div style="padding-left: <?= $margin ?>px;" >
-                    <? rec($review['subreviews'], $margin + 70); ?>
+                    <? rec($review['subreviews'], $margin); ?>
                 </div>
             <? endif; ?>
         </div>
@@ -31,12 +47,3 @@
 <? } ?>
 
 <? rec($tree_reviews, 70); ?>
-
-<style>
-    .reply {
-        color: #887f66;
-        font-size: 12px;
-        font-weight: 600;
-        cursor: pointer;
-    }
-</style>

@@ -1,115 +1,128 @@
-html,
-body {
-    height: 100%;
+ul.hor-nav {
+    margin: 0;
+    padding: 0;
+}
+ul.hor-nav li {
+    display: inline;
+    margin-right: 4px;
+    padding: 2px;
 }
 
-.wrap {
-    min-height: 100%;
-    height: auto;
-    margin: 0 auto -60px;
-    padding: 0 0 60px;
-}
-
-.wrap > .container {
-    padding: 70px 15px 20px;
-}
-
-.footer {
-    height: 60px;
-    background-color: #f5f5f5;
-    border-top: 1px solid #ddd;
-    padding-top: 20px;
-}
-
-.jumbotron {
-    text-align: center;
-    background-color: transparent;
-}
-
-.jumbotron .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-}
-
-.not-set {
-    color: #c55;
-    font-style: italic;
-}
-
-/* add sorting icons to gridview sort links */
-a.asc:after, a.desc:after {
-    position: relative;
-    top: 1px;
-    display: inline-block;
-    font-family: 'Glyphicons Halflings';
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-    padding-left: 5px;
-}
-
-a.asc:after {
-    content: /*"\e113"*/ "\e151";
-}
-
-a.desc:after {
-    content: /*"\e114"*/ "\e152";
-}
-
-.sort-numerical a.asc:after {
-    content: "\e153";
-}
-
-.sort-numerical a.desc:after {
-    content: "\e154";
-}
-
-.sort-ordinal a.asc:after {
-    content: "\e155";
-}
-
-.sort-ordinal a.desc:after {
-    content: "\e156";
-}
-
-.grid-view th {
-    white-space: nowrap;
-}
-
-.hint-block {
-    display: block;
-    margin-top: 5px;
-    color: #999;
-}
-
-.error-summary {
-    color: #a94442;
-    background: #fdf7f7;
-    border-left: 3px solid #eed3d7;
-    padding: 10px 20px;
-    margin: 0 0 15px 0;
-}
-
-/* align the logout "link" (button in form) of the navbar */
-.nav li > form > button.logout {
-    padding: 15px;
-    border: none;
-}
-
-@media(max-width:767px) {
-    .nav li > form > button.logout {
-        display:block;
-        text-align: left;
-        width: 100%;
-        padding: 10px 15px;
-    }
-}
-
-.nav > li > form > button.logout:focus,
-.nav > li > form > button.logout:hover {
+a.test {
     text-decoration: none;
 }
 
-.nav > li > form > button.logout:focus {
-    outline: none;
+.active a {
+    color: #825a5b;
 }
+
+a:hover {
+    color: #825a5b;
+}
+
+.reviews-crud {
+    color: #887f66;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.write-subreview {
+    float: right;
+    margin-top: 10px;
+}
+
+.write-review {
+    margin-top: 10px;
+    width: 100%;
+    background-color: #816263;
+    color: white;
+}
+
+.write-review:hover {
+    color: white;
+    background-color: #7f5253;
+}
+
+.remove-position {
+    padding-right: 40px;
+}
+
+
+/* cart */
+.cart-qty-input {
+    text-align: center;
+    width: 30px;
+    border: none;
+    background-color: #e2e0e0;
+    color: #5b5b5b;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+
+.cart-price {
+    padding-top: 70px;
+    font-size: 15px;
+}
+
+.name-product-caption {
+    margin-top: -30px;
+}
+
+.test {
+    float: left;
+    padding: 10px 20px 10px 10px;
+}
+
+.cart-image {
+    height: 180px;
+}
+/* end cart */
+
+/* products */
+.down-block {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.button-to-cart {
+    margin-top: 15px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    background-color: #816263;
+    width: 100px;
+    height: 40px;
+}
+
+.button-to-cart:hover {
+    background-color: #171111;
+}
+
+.transition {
+    transition: 0.5s;
+}
+
+.button-cart {
+    margin: auto;
+}
+/* end products */
+
+/* reviews */
+.img-review {
+    width: 70px;
+}
+
+.review-left {
+    float: left;
+    margin-right: 10px;
+}
+
+.username-review {
+    text-align: center;
+}
+
+.text-review {
+    min-height: 85px;
+}
+/* end reviews */

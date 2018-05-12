@@ -51,8 +51,10 @@
                             <li>
                                 <?php
                                      echo yii\widgets\LinkPager::widget([
-                                        'pagination' => $pages,
-                                         'options' => ['class' => '']
+                                         'pagination' => $pages,
+                                         'options' => [
+                                             'class' => ''
+                                         ],
                                      ]);
                                 ?>
                             </li>
@@ -61,12 +63,10 @@
                         <div class="clearfix"></div>
                     </div>
                     <div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid">
-
                         <div class="cbp-vm-options">
                             <a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected" data-view="cbp-vm-view-grid" title="grid">Grid View</a>
                             <a href="#" class="cbp-vm-icon cbp-vm-list" data-view="cbp-vm-view-list" title="list">List View</a>
                         </div>
-
                         <div class="pages">
                             <div class="limiter visible-desktop">
                                 <label>Show</label>
@@ -83,7 +83,9 @@
                         <div class="clearfix"></div>
                         <div class="clearfix"></div>
 
-
+                        <? if ( !$products ) : ?>
+                            <p style="color: #B9B4B5;">No products in this category...</p>
+                        <? endif; ?>
 
                         <div>
                             <?php foreach($products as $product) : ?>
@@ -101,7 +103,7 @@
                                                         <div class="cart-left">
                                                             <p class="title"><?=$product['name_product']?></p>
                                                         </div>
-                                                        <div class="pricey"><span class="item_price">$<?=$product['price']?></span></div>
+                                                        <div class="pricey"><span class="item_price">$<?= sprintf("%.2f", $product['price']/100);  ?></span></div>
                                                         <div class="clearfix"></div>
                                                     </div>
                                                 </div>
@@ -114,101 +116,16 @@
                                 </div>
                                 <div class="down-block">
                                     <div class="button-cart">
-                                        <a class="cbp-vm-icon cbp-vm-add item_add" href="#">Add to cart</a>
+                                        <button class="add-to-cart button-to-cart transition" id="to-cart-<?= $product['id'] ?>" >Add to cart</button>
                                     </div>
                                 </div>
                             </div>
                             <?php endforeach; ?>
                         </div>
-
-
-
-
-                        <style>
-                            .down-block {
-                                display: flex;
-                                margin-bottom: 20px;
-                            }
-
-                            .button-cart {
-                                margin: auto;
-                            }
-                        </style>
                     </div>
                 </div>
             </div>
-
-            <div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>
-    </div>
-
-    <div class="other-products">
-        <!--
-        <div class="container">
-            <h3 class="like text-center">Featured Collection</h3>
-            <ul id="flexiselDemo3">
-                <li><a href="single.html"><img src="images/l1.jpg" class="img-responsive"/></a>
-                    <div class="product liked-product simpleCart_shelfItem">
-                        <a class="like_name" href="single.html">Perfectly simple</a>
-                        <p><a class="item_add" href="#"><i></i> <span class=" item_price">$759</span></a></p>
-                    </div>
-                </li>
-                <li><a href="single.html"><img src="images/l2.jpg" class="img-responsive"/></a>
-                    <div class="product liked-product simpleCart_shelfItem">
-                        <a class="like_name" href="single.html">Praising pain</a>
-                        <p><a class="item_add" href="#"><i></i> <span class=" item_price">$699</span></a></p>
-                    </div>
-                </li>
-                <li><a href="single.html"><img src="images/l3.jpg" class="img-responsive"/></a>
-                    <div class="product liked-product simpleCart_shelfItem">
-                        <a class="like_name" href="single.html">Neque porro</a>
-                        <p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-                    </div>
-                </li>
-                <li><a href="single.html"><img src="images/l4.jpg" class="img-responsive"/></a>
-                    <div class="product liked-product simpleCart_shelfItem">
-                        <a class="like_name" href="single.html">Equal blame</a>
-                        <p><a class="item_add" href="#"><i></i> <span class=" item_price">$499</span></a></p>
-                    </div>
-                </li>
-                <li><a href="single.html"><img src="images/l5.jpg" class="img-responsive"/></a>
-                    <div class="product liked-product simpleCart_shelfItem">
-                        <a class="like_name" href="single.html">Perfectly simple</a>
-                        <p><a class="item_add" href="#"><i></i> <span class=" item_price">$649</span></a></p>
-                    </div>
-                </li>
-            </ul>
-            <script type="text/javascript">
-                $(window).load(function() {
-                    $("#flexiselDemo3").flexisel({
-                        visibleItems: 4,
-                        animationSpeed: 1000,
-                        autoPlay: true,
-                        autoPlaySpeed: 3000,
-                        pauseOnHover: true,
-                        enableResponsiveBreakpoints: true,
-                        responsiveBreakpoints: {
-                            portrait: {
-                                changePoint:480,
-                                visibleItems: 1
-                            },
-                            landscape: {
-                                changePoint:640,
-                                visibleItems: 2
-                            },
-                            tablet: {
-                                changePoint:768,
-                                visibleItems: 3
-                            }
-                        }
-                    });
-
-                });
-            </script>
-            <script type="text/javascript" src="js/jquery.flexisel.js"></script>
-
-            -->
-        </div>
     </div>
 </div>

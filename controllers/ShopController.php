@@ -12,28 +12,19 @@ use Yii;
 use yii\web\Controller;
 use app\models\builders\GetProductsBuilder;
 use yii\data\Pagination;
-use app\models\db\Products;
-use app\models\db\SizeProduct;
-use app\models\db\Categories;
-use app\models\db\Reviews;
-use app\models\SearchChildrenOfNodes;
-use app\traits\TBuildTree;
+use app\models\ProductInfo;
+use app\models\builders\ReviewOperationsBuilder;
 
 class ShopController extends Controller {
 
-    use TBuildTree;
-
     public function actionProducts() {
-        //get vars
-        $products_per_page = (int) Yii::$app->request->get('products_per_page');
         $id_category = (int) Yii::$app->request->get('id_category');
+        $products_per_page = (int) Yii::$app->request->get('products_per_page');
         $sort_direction = Yii::$app->request->get('sort_direction');
         $sort_type = Yii::$app->request->get('sort_type');
         $tag = Yii::$app->request->get('tag');
         $tamplate_page_html = 'products';
-        //end of get vars
 
-        //get products
         $getProducts = new GetProductsBuilder();
         $getProductsObj = $getProducts->sortDirection($sort_direction)
                                       ->idCategory($id_category)
@@ -42,7 +33,6 @@ class ShopController extends Controller {
                                       ->build();
 
         $query = $getProductsObj->getProducts();
-        //end of get products
 
         //create pagination
         if ( !$products_per_page ) $products_per_page = 9;
@@ -66,24 +56,60 @@ class ShopController extends Controller {
 
     public function actionProductSingle() {
         $id_product = Yii::$app->request->get('id_product');
+        $template_page_html = 'product-single';
 
-        $sizes = SizeProduct::find()
-            ->where(['id_product' => $id_product])
-            ->joinWith('products')
-            ->joinWith('sizes')
-            ->asArray()
-            ->all();
+        $builder = new ReviewOperationsBuilder();
+        $reviewOperations = $builder->idProduct($id_product)
+                                    ->build();
 
-        $product = Products::find()
-            ->where(['products.id' => $id_product])
-            ->joinWith('countries')
-            ->joinWith('brands')
-            ->one();
-
-        return $this->render('product-single', [
+        $reviews = $reviewOperations->selectReviews();
+        $product = ProductInfo::getInfo($id_product);
+        return $this->render( $template_page_html, [
             'id_product' => $id_product,
+            'reviews' => $reviews,
             'product' => $product,
-            'sizes' => $sizes
+        ]);
+    }
+
+    public function actionAddReviewAjax() {
+        if ( !Yii::$app->request->isAjax ) {
+            $this->redirect('');
+        }
+
+        $id_product = Yii::$app->request->post('id_product');
+        $id_parent_review = Yii::$app->request->post('id_parent_review');
+        $review = Yii::$app->request->post('review');
+        $this->layout = false;
+
+        $builder = new ReviewOperationsBuilder();
+        $reviewOperations = $builder->idParent($id_parent_review)
+                                    ->idProduct($id_product)
+                                    ->review($review)
+                                    ->build();
+
+        $reviewOperations->addReview();
+        $reviews = $reviewOperations->selectReviews();
+        return $this->render('product-single-ajax-update', [
+            'id_product' => $id_product,
+            'reviews' => $reviews
+        ]);
+    }
+
+    public function actionDeleteReviewAjax() {
+        $id_product = Yii::$app->request->post('id_product');
+        $id_review = Yii::$app->request->post('id_review');
+        $this->layout = false;
+
+        $builder = new ReviewOperationsBuilder();
+        $reviewOperations = $builder->id($id_review)
+                                    ->idProduct($id_product)
+                                    ->build();
+
+        $reviewOperations->deleteReview();
+        $reviews = $reviewOperations->selectReviews();
+        return $this->render('product-single-ajax-update', [
+            'id_product' => $id_product,
+            'reviews' => $reviews
         ]);
     }
 

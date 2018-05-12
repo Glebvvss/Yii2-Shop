@@ -1,9 +1,6 @@
 <?php
-
     $this->title = 'E-Shop | login';
     use yii\widgets\ActiveForm;
-
-    var_dump ( Yii::$app->user->getId() );
 ?>
 
 <div class="content">

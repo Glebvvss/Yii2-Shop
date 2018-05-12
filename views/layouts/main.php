@@ -26,10 +26,7 @@ AppAsset::register($this);
 	Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-	
-	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>	
-	
-
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <?php $this->head() ?>
 </head>
 <body>
@@ -51,10 +48,27 @@ AppAsset::register($this);
 				</div>
 				<div class="header-right">
 						<div class="cart box_1">
-							<a href="checkout.html">
-								<h3> <span class="simpleCart_total"> $0.00 </span> (<span id="simpleCart_quantity" class="simpleCart_quantity"> 0 </span>)<img src="/web/images/bag.png" alt=""></h3>
+							<a href="<?= Yii::$app->urlManager->createUrl('cart/cart' ); ?>">
+								<h3>
+                                    <? Yii::$app->session->open(); ?>
+                                    <span class="" id="sum-of-cart">
+                                        <? if ( !$_SESSION['cart.sum'] ) : ?>
+                                            $0.00
+                                        <? else : ?>
+                                            $<?= sprintf("%.2f", $_SESSION['cart.sum']/100 ) ?>
+                                        <? endif; ?>
+                                    </span>
+                                    (<span id="count-of-cart" class="">
+                                        <? if ( !$_SESSION['cart.qty'] ) : ?>
+                                            0
+                                        <? else : ?>
+                                            <?= $_SESSION['cart.qty']; ?>
+                                        <? endif; ?>
+                                    </span>)
+                                    <img src="/web/images/bag.png" alt="">
+                                </h3>
 							</a>	
-							<p><a href="javascript:;" class="simpleCart_empty">Empty cart</a></p>
+							<!--<p><a href="javascript:;" class="simpleCart_empty">Empty cart</a></p>-->
 							<div class="clearfix"> </div>
 						</div>
 				</div>
@@ -78,14 +92,9 @@ AppAsset::register($this);
 					<h1><a href=<?= Yii::$app->urlManager->createUrl('site/index') ?>><span>E</span> -Shop</a></h1>
 				</div>
 	    </div>
-	    <!--/.navbar-header-->
-
         <!--Widget for menu of website-->
         <?=app\components\MenuWidget::widget()?>
-
-	    <!--/.navbar-collapse-->
 	</nav>
-	<!--/.navbar-->
 	</div>
 
 	<?=$content?>
@@ -105,6 +114,12 @@ AppAsset::register($this);
 			</div>
 		</div>
 	</div>
+
+    <style>
+        .footer {
+            background-color: #f2f2f2;
+        }
+    </style>
 
 	<div class="footer">
 		<div class="container">

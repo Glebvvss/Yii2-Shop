@@ -11,13 +11,30 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'modules' => [
+        'admin' => [
+            'class' => 'app\module\admin\AdminModule',
+        ],
+    ],
     'components' => [
         'urlManager' => [
-            //'baseUrl'=> '',            
             'enablePrettyUrl' => true,
-            'showScriptName' => false, 
+            'showScriptName' => false,
             'rules' => [
-                '<controller>/<action>' => '<controller>/<action>'
+                //products-page
+                'shop/products/id-category/<id_category:>/<products_per_page:>/<sort_direction:>/sort-type/<sort_type:>/page/<page:>/per-page/<per-page:>/' =>  'shop/products',
+                'shop/products/id-category/<id_category:>/page/<page:>/per-page/<per-page:>/' => 'shop/products',
+                'shop/products/page/<page:>/per-page/<per-page:>/' => 'shop/products',
+                'shop/products/id-category/<id_category:>' => 'shop/products',
+
+                //product-single
+                'shop/product-single/id-product/<id_product:>' => 'shop/product-single',
+
+                //cart
+                'cart' => 'cart/cart',
+
+                'registration' => 'site/registration',
+                //'registration' => 'site/registration',
             ],
         ],
         'authManager' => [
@@ -27,6 +44,7 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'qwerty',
+            'baseUrl'=> '',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',

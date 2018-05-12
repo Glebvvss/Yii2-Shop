@@ -1,0 +1,46 @@
+
+.caption-admin {
+    text-align: center;
+}
+
+.header-admin {
+    display: flex;
+    padding-bottom: 40px;
+}
+
+.menu-admin {
+    padding-top: 15px;
+    margin: auto;
+}
+
+.menu-admin li {
+    font-size: 17px;
+    margin-right: 20px;
+    display: inline;
+}
+
+
+/* add-products page */
+.add-product {
+    font-size: 17px;
+}
+
+.add-products-body {
+    display: flex;
+    margin-top: 40px;
+}
+
+.button {
+    width: 102px;
+    margin: auto;
+}
+
+.add-product-form {
+    margin: auto;
+    width: 500px;
+}
+
+.textarea-add-product {
+    resize: none;
+}
+/* /add-products page */

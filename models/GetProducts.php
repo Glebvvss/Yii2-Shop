@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use app\interfaces\IGetProducts;
 use app\models\builders\GetProductsBuilder;
 use yii\db\Query;
@@ -87,19 +88,14 @@ class GetProducts implements IGetProducts {
 
     private function sortProducts($query) {
         $sort_direction = $this->setSortDirection();
-        try {
-            if ( $this->sort_type == 'position' ) {
-                return $query->orderBy(['products.id' => $sort_direction]);
-            }
-            if ( $this->sort_type == 'name' ) {
-                return $query->orderBy(['products.name_product' => $sort_direction]);
-            }
-            if ( $this->sort_type == 'price' ) {
-                return $query->orderBy(['products.price' => $sort_direction]);
-            }
-                throw new Exception('could not found type of sort');
-        } catch(Exception $e) {
-            return $query->orderBy(['id' => $sort_direction]);
+        if ( $this->sort_type == 'position' ) {
+            return $query->orderBy(['products.id' => $sort_direction]);
+        }
+        if ( $this->sort_type == 'name' ) {
+            return $query->orderBy(['products.name_product' => $sort_direction]);
+        }
+        if ( $this->sort_type == 'price' ) {
+            return $query->orderBy(['products.price' => $sort_direction]);
         }
     }
 

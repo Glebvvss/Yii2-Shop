@@ -19,7 +19,6 @@ class GetProductsBuilder {
     public $tag;
 
     public function sortDirection($sort_direction) {
-        //$sort_direction = $this->validateSortDirection($sort_direction);
         $this->sort_direction = $sort_direction;
         return $this;
     }
@@ -49,7 +48,7 @@ class GetProductsBuilder {
 
     //validate methods
     private function validateSortDirection($sort_direction) {
-        if ( $sort_direction != 'ASC' && $sort_direction != 'DESC' ) {
+        if ( $sort_direction != 'ASC' || $sort_direction != 'DESC' ) {
             $sort_direction = 'DESC';
         }
         return $sort_direction;

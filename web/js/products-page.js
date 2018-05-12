@@ -15,8 +15,9 @@ function ajaxQueryOfUpdateSortProducts() {
     var productsPerPage = $('#products-per-page').val();
     var idCategory = $('#update').attr('data-id');
     var sortType = $('#sort-type').val();
+
     $.ajax({
-        url: '',
+        url: 'http://basic/shop/products',
         type: 'GET',
         data: {
             products_per_page: productsPerPage,

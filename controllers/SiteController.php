@@ -15,10 +15,6 @@ use yii\web\Response;
 
 class SiteController extends Controller {
 
-    public function actionTests() {
-        return $this->render('test');
-    }
-
     public function actionIndex() {
         $products = Products::find()
             ->orderBy(['id' => SORT_DESC])
@@ -32,8 +28,7 @@ class SiteController extends Controller {
 
     public function actionLogin() {
         if ( !Yii::$app->user->isGuest ) {
-            //Yii::$app->user->logout();
-            //$this->goBack();
+            $this->goBack();
         }
 
         $login_model = new Login();

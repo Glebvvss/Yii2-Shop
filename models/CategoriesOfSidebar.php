@@ -8,7 +8,7 @@
 
 namespace app\models;
 
-use app\models\relations\Categories;
+use app\models\db\Categories;
 use app\interfaces\ICategoriesOfSidebar;
 
 class CategoriesOfSidebar implements ICategoriesOfSidebar {
