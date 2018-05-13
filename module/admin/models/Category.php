@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
 
 class Category {
 
-    public function getCategories( $main_category_id, $type_category_id ) {
+    public function getCategories( $main_category_id = 0, $type_category_id = 0 ) {
         $main_category_id = $this->validateMainCategoryId( $main_category_id );
         $type_category_id = $this->validateTypeCategoryId( $main_category_id, $type_category_id );
 

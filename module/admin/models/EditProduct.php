@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: gleb
+ * Date: 12.05.2018
+ * Time: 15:08
+ */
 
 namespace app\admin\models;
 
@@ -7,7 +13,7 @@ use app\models\db\Products;
 use app\models\db\Countries;
 use app\models\db\Brands;
 
-class AddProduct extends Model {
+class EditProduct extends Model {
 
     public $id_category;
     public $name_product;
@@ -20,6 +26,8 @@ class AddProduct extends Model {
     public $about_large;
     public $specifications;
 
+    private $name_img;
+
     public function rules() {
         return [
             [[ 'price', 'name_product' ], 'required'],
@@ -29,48 +37,39 @@ class AddProduct extends Model {
         ];
     }
 
-    public function addProduct() {
-        $product = new Products();
-
+    public function updateProduct( $id_product ) {
         $id_country = $this->getIdCountry();
         $id_brand = $this->getIdBrand();
-        $name_img = $this->uploadFile();
 
+        $img_name = $this->uploadFile( $id_product );
+
+        $product = Products::find()->where(['id' => $id_product])->one();
         $product->specifications = $this->specifications;
         $product->name_product = $this->name_product;
         $product->about_large = $this->about_large;
         $product->id_category = $this->id_category;
         $product->id_country = $id_country;
         $product->id_brand = $id_brand;
-        $product->img = $name_img;
         $product->price = $this->price;
         $product->color = $this->color;
         $product->about = $this->about;
         $product->save();
-
-        return Products::find()->max('id');
     }
 
-    private function uploadFile() {
-        if ( $_FILES['AddProduct']['tmp_name']['img'] == null ) return;
+    private function uploadFile( $id_product ) {
+        if ( $_FILES['EditProduct']['tmp_name']['img'] == null ) return;
 
-        $id_product = $this->idNewProduct();
-        $extension = explode('/', $_FILES['AddProduct']['type']['img']);
+        $extension = explode('/', $_FILES['EditProduct']['type']['img']);
         $new_name_file = 'product' . $id_product . '.' . $extension[1];
-        $tmp_name = $_FILES['AddProduct']['tmp_name']['img'];
+        $tmp_name = $_FILES['EditProduct']['tmp_name']['img'];
         $name = 'images/product/' . $new_name_file;
         copy($tmp_name, $name);
-
-        return $new_name_file;
     }
 
-    private function idNewProduct() {
-        $max_id = Products::find()->max('id');
-        return $max_id + 1;
-    }
 
     private function getIdCountry() {
         if ( !$this->country ) return;
+
         $country_row = Countries::findOne(['country' => $this->country]);
         if ( !$country_row ) {
             $countries = new Countries();
@@ -78,7 +77,6 @@ class AddProduct extends Model {
             $countries->save();
 
             $country_row = Countries::findOne(['country' => $this->country]);
-            debug($country_row);
         }
         return $country_row->id;
     }

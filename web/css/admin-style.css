@@ -20,7 +20,7 @@
 }
 
 
-/* add-products page */
+/* add-edit-products page */
 .add-product {
     font-size: 17px;
 }
@@ -43,4 +43,8 @@
 .textarea-add-product {
     resize: none;
 }
-/* /add-products page */
+
+.delete-tag {
+    cursor: pointer;
+}
+/* /add-edit-products page */

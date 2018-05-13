@@ -10,18 +10,15 @@ namespace app\module\admin\controllers;
 
 use Yii;
 use yii\web\Controller;
-use yii\helpers\ArrayHelper;
-use app\models\db\Brands;
-use app\models\db\Countries;
+use app\models\db\Products;
+use app\models\db\TagProduct;
 use app\admin\models\Category;
 use app\models\SearchFilter;
 use app\admin\models\AddProduct;
+use app\admin\models\EditProduct;
+use app\admin\models\TagEdit;
 
 class AdminController extends Controller {
-
-    public function actionIndex() {
-        return $this->render('index');
-    }
 
     public function actionProducts() {
         $this->layout = 'admin';
@@ -34,33 +31,53 @@ class AdminController extends Controller {
     }
 
     public function actionAddProduct() {
-        $main_category_id = Yii::$app->request->post('main_category_id');
-        $type_category_id = Yii::$app->request->post('type_category_id');
         $id_category = Yii::$app->request->post('category');
-        $post = Yii::$app->request->post();
         $this->layout = 'admin';
 
         $add_product_model = new AddProduct();
         $add_product_model->id_category = $id_category;
-        if ( $add_product_model->load($post) && $add_product_model->id_category && $add_product_model->validate() ) {
-            $add_product_model->addProduct();
+        if ( $add_product_model->load( yii::$app->request->post() ) && $add_product_model->validate() ) {
+            $id_product = $add_product_model->addProduct();
+            $this->redirect( Yii::$app->urlManager->createUrl(['/admin/admin/edit-product', 'id_product' => $id_product]) );
         }
 
-        $brands_list_sql = Brands::find()->asArray()->all();
-        $brands = ArrayHelper::map($brands_list_sql, 'id', 'brand');
+        $category = new Category();
+        $categories = $category->getCategories();
+        return $this->render('add-product', [
+            'add_product_model' => $add_product_model,
+            'categories' => $categories
+        ]);
+    }
 
-        $country_list_sql = Countries::find()->asArray()->all();
-        $countries = ArrayHelper::map($country_list_sql, 'id', 'country');
+    public function actionEditProduct() {
+        $id_product = Yii::$app->request->get('id_product');
+        $this->layout = 'admin';
+
+        $product_info = Products::find()->where(['products.id' => $id_product])
+                                        ->joinWIth('brands')
+                                        ->joinWIth('countries')
+                                        ->one();
+
+        $tag_list = TagProduct::find()->joinWith('tags')
+                                      ->asArray()
+                                      ->where(['id_product' => $id_product])
+                                      ->all();
+
+        $edit_product_model = new EditProduct();
+        if ( $edit_product_model->load( yii::$app->request->post() ) &&  $edit_product_model->validate() ) {
+            $edit_product_model->updateProduct( $id_product );
+        }
 
         $category = new Category();
         $categories = $category->getCategories( $main_category_id, $type_category_id );
-        return $this->render('add-product', [
-            'add_product_model' => $add_product_model,
-            'main_category_id' => $main_category_id,
+        return $this->render('edit-product', [
+            'edit_product_model' => $edit_product_model,
+            '$main_category_id' => $main_category_id,
             'type_category_id' => $type_category_id,
+            'product_info' => $product_info,
             'categories' => $categories,
-            'countries' => $countries,
-            'brands' => $brands
+            'id_product' => $id_product,
+            'tag_list' => $tag_list
         ]);
     }
 
@@ -75,6 +92,44 @@ class AdminController extends Controller {
             'main_category_id' => $main_category_id,
             'type_category_id' => $type_category_id,
             'categories' => $categories
+        ]);
+    }
+
+    public function actionAddTagAjax() {
+        $tag = Yii::$app->request->post('tag');
+        $id_product = Yii::$app->request->post('id_product');
+        $this->layout = false;
+
+        $tagEdit = new TagEdit();
+        $tagEdit->addTag( $tag, $id_product );
+
+        $tag_list = TagProduct::find()->joinWith('tags')
+                                      ->asArray()
+                                      ->where(['id_product' => $id_product])
+                                      ->all();
+
+        return $this->render('tag-edit', [
+            'id_product' => $id_product,
+            'tag_list' => $tag_list
+        ]);
+    }
+
+    public function actionDeleteTagAjax() {
+        $id_tag = Yii::$app->request->post('id_tag');
+        $id_product = Yii::$app->request->post('id_product');
+        $this->layout = false;
+
+        $tagEdit = new TagEdit();
+        $tagEdit->deleteTag( $id_tag, $id_product );
+
+        $tag_list = TagProduct::find()->joinWith('tags')
+                                      ->asArray()
+                                      ->where(['id_product' => $id_product])
+                                      ->all();
+
+        return $this->render('tag-edit', [
+            'id_product' => $id_product,
+            'tag_list' => $tag_list
         ]);
     }
 

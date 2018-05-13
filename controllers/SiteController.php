@@ -13,6 +13,8 @@ use yii\web\UploadedFile;
 use yii\widgets\ActiveForm;
 use yii\web\Response;
 
+use app\models\Form;
+
 class SiteController extends Controller {
 
     public function actionIndex() {
@@ -56,6 +58,17 @@ class SiteController extends Controller {
 
         return $this->render('registration', [
             'reg_model' => $reg_model
+        ]);
+    }
+
+    public function actionTest() {
+        $form = new Form();
+        $form->load( Yii::$app->request->post() );
+
+        $form->save();
+        echo $form->test;
+        return $this->render('test', [
+            'form' => $form
         ]);
     }
 
