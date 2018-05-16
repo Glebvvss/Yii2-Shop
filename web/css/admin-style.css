@@ -47,4 +47,49 @@
 .delete-tag {
     cursor: pointer;
 }
+
+.delete-size {
+    cursor: pointer;
+}
+
+.parent-block {
+    margin-bottom: 100px;
+    display: flex;
+}
+
+.btn-hor-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.admin-tag {
+    display: inline-block;
+    border: none;
+    border-radius: 6px;
+
+    margin: 3px;
+    padding: 5px;
+    background-color: #424242;
+    color: white;
+}
+
+.btn-tag {
+    padding-top: 20px;
+    margin-left: 20px;
+}
+
+.form-admin textarea {
+    resize: none;
+}
+
+.img-edit-product img {
+    width: 250px;
+}
+
+.img-edit-product div {
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* /add-edit-products page */

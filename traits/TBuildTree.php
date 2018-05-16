@@ -14,7 +14,7 @@ trait TBuildTree {
     private $parentColumn = 'id_parent';
     private $idColumn = 'id';
 
-    public function buildTreeArray(array $data) : array {
+    protected function buildTreeArray(array $data) : array {
         $tree = [];
         foreach ($data as $id => &$node) {
             if ($node[$this->parentColumn] === '0') {
@@ -24,17 +24,17 @@ trait TBuildTree {
         }return $tree;
     }
 
-    public function setNameSubnodes(string $nameSubNodes) {
+    protected function setNameSubnodes(string $nameSubNodes) {
         $this->nameSubNodes = $nameSubNodes;
         return $this;
     }
 
-    public function setParentColumn(string $parentColumn) {
+    protected function setParentColumn(string $parentColumn) {
         $this->parentColumn = $parentColumn;
         return $this;
     }
 
-    public function setIdColumn(string $idColumn) {
+    protected function setIdColumn(string $idColumn) {
         $this->idColumn = $idColumn;
         return $this;
     }

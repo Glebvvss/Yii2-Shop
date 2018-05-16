@@ -78,7 +78,6 @@ class AddProduct extends Model {
             $countries->save();
 
             $country_row = Countries::findOne(['country' => $this->country]);
-            debug($country_row);
         }
         return $country_row->id;
     }

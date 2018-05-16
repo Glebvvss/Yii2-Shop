@@ -34,7 +34,7 @@ echo yii\grid\GridView::widget([
             'attribute' => '',
             'format' => 'raw',
             'value' => function($provider) {
-                return Html::a('<i class="fas fa-pencil-alt"></i>', Yii::$app->urlManager->createUrl('admin/admin/index'));
+                return Html::a('<i class="fas fa-pencil-alt"></i>', Yii::$app->urlManager->createUrl(['admin/admin/edit-product', 'id_product' => $dataProvider->id ]));
             }
         ],
         [

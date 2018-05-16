@@ -41,7 +41,8 @@ class AppAsset extends AssetBundle
         'js/responsive-tabs.js',
         'js/responsiveslides.min.js',
         'js/select-category-products-admin.js',
-        'js/tag-edit.js'
+        'js/tag-edit.js',
+        'js/size-edit.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

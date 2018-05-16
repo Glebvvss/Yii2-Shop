@@ -10,8 +10,8 @@ namespace app\admin\interfaces;
 
 interface ITagEdit {
 
-    //public function addTag($tag, $id_product);
+    public function addTag($tag, $id_product);
 
-    //public function deleteTag( $id_tag, $id_product );
+    public function deleteTag( $id_tag, $id_product );
 
 }

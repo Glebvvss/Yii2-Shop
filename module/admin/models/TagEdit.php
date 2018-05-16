@@ -16,9 +16,11 @@ use app\admin\interfaces\ITagEdit;
 class TagEdit implements ITagEdit {
 
     public function addTag($tag, $id_product) {
+        $tag = trim($tag);
         if ( $tag == null ) return;
 
-        $id_tag = $this->getTagId( mb_strtolower($tag) );
+        $tag = mb_strtolower($tag);
+        $id_tag = $this->getTagId( $tag );
         $this->addRowTagProductToDb( $id_tag, $id_product );
     }
 

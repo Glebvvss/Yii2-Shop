@@ -42,27 +42,9 @@
             <?= $f->field($add_product_model, 'about_large')->textarea(['rows' => 5]); ?>
             <?= $f->field($add_product_model, 'specifications')->textarea(['rows' => 5]); ?>
             <!-- -->
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="parent-block">
+                <button type="submit" class="btn btn-primary btn-hor-center">Add Product</button>
+            </div>
         <? ActiveForm::end() ?>
     </div>
 </div>
-
-<style>
-
-    .admin-tag {
-        display: inline-block;
-        border: none;
-        border-radius: 6px;
-
-        margin: 3px;
-        padding: 5px;
-        background-color: #424242;
-        color: white;
-    }
-
-    .btn-tag {
-        padding-top: 20px;
-        margin-left: 20px;
-    }
-
-</style>

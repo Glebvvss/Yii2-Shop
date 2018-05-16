@@ -7,7 +7,7 @@ use yii\db\Expression;
 
 trait TLastId {
 
-    public function getLastUserId() {
+    protected function getLastUserId() {
         $id = Users::find()->select([
             'last_id'  => new Expression('MAX(users.id)')
         ])->asArray()->one();

@@ -12,7 +12,7 @@ use app\models\db\Categories;
 
 trait TCheckChildrenOfCategory {
 
-    public function checkForChildrenOfCategory($id_category) {
+    protected function checkForChildrenOfCategory($id_category) {
         $category_children = Categories::find()->where(['id_parent' => $id_category])->all();
         if ( $category_children ) {
             return true;

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gleb
- * Date: 10.05.2018
- * Time: 2:49
- */
 
 namespace app\module\admin\controllers;
 
@@ -12,11 +6,13 @@ use Yii;
 use yii\web\Controller;
 use app\models\db\Products;
 use app\models\db\TagProduct;
+use app\models\db\SizeProduct;
 use app\admin\models\Category;
 use app\models\SearchFilter;
 use app\admin\models\AddProduct;
 use app\admin\models\EditProduct;
 use app\admin\models\TagEdit;
+use app\admin\models\SizeEdit;
 
 class AdminController extends Controller {
 
@@ -50,6 +46,7 @@ class AdminController extends Controller {
     }
 
     public function actionEditProduct() {
+        $id_category = Yii::$app->request->post('category');
         $id_product = Yii::$app->request->get('id_product');
         $this->layout = 'admin';
 
@@ -58,6 +55,11 @@ class AdminController extends Controller {
                                         ->joinWIth('countries')
                                         ->one();
 
+        $size_list = SizeProduct::find()->joinWith('sizes')
+                                        ->where(['id_product' => $id_product])
+                                        ->asArray()
+                                        ->all();
+
         $tag_list = TagProduct::find()->joinWith('tags')
                                       ->asArray()
                                       ->where(['id_product' => $id_product])
@@ -65,18 +67,19 @@ class AdminController extends Controller {
 
         $edit_product_model = new EditProduct();
         if ( $edit_product_model->load( yii::$app->request->post() ) &&  $edit_product_model->validate() ) {
-            $edit_product_model->updateProduct( $id_product );
+            $edit_product_model->updateProduct($id_product, $id_category);
         }
 
         $category = new Category();
-        $categories = $category->getCategories( $main_category_id, $type_category_id );
+        $selected_categories = $category->getParentsOfCategoryById( $product_info->id_category );
+        $categories = $category->getCategories( $selected_categories['main_category_id'], $selected_categories['type_category_id'] );
         return $this->render('edit-product', [
+            'selected_categories' => $selected_categories,
             'edit_product_model' => $edit_product_model,
-            '$main_category_id' => $main_category_id,
-            'type_category_id' => $type_category_id,
             'product_info' => $product_info,
             'categories' => $categories,
             'id_product' => $id_product,
+            'size_list' => $size_list,
             'tag_list' => $tag_list
         ]);
     }
@@ -133,9 +136,52 @@ class AdminController extends Controller {
         ]);
     }
 
+    public function actionAddSizeAjax() {
+        $size = Yii::$app->request->post('size');
+        $id_product = Yii::$app->request->post('id_product');
+        $this->layout = false;
+
+        $sizeEdit = new SizeEdit();
+        $sizeEdit->addSize( $size, $id_product );
+
+        $size_list = SizeProduct::find()->joinWith('sizes')
+                                       ->asArray()
+                                       ->where(['id_product' => $id_product])
+                                       ->all();
+
+
+        return $this->render('size-edit', [
+            'id_product' => $id_product,
+            'size_list' => $size_list
+        ]);
+    }
+
+    public function actionDeleteSizeAjax() {
+        $id_size = Yii::$app->request->post('id_size');
+        $id_product = Yii::$app->request->post('id_product');
+        $this->layout = false;
+
+        $tagEdit = new SizeEdit();
+        $tagEdit->deleteSize( $id_size, $id_product );
+
+        $size_list = SizeProduct::find()->joinWith('sizes')
+                                      ->asArray()
+                                      ->where(['id_product' => $id_product])
+                                      ->all();
+
+        return $this->render('size-edit', [
+            'id_product' => $id_product,
+            'size_list' => $size_list
+        ]);
+    }
+
     public function actionCategories() {
         $this->layout = 'admin';
-        return $this->render('index');
+
+        $category = new Category();
+        $category->deleteCategory(1);
+
+        return $this->render('categories');
     }
 
 }

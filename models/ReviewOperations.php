@@ -23,7 +23,7 @@ class ReviewOperations {
         $this->id = $builder->id;
         $this->id_parent = $builder->id_parent;
         $this->id_product = $builder->id_product;
-        $this->review = ltrim($builder->review);
+        $this->review = trim($builder->review);
     }
 
     public function countReviewsPerProduct() {

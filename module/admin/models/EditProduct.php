@@ -15,7 +15,8 @@ use app\models\db\Brands;
 
 class EditProduct extends Model {
 
-    public $id_category;
+    private $id_category;
+
     public $name_product;
     public $price;
     public $img;
@@ -26,18 +27,16 @@ class EditProduct extends Model {
     public $about_large;
     public $specifications;
 
-    private $name_img;
-
     public function rules() {
         return [
             [[ 'price', 'name_product' ], 'required'],
-            [['price', 'id_category'], 'integer'],
+            [['price'], 'integer'],
             ['img', 'file'],
             [['country', 'brand', 'color', 'specifications', 'about_large', 'about'], 'string']
         ];
     }
 
-    public function updateProduct( $id_product ) {
+    public function updateProduct( $id_product, $id_category ) {
         $id_country = $this->getIdCountry();
         $id_brand = $this->getIdBrand();
 
@@ -47,7 +46,7 @@ class EditProduct extends Model {
         $product->specifications = $this->specifications;
         $product->name_product = $this->name_product;
         $product->about_large = $this->about_large;
-        $product->id_category = $this->id_category;
+        $product->id_category = $id_category;
         $product->id_country = $id_country;
         $product->id_brand = $id_brand;
         $product->price = $this->price;
