@@ -9,62 +9,79 @@
 namespace app\admin\models;
 
 use app\models\db\Categories;
+use app\models\db\Products;
 use yii\helpers\ArrayHelper;
+use app\traits\TBuildTree;
+use app\traits\TCheckChildrenOfCategory;
 use app\models\SearchChildrenOfNodes;
+use app\admin\interfaces\ICategoryCRUD;
 
-class Category {
+class CategoryCRUD implements ICategoryCRUD {
 
-    private $category_tree;
+    use TBuildTree;
+    use TCheckChildrenOfCategory;
 
     public function addCategory( $category, $id_parent ) {
-        $category_in_db = Categories::findOne(['id' => $id_parent, 'category' => $category]);
-        if ( $category_in_db ) return;
+        if ( !$id_parent ) $id_parent = 0;
+        if ( !$this->validateCategoryForAdd( $category, $id_parent ) ) return;
 
         $categories = new Categories();
-        $categories->categories = $category;
+        $categories->category = $category;
         $categories->id_parent = $id_parent;
         $categories->save();
     }
 
-    public function deleteCategory( $id_category ) {
-        $tree = Categories::find()->asArray()->all();
-        $search_children_nodes = new SearchChildrenOfNodes();
-        $children_list = $search_children_nodes->getChildrenNodesList($tree, $id_category);
+    public function deleteCategory( $id_category, $delete_products_by_category ) {
+        $category_list = $this->getCategoryWithChildren( $id_category );
+        Categories::find()->where(['id' => $category_list])->one()->delete();
 
-        debug($children_list);
-
-/*
-        //проверить данные кода
-        if ( $children_list ) {
-            Categories::find()->where(['id' => $id_category])->one()->delete();
-        } else {
-            Categories::find()->where(['id' => $id_category])->one()->delete();
+        if ( $delete_products_by_category ) {
+            Products::find()->where(['id_category' => $category_list])->all()->delete();
         }
-        //проверить данные кода
-*/
     }
 
-    public function addProductCategory( $category, $main_category_id ) {
-        $categories = new Categories();
+    private function getCategoryWithChildren( $id_category ) {
+        $categories = Categories::find()->asArray()
+                                        ->indexBy('id')
+                                        ->all();
 
+        if ( !$this->checkForChildrenOfCategory($id_category) ) {
+            return $id_category;
+        }
+
+        $tree = $this->buildTreeArray($categories);
+        $searchChildrenOfNodes = new SearchChildrenOfNodes();
+        $children_list = $searchChildrenOfNodes->getChildrenNodesList($tree, $id_category);
+        $children_list[] = $id_category;
+        return $children_list;
     }
 
     public function getParentsOfCategoryById( $id_category ) {
-        $this->category_tree['category_id'] = $id_category;
-        $type_category_id = $this->getParentOfCategory( $id_category );
-        $this->category_tree['type_category_id'] = $type_category_id;
-        $main_category_id = $this->getParentOfCategory( $type_category_id );
-        $this->category_tree['main_category_id'] = $main_category_id;
+        $parents_id['category'] = $id_category;
 
-        return $this->category_tree;
+        $type_category_id = $this->getParentOfCategory( $id_category );
+        $parents_id['typeCategory'] = $type_category_id;
+
+        $main_category_id = $this->getParentOfCategory( $type_category_id );
+        $parents_id['mainCategory'] = $main_category_id;
+
+        return $parents_id;
     }
 
     private function getParentOfCategory( $id_category ) {
         $row_category = Categories::find()->select('id_parent')
-                                          ->where(['id' => $id_category])
-                                          ->one();
+            ->where(['id' => $id_category])
+            ->one();
 
         return $row_category->id_parent;
+    }
+
+    private function validateCategoryForAdd( $category, $id_parent ) {
+        $category_in_db = Categories::findOne(['id' => $id_parent, 'category' => $category]);
+        if ( $category_in_db ) {
+            return false;
+        }
+        return true;
     }
 
     public function getCategories( $main_category_id = 0, $type_category_id = 0 ) {

@@ -7,12 +7,13 @@ use yii\web\Controller;
 use app\models\db\Products;
 use app\models\db\TagProduct;
 use app\models\db\SizeProduct;
-use app\admin\models\Category;
+use app\admin\models\CategoryCRUD;
 use app\models\SearchFilter;
 use app\admin\models\AddProduct;
 use app\admin\models\EditProduct;
 use app\admin\models\TagEdit;
 use app\admin\models\SizeEdit;
+use app\models\db\Categories;
 
 class AdminController extends Controller {
 
@@ -37,11 +38,11 @@ class AdminController extends Controller {
             $this->redirect( Yii::$app->urlManager->createUrl(['/admin/admin/edit-product', 'id_product' => $id_product]) );
         }
 
-        $category = new Category();
-        $categories = $category->getCategories();
+        $categories = Categories::find()->asArray()->all();
+        $categories_list_json = json_encode($categories);
+        file_put_contents('json/admin/add-product.json', $categories_list_json);
         return $this->render('add-product', [
-            'add_product_model' => $add_product_model,
-            'categories' => $categories
+            'add_product_model' => $add_product_model
         ]);
     }
 
@@ -70,31 +71,20 @@ class AdminController extends Controller {
             $edit_product_model->updateProduct($id_product, $id_category);
         }
 
-        $category = new Category();
-        $selected_categories = $category->getParentsOfCategoryById( $product_info->id_category );
-        $categories = $category->getCategories( $selected_categories['main_category_id'], $selected_categories['type_category_id'] );
+        $categoryCRUD = new CategoryCRUD();
+        if ( $id_category ) {
+            $json['selectedCategories'] = $categoryCRUD->getParentsOfCategoryById( $id_category );
+        } else {
+            $json['selectedCategories'] = $categoryCRUD->getParentsOfCategoryById( $product_info->id_category );
+        }
+        $json['allCategories'] = Categories::find()->asArray()->all();
+        file_put_contents('json/admin/edit-product.json', json_encode($json) );
         return $this->render('edit-product', [
-            'selected_categories' => $selected_categories,
             'edit_product_model' => $edit_product_model,
             'product_info' => $product_info,
-            'categories' => $categories,
             'id_product' => $id_product,
             'size_list' => $size_list,
             'tag_list' => $tag_list
-        ]);
-    }
-
-    public function actionSelectCategoryInAddProductAjax() {
-        $main_category_id = Yii::$app->request->post('main_category_id');
-        $type_category_id = Yii::$app->request->post('type_category_id');
-        $this->layout = false;
-
-        $category = new Category();
-        $categories = $category->getCategories( $main_category_id, $type_category_id );
-        return $this->render('select-category-add-products', [
-            'main_category_id' => $main_category_id,
-            'type_category_id' => $type_category_id,
-            'categories' => $categories
         ]);
     }
 
@@ -145,9 +135,9 @@ class AdminController extends Controller {
         $sizeEdit->addSize( $size, $id_product );
 
         $size_list = SizeProduct::find()->joinWith('sizes')
-                                       ->asArray()
-                                       ->where(['id_product' => $id_product])
-                                       ->all();
+                                        ->asArray()
+                                        ->where(['id_product' => $id_product])
+                                        ->all();
 
 
         return $this->render('size-edit', [
@@ -161,13 +151,13 @@ class AdminController extends Controller {
         $id_product = Yii::$app->request->post('id_product');
         $this->layout = false;
 
-        $tagEdit = new SizeEdit();
-        $tagEdit->deleteSize( $id_size, $id_product );
+        $sizeEdit = new SizeEdit();
+        $sizeEdit->deleteSize( $id_size, $id_product );
 
         $size_list = SizeProduct::find()->joinWith('sizes')
-                                      ->asArray()
-                                      ->where(['id_product' => $id_product])
-                                      ->all();
+                                        ->asArray()
+                                        ->where(['id_product' => $id_product])
+                                        ->all();
 
         return $this->render('size-edit', [
             'id_product' => $id_product,
@@ -176,12 +166,31 @@ class AdminController extends Controller {
     }
 
     public function actionCategories() {
+        $delete_products_by_category = Yii::$app->request->post('products-delete-by-category');
+        $delete_category = Yii::$app->request->post('deleteCategory');
+        $new_category = Yii::$app->request->post('addCategory');
+        $id_parent = Yii::$app->request->post('parentId');
         $this->layout = 'admin';
 
-        $category = new Category();
-        $category->deleteCategory(1);
+        $categoryCRUD = new CategoryCRUD();
+        if ( $new_category ) {
+            $categoryCRUD->addCategory( $new_category, $id_parent );
+        }
+        if ( $delete_category ) {
+            $categoryCRUD->deleteCategory($delete_category, $delete_products_by_category);
+        }
 
+        $categories = Categories::find()->asArray()->all();
+        $categories_list_json = json_encode($categories);
+        file_put_contents('json/admin/categories.json', $categories_list_json);
         return $this->render('categories');
+    }
+
+    public function actionOrders() {
+        $this->layout = 'admin';
+        return $this->render('orders', [
+
+        ]);
     }
 
 }

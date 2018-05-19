@@ -13,4 +13,8 @@ class Users extends ActiveRecord {
 	public function getReviews() {
 		return $this->hasMany(Reviews::className(), ['id_user' => 'id']);
 	}
+
+	public function getOrders() {
+        return $this->hasMany(Orders::className(), ['id_user' => 'id']);
+    }
 }

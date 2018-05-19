@@ -70,9 +70,8 @@ class TagsWidget extends Widget {
 
     private function getChildrenCategories() {
         $categories = Categories::find()->asArray()->indexBy('id')->all();
-        $tree = $this->buildTreeArray($categories);
-
         $searchChildrenOfNodes = new SearchChildrenOfNodes();
+        $tree = $this->buildTreeArray($categories);
         $node = $searchChildrenOfNodes->getChildrenNodesList($tree, $this->id_category);
 
         return $node;

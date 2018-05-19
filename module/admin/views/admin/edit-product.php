@@ -1,6 +1,6 @@
 <?
 
-$this->title = 'admin | add product';
+$this->title = 'admin | edit product';
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -78,17 +78,29 @@ use yii\widgets\ActiveForm;
             <hr>
             <div class="form-group">
                 <label for="">Main Category</label>
-                <?= Html::dropDownList('main_category', $selected_categories['main_category_id'], $categories['main_category_list'], ['class' => 'form-control select-category', 'id' => 'main-category']) ?>
+                <select class="form-control" id="select-main-category-edit">
+
+                    <!-- -->
+
+                </select>
             </div>
 
             <div class="form-group">
                 <label for="">Type Category</label>
-                <?= Html::dropDownList('type_category',  $selected_categories['type_category_id'], $categories['type_category_list'], ['class' => 'form-control select-category', 'id' => 'type-category']) ?>
+                <select class="form-control" id="select-type-category-edit">
+
+                    <!-- -->
+
+                </select>
             </div>
 
             <div class="form-group">
                 <label for="">Category</label>
-                <?= Html::dropDownList('category', $selected_categories['category_id'], $categories['category_list'], ['class' => 'form-control select-category', 'id' => 'category']) ?>
+                <select class="form-control" name="category" id="select-category-edit">
+
+                    <!-- -->
+
+                </select>
             </div>
             <hr>
         </div>

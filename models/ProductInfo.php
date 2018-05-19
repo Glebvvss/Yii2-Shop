@@ -14,11 +14,10 @@ use app\models\db\Products;
 class ProductInfo {
 
     public static function getInfo($id_product) {
-        $product_info_without_sizes = self::getProductInfoWithoutSizesInfo($id_product);
+        $product_info = self::getProductInfoWithoutSizesInfo($id_product);
         $sizes = self::getSizes($id_product);
-        $product_info_without_sizes['sizes'] = $sizes;
-        $full_product_info = $product_info_without_sizes;
-        return $full_product_info;
+        $product_info['sizes'] = $sizes;
+        return $product_info;
     }
 
     private static function getSizes($id_product) {

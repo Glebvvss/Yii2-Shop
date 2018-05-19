@@ -31,22 +31,17 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/bootstrap-3.1.1.min.js',
-        'js/simpleCart.min.js',
-        'js/responsiveslides.min.js',
-        'js/classie.js',
-        'js/cbpViewModeSwitch.js',
         'js/products-page.js',
         'js/reviews.js',
         'js/cart.js',
-        'js/responsive-tabs.js',
-        'js/responsiveslides.min.js',
-        'js/select-category-products-admin.js',
-        'js/tag-edit.js',
-        'js/size-edit.js'
+        'js/admin/tag-edit.js',
+        'js/admin/edit-product.js',
+        'js/admin/size-edit.js',
+        'js/admin/categories.js',
+        'js/admin/categories-modal.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
-
     ];
 }

@@ -40,7 +40,9 @@ class EditProduct extends Model {
         $id_country = $this->getIdCountry();
         $id_brand = $this->getIdBrand();
 
-        $img_name = $this->uploadFile( $id_product );
+        if ( $this->fileIsExistInBuffer() ) {
+            $this->uploadFile( $id_product );
+        }
 
         $product = Products::find()->where(['id' => $id_product])->one();
         $product->specifications = $this->specifications;
@@ -55,13 +57,18 @@ class EditProduct extends Model {
         $product->save();
     }
 
-    private function uploadFile( $id_product ) {
-        if ( $_FILES['EditProduct']['tmp_name']['img'] == null ) return;
+    private function fileIsExistInBuffer() {
+        if ( $_FILES['EditProduct']['tmp_name']['img'] != null ) return true;
 
+        return false;
+    }
+
+    private function uploadFile( $id_product ) {
         $extension = explode('/', $_FILES['EditProduct']['type']['img']);
-        $new_name_file = 'product' . $id_product . '.' . $extension[1];
+        $file_name = 'product' . $id_product . '.' . $extension[1];
+
         $tmp_name = $_FILES['EditProduct']['tmp_name']['img'];
-        $name = 'images/product/' . $new_name_file;
+        $name = 'images/product/' . $file_name;
         copy($tmp_name, $name);
     }
 

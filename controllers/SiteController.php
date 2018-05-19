@@ -61,15 +61,4 @@ class SiteController extends Controller {
         ]);
     }
 
-    public function actionTest() {
-        $form = new Form();
-        $form->load( Yii::$app->request->post() );
-
-        $form->save();
-        echo $form->test;
-        return $this->render('test', [
-            'form' => $form
-        ]);
-    }
-
 }

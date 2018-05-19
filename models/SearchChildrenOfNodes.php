@@ -13,20 +13,12 @@ use app\interfaces\ISearchChildrenOfNodes;
 
 class SearchChildrenOfNodes implements ISearchChildrenOfNodes {
 
-    use TBuildTree;
-
     private $children_list;
-    private $parent_node;
     private $subnode_name = 'children';
     private $selectedNodeWithChildren = [];
 
     public function setSubnodeName($subnode_name) {
         $this->subnode_name = $subnode_name;
-        return $this;
-    }
-
-    public function setParentNodeKey($parent_node) {
-        $this->parent_node = $parent_node;
         return $this;
     }
 

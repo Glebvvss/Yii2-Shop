@@ -10,8 +10,9 @@ namespace app\admin\models;
 
 use app\models\db\Sizes;
 use app\models\db\SizeProduct;
+use app\admin\interfaces\ISizeEdit;
 
-class SizeEdit {
+class SizeEdit implements ISizeEdit {
 
     public function addSize($size, $id_product) {
         $size = trim($size);
