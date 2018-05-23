@@ -9,11 +9,11 @@ use yii\web\Controller;
 use app\models\db\Products;
 use app\models\Login;
 use app\models\Registration;
+use app\models\Account;
 use yii\web\UploadedFile;
 use yii\widgets\ActiveForm;
 use yii\web\Response;
-
-use app\models\Form;
+use app\models\db\Users;
 
 class SiteController extends Controller {
 
@@ -58,6 +58,26 @@ class SiteController extends Controller {
 
         return $this->render('registration', [
             'reg_model' => $reg_model
+        ]);
+    }
+
+    public function actionAccount() {
+        $account_model = new Account();
+
+        if ( Yii::$app->request->isAjax && $account_model->load( Yii::$app->request->post() ) ) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($account_model);
+        }
+
+        if ( $account_model->load( Yii::$app->request->post() ) ) {
+            $account_model->image = UploadedFile::getInstance($account_model, 'image');
+            $account_model->updateUser();
+        }
+
+        $user = $account_model->getUserInformation();
+        return $this->render('account', [
+            'account_model' => $account_model,
+            'user' => $user
         ]);
     }
 

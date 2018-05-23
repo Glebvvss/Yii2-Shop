@@ -16,12 +16,12 @@ class Orders extends ActiveRecord {
         return 'orders';
     }
 
-    public function getProducts() {
-        return $this->hasOne(Products::className(), ['id' => 'id_product']);
-    }
-
     public function getUsers() {
         return $this->hasOne(Users::className(), ['id' => 'id_user']);
+    }
+
+    public function getOrderProduct() {
+        return $this->hasOne(OrderProduct::className(), ['id_order' => 'id']);
     }
 
 }

@@ -9,38 +9,10 @@
 namespace app\models;
 
 use Yii;
-use yii\base\Model;
 use app\models\db\Users;
 use yii\db\Expression;
-use app\components\validators\UsernameUniqueValidator;
-use app\components\validators\EmailUniqueValidator;
-use app\components\validators\PasswordValidator;
 
-class Registration extends Model {
-
-    public $first_name;
-    public $last_name;
-    public $username;
-    public $email;
-    public $password;
-    public $confirm_password;
-    public $mobile_phone;
-    public $image;
-
-    private $image_name;
-
-    public function rules() {
-        return [
-            [['first_name', 'last_name', 'username', 'email', 'password', 'confirm_password', 'mobile_phone'], 'required'],
-            [['first_name', 'last_name', 'username', 'password', 'confirm_password'], 'string', 'length' => [2, 30]],
-            ['mobile_phone', 'integer'],
-            ['image', 'file', 'extensions' => 'png, jpg'],
-            ['confirm_password', PasswordValidator::classname()],
-            ['username', UsernameUniqueValidator::classname()],
-            ['email', EmailUniqueValidator::classname()],
-            ['email', 'email'],
-        ];
-    }
+class Registration extends UserForm {
 
     public function registration() {
         if ( !$this->validate() ) return;
@@ -71,12 +43,6 @@ class Registration extends Model {
         $user->mobile_phone = $this->mobile_phone;
         $user->image_name = $this->image_name;
         $user->save();
-    }
-
-    private function uploadImageFile() {
-        if ( $this->validate() && $this->image ) {
-            $this->image->saveAs('images/' . $this->image_name);
-        }
     }
 
     private function createNameOfImageFile() {

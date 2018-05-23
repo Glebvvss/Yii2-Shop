@@ -12,6 +12,8 @@ use Yii;
 use app\models\db\Products;
 use app\interfaces\ICart;
 use yii\db\Query;
+use app\models\db\Orders;
+use app\models\db\OrderProduct;
 
 class Cart implements ICart {
 
@@ -19,10 +21,23 @@ class Cart implements ICart {
         Yii::$app->session->open();
     }
 
+    public function confirmOrder() {
+        $order = new Orders;
+
+        $order->id_user = Yii::$app->user->getId();
+        $order->total_sum = $_SESSION['cart.sum'];
+        $order->total_qty = $_SESSION['cart.qty'];
+        $order->status = 'new order';
+        $order->message = 'user text';
+        $order->date = date(date('Y-m-d'));
+        $order->time = date('H:i:s');
+        $order->save();
+    }
+
     public function getProductsFromCart() {
         $products = $_SESSION['cart'];
         foreach( $products as $id_product => $product ) {
-            $sizes = $this->getSizesOfProduct($product);
+            $sizes = $this->getSizesOfProduct($id_product);
             $products[$id_product]['sizes'] = $sizes;
         }
         return $products;

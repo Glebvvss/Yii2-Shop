@@ -153,3 +153,14 @@
     display:none;
 }
 /* /categories modal */
+
+/* order details */
+.back-to-list {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.status-block {
+    margin-bottom: 100px;
+}
+/* /order details */

@@ -10,9 +10,10 @@
                     Cart
                 </li>
             </ul>
+            <!--
             <ul class="previous">
                 <li><a href="index.html">Back to Previous Page</a></li>
-            </ul>
+            </ul>-->
             <div class="clearfix"></div>
         </div>
         <h2>MY SHOPPING BAG (<?= count( $_SESSION['cart'] ) ?>)</h2>
@@ -53,6 +54,28 @@
                 </div>
                 <? endforeach; ?>
             <? endif; ?>
+
+            <div class="confirm-order-btn">
+                <a href="" class="btn">Confirm Order</a>
+            </div>
+
+            <style>
+
+                .confirm-order-btn a {
+                    background-color: #816263;
+                    color: white;
+                }
+
+                .confirm-order-btn a:hover {
+                    background-color: black;
+                    color: white;
+                }
+
+                .confirm-order-btn {
+                    text-align: center;
+                }
+
+            </style>
         </div>
     </div>
 </div>

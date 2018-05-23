@@ -14,6 +14,9 @@ use app\admin\models\EditProduct;
 use app\admin\models\TagEdit;
 use app\admin\models\SizeEdit;
 use app\models\db\Categories;
+use app\admin\models\OrderFilter;
+use app\admin\models\OrderDetails;
+use app\models\db\Orders;
 
 class AdminController extends Controller {
 
@@ -188,9 +191,62 @@ class AdminController extends Controller {
 
     public function actionOrders() {
         $this->layout = 'admin';
-        return $this->render('orders', [
 
+        $orderFilter = new OrderFilter();
+        $dataProvider = $orderFilter->getOrdersInDataProviderFormat();
+        return $this->render('orders', [
+            'dataProvider' => $dataProvider
         ]);
+    }
+
+    public function actionUpdateOrderPageByFilterAjax() {
+        $filter = Yii::$app->request->post('filter');
+        $this->layout = false;
+
+        $orderFilter = new OrderFilter();
+        $dataProvider = $orderFilter->getOrdersInDataProviderFormat( $filter );
+        return $this->render('orders-table', [
+            'dataProvider' => $dataProvider
+        ]);
+    }
+
+    public function actionUpdateStatusOfOrderAjax() {
+        $id_order = Yii::$app->request->post('id_order');
+        $status = Yii::$app->request->post('status');
+        $filter = Yii::$app->request->post('filter');
+
+        $orderFilter = new OrderFilter();
+        $orderFilter->changeStatusById($id_order, $status);
+        $dataProvider = $orderFilter->getOrdersInDataProviderFormat( $filter );
+        return $this->render('orders-table', [
+            'dataProvider' => $dataProvider
+        ]);
+    }
+
+    public function actionOrderDetails() {
+        $id_order = Yii::$app->request->get('id_order');
+        $this->layout = 'admin';
+
+        $messageFromUser = Orders::find()->select('message')
+                                         ->where(['id' => $id_order])
+                                         ->one();
+
+        $orderDetails = new OrderDetails();
+        $dataProvider = $orderDetails->getDetailsOfOrder( $id_order );
+        $buyerData = $orderDetails->getBuyerInfo( $id_order );
+        return $this->render( 'order-details', [
+            'messageFromUser' => $messageFromUser,
+            'dataProvider' => $dataProvider,
+            'buyerData' => $buyerData
+        ]);
+    }
+
+    public function actionUpdateStatusOrderDetailsAjax() {
+        $id_order = Yii::$app->request->post('id_order');
+        $status = Yii::$app->request->post('status');
+
+        $orderFilter = new OrderFilter();
+        $orderFilter->changeStatusById($id_order, $status);
     }
 
 }

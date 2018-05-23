@@ -16,7 +16,7 @@ class CartController extends Controller {
 
     public function actionCart() {
         Yii::$app->session->open();
-        if ( !$_SESSION['cart'] ) {
+        if ( empty($_SESSION['cart']) ) {
             $this->goBack();
         }
         $cart = new Cart();
@@ -24,6 +24,12 @@ class CartController extends Controller {
         return $this->render('cart', [
             'products' => $products
         ]);
+    }
+
+    public function actionConfirmOrder() {
+        $cart = new Cart();
+        //$cart->confirmOrder();
+        $this->goHome();
     }
 
     public function actionAddToCartAjax() {

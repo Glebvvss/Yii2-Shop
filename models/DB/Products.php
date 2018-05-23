@@ -37,4 +37,10 @@ class Products extends ActiveRecord {
     public function getOrders() {
         return $this->hasMany(Orders::className(), ['id_product' => 'id']);
     }
+
+    public function getOrderProduct() {
+        return $this->hasOne(OrderProduct::className(), ['id_product' => 'id']);
+    }
+
+
 }

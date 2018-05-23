@@ -1,5 +1,6 @@
 <?
     use yii\widgets\ActiveForm;
+    $this->title = 'E-SHOP | Registration';
 ?>
 
 <div class="registration-form">

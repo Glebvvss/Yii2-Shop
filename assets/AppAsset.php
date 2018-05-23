@@ -34,11 +34,13 @@ class AppAsset extends AssetBundle
         'js/products-page.js',
         'js/reviews.js',
         'js/cart.js',
+        'js/admin/orders.js',
         'js/admin/tag-edit.js',
         'js/admin/edit-product.js',
         'js/admin/size-edit.js',
         'js/admin/categories.js',
         'js/admin/categories-modal.js',
+        'js/admin/order-details.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
