@@ -9,18 +9,18 @@ $this->title = 'admin | products';
 
 <div class="row">
     <div class="col-md-9"></div>
-    <div class="col-md-1">Filter: </div>
+    <div class="col-md-1 hidden-xs hidden-sm" id="filter-label"><b>Filter: </b></div>
     <div class="col-md-2" style="padding-right: 15px;">
-        <select id="filter-orders" class="form-control">
-            <option value="all">all</option>
-            <option value="new order">new order</option>
-            <option value="in processing">in processing</option>
-            <option value="complete">complete</option>
-        </select>
+        <div id="filter-select-style">
+            <select id="filter-orders" class="form-control">
+                <option value="all">all</option>
+                <option value="new order">new order</option>
+                <option value="in processing">in processing</option>
+                <option value="complete">complete</option>
+            </select>
+        </div>
     </div>
 </div>
-
-
 
 <div id="ajax-update-orders-page">
     <?
@@ -76,6 +76,7 @@ $this->title = 'admin | products';
     <?  function statusSelect($provider) { ?>
         <? ob_start(); ?>
         <select class="form-control status" id="select_tag_id-<?=$provider['id_order']?>">
+            <option <? if ( $provider['status'] == 'cancel order' ) echo 'selected'; ?> value="cancel order">cancel order</option>
             <option <? if ( $provider['status'] == 'new order' ) echo 'selected'; ?> value="new order">new order</option>
             <option <? if ( $provider['status'] == 'in processing' ) echo 'selected'; ?> value="in processing">in processing</option>
             <option <? if ( $provider['status'] == 'complete' ) echo 'selected'; ?> value="complete">complete</option>

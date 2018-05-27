@@ -5,7 +5,7 @@
         <li><a href="<?= Yii::$app->urlManager->createUrl(['shop/products']) ?>">All Products</a></li>
 
         <?php foreach( $categories as $category ) : ?>
-            <li><a href="<?= Yii::$app->urlManager->createUrl(['shop/products', 'id_category' => $category->id]) ?>"><?= $category->category ?></a></li>
+            <li><a class="active" href="<?= Yii::$app->urlManager->createUrl(['shop/products', 'id_category' => $category->id]) ?>"><?= $category->category ?></a></li>
         <?php endforeach; ?>
 
     </ul>

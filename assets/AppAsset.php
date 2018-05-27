@@ -32,6 +32,8 @@ class AppAsset extends AssetBundle
     public $js = [
         'js/bootstrap-3.1.1.min.js',
         'js/products-page.js',
+        'js/jquery.flexisel.js',
+        'js/jquery.flexslider.js',
         'js/reviews.js',
         'js/cart.js',
         'js/admin/orders.js',
@@ -40,7 +42,8 @@ class AppAsset extends AssetBundle
         'js/admin/size-edit.js',
         'js/admin/categories.js',
         'js/admin/categories-modal.js',
-        'js/admin/order-details.js'
+        'js/admin/order-details.js',
+        'js/admin/pre-delete-product.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

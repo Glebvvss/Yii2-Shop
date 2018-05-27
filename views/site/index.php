@@ -5,7 +5,6 @@
 $this->title = 'E-Shop';
 
 ?>
-
 <div class="banner">
 	<div class="container">
 		<div class="banner-bottom">
@@ -58,7 +57,7 @@ $this->title = 'E-Shop';
 			<div class="clearfix"> </div>
 		</div>
 		<div class="shop">
-			<a href="single.html">SHOP COLLECTION NOW</a>
+			<a href="<?= Yii::$app->urlManager->createUrl('shop/products') ?>">SHOP COLLECTION NOW</a>
 		</div>
 	</div>
 </div>
@@ -67,7 +66,7 @@ $this->title = 'E-Shop';
 	<div class="main-content">
 		<div class="online-strip">
 			<div class="col-md-4 follow-us">
-				<h3>follow us : <a class="twitter" href="#"></a><a class="facebook" href="#"></a></h3>
+				<h3>follow us : <a class="twitter" href="https://twitter.com/"></a><a class="facebook" href="https://www.facebook.com"></a></h3>
 			</div>
 			<div class="col-md-4 shipping-grid">
 				<div class="shipping">
@@ -108,3 +107,5 @@ $this->title = 'E-Shop';
 		<!--/latest items-->
 	</div>
 </div>
+
+<?= app\components\MostPopularWidget::widget(); ?>

@@ -1,4 +1,4 @@
-<? if ( $tag_list !== [] ) : ?>
+<? if ( !empty($tag_list) ) : ?>
     <div class="product-listy">
         <div class="tags">
             <h4 class="tag_head">Tags Widget</h4>

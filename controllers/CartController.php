@@ -28,7 +28,7 @@ class CartController extends Controller {
 
     public function actionConfirmOrder() {
         $cart = new Cart();
-        //$cart->confirmOrder();
+        $cart->confirmOrder();
         $this->goHome();
     }
 
@@ -57,6 +57,14 @@ class CartController extends Controller {
             'cartQty' => $cart_qty,
             'cartSum' => $cart_sum
         ] );
+    }
+
+    public function actionChangeQtyProduct() {
+        $id_product = Yii::$app->request->get('id_product');
+        $qty = Yii::$app->request->get('qty');
+
+        $cart = new Cart();
+        $cart->changeQtyProduct($id_product, $qty);
     }
 
 }

@@ -44,7 +44,19 @@ AppAsset::register($this);
                             <li><a href="<?= Yii::$app->urlManager->createUrl('site/login') ?>"><span class="glyphicon glyphicon-user"> </span>Login</a></li>
                         <? endif; ?>
 						<li><a href="<?= Yii::$app->urlManager->createUrl('site/registration') ?>"><span class="glyphicon glyphicon-lock"> </span>Create an Account</a></li>
+
+                        <? if ( !Yii::$app->user->isGuest ) : ?>
+                            <li><a href="<?= Yii::$app->urlManager->createUrl('site/account') ?>"><i class="fas fa-pencil-alt font-awersome-icon"></i>Edit Account</a></li>
+                        <? endif; ?>
 					</ul>
+
+                    <style>
+                        .font-awersome-icon {
+                            font-size: 10px;
+                            margin-right: 7px;
+                        }
+                    </style>
+
 				</div>
 				<div class="header-right">
 						<div class="cart box_1">
@@ -99,7 +111,6 @@ AppAsset::register($this);
 
 	<?=$content?>
 
-	<!-- content-section-ends-here -->
 	<div class="news-letter">
 		<div class="container">
 			<div class="join">
@@ -115,42 +126,24 @@ AppAsset::register($this);
 		</div>
 	</div>
 
-    <style>
-        .footer {
-            background-color: #f2f2f2;
-        }
-    </style>
-
 	<div class="footer">
 		<div class="container">
 		 <div class="footer_top">
 			<div class="span_of_4">
-				<div class="col-md-3 span1_of_4">
+				<div class="col-md-4 span1_of_4">
 					<h4>Shop</h4>
+
 					<ul class="f_nav">
-						<li><a href="#">new arrivals</a></li>
-						<li><a href="#">men</a></li>
-						<li><a href="#">women</a></li>
-						<li><a href="#">accessories</a></li>
-						<li><a href="#">kids</a></li>
-						<li><a href="#">brands</a></li>
-						<li><a href="#">trends</a></li>
-						<li><a href="#">sale</a></li>
-						<li><a href="#">style videos</a></li>
-					</ul>	
+						<?
+                            $main_categories = app\models\db\Categories::find()->where(['id_parent' => 0])->limit(5)->all();
+                            foreach ( $main_categories as $main_category ) :
+                        ?>
+                        <li><a href="<?= Yii::$app->urlManager->createUrl(['shop/products', 'id_category' => $main_category->id]); ?>"><?= $main_category->category ?></a></li>
+                        <? endforeach; ?>
+					</ul>
 				</div>
-				<div class="col-md-3 span1_of_4">
-					<h4>help</h4>
-					<ul class="f_nav">
-						<li><a href="#">frequently asked  questions</a></li>
-						<li><a href="#">men</a></li>
-						<li><a href="#">women</a></li>
-						<li><a href="#">accessories</a></li>
-						<li><a href="#">kids</a></li>
-						<li><a href="#">brands</a></li>
-					</ul>	
-				</div>
-				<div class="col-md-3 span1_of_4">
+
+				<div class="col-md-4 span1_of_4">
 					<h4>account</h4>
 					<ul class="f_nav">
 
@@ -161,36 +154,21 @@ AppAsset::register($this);
                         <? endif; ?>
 
 						<li><a href="register.html">create an account</a></li>
-						<li><a href="#">create wishlist</a></li>
 						<li><a href="checkout.html">my shopping bag</a></li>
-						<li><a href="#">brands</a></li>
-						<li><a href="#">create wishlist</a></li>
-					</ul>				
+					</ul>
 				</div>
-				<div class="col-md-3 span1_of_4">
+				<div class="col-md-4 span1_of_4">
 					<h4>popular</h4>
 					<ul class="f_nav">
-						<li><a href="#">new arrivals</a></li>
-						<li><a href="#">men</a></li>
-						<li><a href="#">women</a></li>
-						<li><a href="#">accessories</a></li>
-						<li><a href="#">kids</a></li>
-						<li><a href="#">brands</a></li>
-						<li><a href="#">trends</a></li>
-						<li><a href="#">sale</a></li>
-						<li><a href="#">style videos</a></li>
-						<li><a href="#">login</a></li>
-						<li><a href="#">brands</a></li>
-					</ul>			
+
+					</ul>
 				</div>
 				<div class="clearfix"></div>
 				</div>
 		  </div>
-		  <div class="cards text-center">
-				<img src="/web/images/cards.jpg" alt="" />
-		  </div>
+            <hr>
 		  <div class="copyright text-center">
-				<p>© 2015 Eshop. All Rights Reserved | Design by   <a href="http://w3layouts.com">  W3layouts</a></p>
+				<p>© 2018 the name of backend developer is Vasilenko Gleb</p>
 		  </div>
 		</div>
 	</div>

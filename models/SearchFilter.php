@@ -18,6 +18,7 @@ class SearchFilter extends Products {
     public function rules() {
         return [
             [['id'], 'integer'],
+            ['name_product', 'string']
         ];
     }
 
@@ -37,6 +38,7 @@ class SearchFilter extends Products {
         }
 
         $query->andFilterWhere(['id' => $this->id]);
+        $query->andFilterWhere(['name_product' => $this->name_product]);
         return $dataProvider;
     }
 

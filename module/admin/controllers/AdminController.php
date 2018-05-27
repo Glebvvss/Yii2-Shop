@@ -14,7 +14,7 @@ use app\admin\models\EditProduct;
 use app\admin\models\TagEdit;
 use app\admin\models\SizeEdit;
 use app\models\db\Categories;
-use app\admin\models\OrderFilter;
+use app\admin\models\OrderList;
 use app\admin\models\OrderDetails;
 use app\models\db\Orders;
 
@@ -47,6 +47,15 @@ class AdminController extends Controller {
         return $this->render('add-product', [
             'add_product_model' => $add_product_model
         ]);
+    }
+
+    public function actionDeleteProduct() {
+        $id_product = (int) Yii::$app->request->get('id_product');
+        $product = Products::findOne($id_product);
+
+        if ( empty($product) ) return;
+        $product->delete();
+        $this->redirect('/admin/admin/products');
     }
 
     public function actionEditProduct() {
@@ -192,8 +201,8 @@ class AdminController extends Controller {
     public function actionOrders() {
         $this->layout = 'admin';
 
-        $orderFilter = new OrderFilter();
-        $dataProvider = $orderFilter->getOrdersInDataProviderFormat();
+        $orderList = new OrderList();
+        $dataProvider = $orderList->getOrdersInDataProviderFormat();
         return $this->render('orders', [
             'dataProvider' => $dataProvider
         ]);
@@ -203,8 +212,8 @@ class AdminController extends Controller {
         $filter = Yii::$app->request->post('filter');
         $this->layout = false;
 
-        $orderFilter = new OrderFilter();
-        $dataProvider = $orderFilter->getOrdersInDataProviderFormat( $filter );
+        $orderList = new OrderList();
+        $dataProvider = $orderList->getOrdersInDataProviderFormat( $filter );
         return $this->render('orders-table', [
             'dataProvider' => $dataProvider
         ]);
@@ -214,10 +223,11 @@ class AdminController extends Controller {
         $id_order = Yii::$app->request->post('id_order');
         $status = Yii::$app->request->post('status');
         $filter = Yii::$app->request->post('filter');
+        $this->layout = false;
 
-        $orderFilter = new OrderFilter();
-        $orderFilter->changeStatusById($id_order, $status);
-        $dataProvider = $orderFilter->getOrdersInDataProviderFormat( $filter );
+        $orderList = new OrderList();
+        $orderList->changeStatusById($id_order, $status);
+        $dataProvider = $orderList->getOrdersInDataProviderFormat( $filter );
         return $this->render('orders-table', [
             'dataProvider' => $dataProvider
         ]);
@@ -245,8 +255,8 @@ class AdminController extends Controller {
         $id_order = Yii::$app->request->post('id_order');
         $status = Yii::$app->request->post('status');
 
-        $orderFilter = new OrderFilter();
-        $orderFilter->changeStatusById($id_order, $status);
+        $orderList = new OrderList();
+        $orderList->changeStatusById($id_order, $status);
     }
 
 }

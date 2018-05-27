@@ -36,7 +36,6 @@ AppAsset::register($this);
         <div class="menu-admin">
             <ul class="">
                 <li><a href="<?= Yii::$app->urlManager->createUrl('admin/admin/orders') ?>">Orders</a></li>
-                <li><a href="<?= Yii::$app->urlManager->createUrl('admin/admin/statistic') ?>">Statistic</a></li>
                 <li><a href="<?= Yii::$app->urlManager->createUrl('admin/admin/products') ?>">Products</a></li>
                 <li><a href="<?= Yii::$app->urlManager->createUrl('admin/admin/categories') ?>">Categories</a></li>
             </ul>

@@ -1,17 +1,14 @@
-<div id="update" data-id="<?= Yii::$app->request->get($id_category) ?>">
-    <div class="new-product-top">
-        <ul class="product-top-list">
-            <li><a href="index.html">Home</a>&nbsp;<span>&gt;</span></li>
-            <li><span class="act">Best Sales</span>&nbsp;</li>
-        </ul>
-        <p class="back"><a href="index.html">Back to Previous</a></p>
-        <div class="clearfix"></div>
+<div id="update" category="<?= $id_category ?>" tag="<?= $tag ?>">
+
+    <div style="margin-top: -20px;">
+        <h2 style="text-align: center;"><?= $category->category ?></h2>
     </div>
-    <div class="mens-toolbar">
+
+    <div>
         <div class="sort">
-            <div class="sort-by">
+            <div class="sort-by center-subheader" style="float: left;">
                 <label>Sort By</label>
-                <select class="ajax-update" id="sort-type">
+                <select class="ajax-update-parameter" id="sort-type">
                     <option value="position" <?php if($sort_type == 'position') echo 'selected' ?>>
                         Position            </option>
                     <option value="name" <?php if($sort_type == 'name') echo 'selected' ?>>
@@ -21,38 +18,37 @@
                 </select>
 
                 <? if( $sort_direction == 'DESC' || !$sort_direction ) : ?>
-                    <i class="fas fa-angle-up ajax-update" style="cursor: pointer" id="sort-direction"  data-id="DESC"></i>
+                    <i class="fas fa-angle-up" style="cursor: pointer" id="sort-direction"  data-id="DESC"></i>
                 <? else : ?>
-                    <i class="fas fa-angle-down ajax-update" style="cursor: pointer" id="sort-direction" data-id="ASC"></i>
+                    <i class="fas fa-angle-down" style="cursor: pointer" id="sort-direction" data-id="ASC"></i>
                 <? endif; ?>
             </div>
+
+            <div class="pagination-products">
+                <ul class="women_pagenation">
+                    <li style="padding-top: 1px;">Page:</li>
+                    <li>
+                        <?php
+                        echo yii\widgets\LinkPager::widget([
+                            'pagination' => $pages,
+                            'options' => [
+                                'class' => ''
+                            ],
+                        ]);
+                        ?>
+                    </li>
+                </ul>
+            </div>
         </div>
-
-        <ul class="women_pagenation">
-            <li>Page:</li>
-            <li>
-                <?php
-                echo yii\widgets\LinkPager::widget([
-                    'pagination' => $pages,
-                    'options' => ['class' => '']
-                ]);
-                ?>
-            </li>
-        </ul>
-
+        <br>
         <div class="clearfix"></div>
+        <br>
     </div>
     <div id="cbp-vm" class="cbp-vm-switcher cbp-vm-view-grid">
-
-        <div class="cbp-vm-options">
-            <a href="#" class="cbp-vm-icon cbp-vm-grid cbp-vm-selected" data-view="cbp-vm-view-grid" title="grid">Grid View</a>
-            <a href="#" class="cbp-vm-icon cbp-vm-list" data-view="cbp-vm-view-list" title="list">List View</a>
-        </div>
-
         <div class="pages">
             <div class="limiter visible-desktop">
                 <label>Show</label>
-                <select class="ajax-update" id="products-per-page">
+                <select class="ajax-update-parameter" id="products-per-page">
                     <option value="9" selected="selected">
                         9                </option>
                     <option value="15">
@@ -69,8 +65,8 @@
             <p style="color: #B9B4B5;">No products in this category...</p>
         <? endif; ?>
 
-        <div>
-            <? foreach($products as $product) : ?>
+        <div class="row">
+            <?php foreach($products as $product) : ?>
                 <div class="col-md-4">
                     <a class="cbp-vm-image" href="<?=Yii::$app->urlManager->createUrl(['shop/product-single', 'id_product' => $product['id']])?>">
                         <div class="simpleCart_shelfItem">
@@ -85,7 +81,7 @@
                                             <div class="cart-left">
                                                 <p class="title"><?=$product['name_product']?></p>
                                             </div>
-                                            <div class="pricey"><span class="item_price">$<?= sprintf("%.2f", $product['price']/100); ?></span></div>
+                                            <div class="pricey"><span class="item_price">$<?= sprintf("%.2f", $product['price']/100);  ?></span></div>
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
@@ -98,11 +94,11 @@
                     </div>
                     <div class="down-block">
                         <div class="button-cart">
-                            <button class="cbp-vm-icon cbp-vm-add add-to-cart" id="to-cart-<?= $product['id'] ?>" >Add to cart</button>
+                            <button class="add-to-cart button-to-cart transition" id="to-cart-<?= $product['id'] ?>" >Add to cart</button>
                         </div>
                     </div>
                 </div>
-            <? endforeach; ?>
+            <?php endforeach; ?>
         </div>
     </div>
 </div>

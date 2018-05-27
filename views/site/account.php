@@ -38,14 +38,6 @@ $this->title = 'E-SHOP | Account';
                         <li><?=$f->field($account_model, 'last_name')->label(false)->textInput(['class' => '', 'value' => $user->last_name])?></li>
                     </ul>
                     <ul>
-                        <li class="text-info">Username: </li>
-                        <li><?=$f->field($account_model, 'username')->label(false)->textInput(['class' => '', 'value' => $user->username])?></li>
-                    </ul>
-                    <ul>
-                        <li class="text-info">Email: </li>
-                        <li><?=$f->field($account_model, 'email')->label(false)->textInput(['class' => '', 'value' => $user->email])?></li>
-                    </ul>
-                    <ul>
                         <li class="text-info">Mobile Number:</li>
                         <li><?=$f->field($account_model, 'mobile_phone')->label(false)->textInput(['class' => '', 'value' => $user->mobile_phone])?></li>
                     </ul>

@@ -1,4 +1,4 @@
-(function filterOrders() {
+function filterOrders() {
     $('#filter-orders').change(function() {
         var filter = $('#filter-orders').val();
         $.ajax({
@@ -9,10 +9,12 @@
             },
             success: function(page) {
                 $('#ajax-update-orders-page').html(page);
+                filterOrders();
+                changeStatusOfOrder();
             }
         });
     });
-}());
+}filterOrders();
 
 function changeStatusOfOrder() {
     $('.status').change(function () {
@@ -30,6 +32,7 @@ function changeStatusOfOrder() {
             },
             success: function (page) {
                 $('#ajax-update-orders-page').html(page);
+                filterOrders();
                 changeStatusOfOrder();
             }
         });

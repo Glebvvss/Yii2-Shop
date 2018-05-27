@@ -168,8 +168,6 @@
     </div>
 </div>
 
-<a href="" id="go">asdasdas</a>
-
 <div id="modal_form">
     <span id="modal_close"><i class="fas fa-times"></i></span>
     <p>Are you want delete products of category with category?</p>

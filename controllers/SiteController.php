@@ -43,6 +43,13 @@ class SiteController extends Controller {
         ]);
     }
 
+    public function actionLogout() {
+        if ( !Yii::$app->user->isGuest ) {
+            Yii::$app->user->logout();
+        }
+        $this->goHome();
+    }
+
     public function actionRegistration() {
         $reg_model = new Registration();
 
@@ -54,6 +61,7 @@ class SiteController extends Controller {
         if ( $reg_model->load( Yii::$app->request->post() ) ) {
             $reg_model->image = UploadedFile::getInstance($reg_model, 'image');
             $reg_model->registration();
+            $this->goHome();
         }
 
         return $this->render('registration', [

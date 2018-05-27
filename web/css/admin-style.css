@@ -128,6 +128,23 @@
     padding: 20px 10px;
 }
 
+#modal_form_delete_product {
+    width: 255px;
+    height: 80px;
+    border: none;
+    border-radius: 3px;
+    background: #fff;
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -150px;
+    display: none;
+    opacity: 0;
+    z-index: 5;
+    padding: 20px 10px;
+}
+
 #modal_form #modal_close {
     width: 21px;
     height: 21px;
@@ -164,3 +181,19 @@
     margin-bottom: 100px;
 }
 /* /order details */
+
+/* orders */
+#filter-label {
+    padding-top: 5px;
+    padding-left: 75px;
+}
+
+#filter-select-style {
+    margin-right: 10px;
+}
+/* /orders */
+
+.label-brand {
+    margin-top: 5px;
+    margin-left: 20px;
+}

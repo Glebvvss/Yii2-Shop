@@ -14,6 +14,7 @@ use app\interfaces\ICart;
 use yii\db\Query;
 use app\models\db\Orders;
 use app\models\db\OrderProduct;
+use yii\db\Expression;
 
 class Cart implements ICart {
 
@@ -24,7 +25,8 @@ class Cart implements ICart {
     public function confirmOrder() {
         $order = new Orders;
 
-        $order->id_user = Yii::$app->user->getId();
+        //$order->id_user = Yii::$app->user->getId();
+        $order->id_user = 3;
         $order->total_sum = $_SESSION['cart.sum'];
         $order->total_qty = $_SESSION['cart.qty'];
         $order->status = 'new order';
@@ -32,10 +34,39 @@ class Cart implements ICart {
         $order->date = date(date('Y-m-d'));
         $order->time = date('H:i:s');
         $order->save();
+
+        $this->addProductsByOrder();
+
+        unset($_SESSION['cart']);
+        unset($_SESSION['cart.sum']);
+        unset($_SESSION['cart.qty']);
+    }
+
+    private function addProductsByOrder() {
+        $productsByOrder = Yii::$app->session->get('cart');
+
+        if ( empty($productsByOrder) ) return;
+
+        $id_order = $this->getIdOrder();
+        foreach ( $productsByOrder as $id_product => $product ) {
+            $orderProduct = new OrderProduct();
+            $orderProduct->id_order = $id_order;
+            $orderProduct->id_product = $id_product;
+            $orderProduct->qty_product = $product['qty'];
+            $orderProduct->save();
+        }
+    }
+
+    private function getIdOrder() {
+        $id = Orders::find()->select([
+            'last_id'  => new Expression('MAX(orders.id)')
+        ])->asArray()->one();
+        return $id['last_id'];
     }
 
     public function getProductsFromCart() {
         $products = $_SESSION['cart'];
+        if ( empty($products) ) return;
         foreach( $products as $id_product => $product ) {
             $sizes = $this->getSizesOfProduct($id_product);
             $products[$id_product]['sizes'] = $sizes;
@@ -67,6 +98,27 @@ class Cart implements ICart {
 
     public function getCountProductsInCart() {
         return $_SESSION['cart.qty'];
+    }
+
+    public function changeQtyProduct($id_product, $qty) {
+        $this->removeOldQty($id_product);
+        $this->addNewQty($id_product, $qty);
+    }
+
+    private function removeOldQty($id_product) {
+        $qty = $_SESSION['cart'][$id_product]['qty'];
+        $price = $_SESSION['cart'][$id_product]['price'];
+
+        $_SESSION['cart.qty'] -= $qty;
+        $_SESSION['cart.sum'] -= $qty * $price;
+    }
+
+    private function addNewQty($id_product, $qty) {
+        $_SESSION['cart'][$id_product]['qty'] = $qty;
+        $price = $_SESSION['cart'][$id_product]['price'];
+
+        $_SESSION['cart.qty'] += $qty;
+        $_SESSION['cart.sum'] += $qty * $price;
     }
 
     private function changeTotalCountOfCartToUp($qty) {

@@ -9,12 +9,40 @@
 namespace app\models;
 
 use Yii;
-use app\models\db\Users;
+use yii\base\Model;
 use yii\db\Expression;
+use app\components\validators\PasswordValidator;
+use app\components\validators\UsernameUniqueValidator;
+use app\components\validators\EmailUniqueValidator;
 
-class Registration extends UserForm {
+class Registration extends Model {
+
+    public $first_name;
+    public $last_name;
+    public $username;
+    public $email;
+    public $password;
+    public $confirm_password;
+    public $mobile_phone;
+    public $image;
+
+    private $image_name;
+
+    public function rules() {
+        return [
+            [['first_name', 'last_name', 'username', 'email', 'password', 'confirm_password', 'mobile_phone'], 'required'],
+            [['first_name', 'last_name', 'username', 'password', 'confirm_password'], 'string', 'length' => [2, 30]],
+            ['mobile_phone', 'integer'],
+            ['image', 'file', 'extensions' => 'png, jpg'],
+            ['confirm_password', PasswordValidator::classname()],
+            ['username', UsernameUniqueValidator::classname()],
+            ['email', EmailUniqueValidator::classname()],
+            ['email', 'email'],
+        ];
+    }
 
     public function registration() {
+
         if ( !$this->validate() ) return;
 
         if ( $this->image ) {
@@ -29,8 +57,15 @@ class Registration extends UserForm {
 
     private function assignRole() {
         $auth = Yii::$app->authManager;
-        $authorRole = $auth->getRole('author');
+        $authorRole = $auth->getRole('user');
         $auth->assign($authorRole, $this->getLastUserId());
+    }
+
+    private function uploadImageFile() {
+        if ( $this->validate() && $this->image ) {
+            $file_name = $this->createNameOfImageFile();
+            copy( $this->image->tempName, 'images/user/' .  $file_name);
+        }
     }
 
     private function addUserToDb() {

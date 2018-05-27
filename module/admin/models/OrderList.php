@@ -12,8 +12,10 @@ use yii\db\Query;
 use yii\data\ArrayDataProvider;
 use app\models\db\Orders;
 use app\admin\interfaces\IOrderFilter;
+use app\models\db\OrderProduct;
+use app\models\db\Products;
 
-class OrderFilter implements IOrderFilter {
+class OrderList implements IOrderFilter {
 
     public function getOrdersInDataProviderFormat( $filter = 'all' ) {
         if ( $filter == null ) $filter = 'all';
@@ -21,10 +23,41 @@ class OrderFilter implements IOrderFilter {
         return $this->createDataProvider($orders);
     }
 
-    public function changeStatusById( $id_order, $status ) {
+    public function changeStatusById( $id_order, $new_status ) {
+        if ( !$this->validateStatus($new_status) ) return;
+
         $order = Orders::find()->where(['id' => $id_order])->one();
-        $order->status = $status;
+        if ( $order->status == 'complete' ) return;
+
+        if ( $new_status == 'cancel order' ) {
+            $this->deleteOrderFromList($id_order);
+        }
+
+        if ( $new_status == 'complete' ) {
+            $this->addSalesByProductId($id_order);
+        }
+
+        $order->status = $new_status;
         $order->update();
+    }
+
+    private function deleteOrderFromList($id_order) {
+        OrderProduct::deleteAll(['id_order' => $id_order]);
+        Orders::findOne(['id' => $id_order])->delete();
+    }
+
+    private function addSalesByProductId($id_order) {
+        $products_by_order = OrderProduct::find()->where(['id_order' => $id_order])->all();
+        foreach( $products_by_order as $product_by_order ) {
+            $product = Products::findOne($product_by_order->id_product);
+            $product->sales += $product_by_order->qty_product;
+            $product->update();
+        }
+    }
+
+    private function validateStatus($status) {
+        $tpl = '/^(cancel order|new order|in processing|complete)$/';
+        return preg_match($tpl, $status);
     }
 
     private function getOrdersList( $filter ) {
@@ -40,6 +73,7 @@ class OrderFilter implements IOrderFilter {
                      ->from('orders')
                      ->join('LEFT JOIN', 'users', 'users.id = orders.id_user')
                      ->where(['status' => $filter])
+                     ->orderBy(['id_order' => SORT_DESC])
                      ->createCommand()
                      ->queryAll();
     }
@@ -49,6 +83,7 @@ class OrderFilter implements IOrderFilter {
         return $query->select('orders.id as id_order, first_name, last_name, mobile_phone, message, total_qty, total_sum, email, username, status' )
                      ->from('orders')
                      ->join('LEFT JOIN', 'users', 'users.id = orders.id_user')
+                     ->orderBy(['id_order' => SORT_DESC])
                      ->createCommand()
                      ->queryAll();
     }

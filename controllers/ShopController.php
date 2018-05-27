@@ -14,6 +14,7 @@ use app\models\builders\GetProductsBuilder;
 use yii\data\Pagination;
 use app\models\ProductInfo;
 use app\models\builders\ReviewOperationsBuilder;
+use app\models\db\Categories;
 
 class ShopController extends Controller {
 
@@ -25,6 +26,7 @@ class ShopController extends Controller {
         $tag = Yii::$app->request->get('tag');
         $tamplate_page_html = 'products';
 
+        $category = Categories::findOne($id_category);
         $getProducts = new GetProductsBuilder();
         $getProductsObj = $getProducts->sortDirection($sort_direction)
                                       ->idCategory($id_category)
@@ -49,8 +51,10 @@ class ShopController extends Controller {
             'sort_direction' => $sort_direction,
             'id_category' => $id_category,
             'sort_type' => $sort_type,
+            'category' => $category,
             'products' => $products,
             'pages' => $pages,
+            'tag' => $tag
         ]);
     }
 

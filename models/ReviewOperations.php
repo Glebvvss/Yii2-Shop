@@ -49,7 +49,7 @@ class ReviewOperations {
         $reviews->id_user = Yii::$app->user->getId();
         $reviews->id_product = $this->id_product;
         $reviews->review = $this->review;
-        $reviews->date = date('Y-m-D');
+        $reviews->date = date('Y-m-d');
         $reviews->time = date('H:i:s');
         $reviews->save();
     }

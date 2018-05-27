@@ -77,6 +77,54 @@ a:hover {
 .cart-image {
     height: 180px;
 }
+
+#exit-modal-order {
+    text-align: right;
+}
+
+#modal-order-close {
+    margin-right: 10px;
+}
+
+.parent-flex {
+    display: flex;
+}
+
+.button-confirm-order {
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.confirm-order-btn a {
+    background-color: #816263;
+    color: white;
+}
+
+.confirm-order-btn a:hover {
+    background-color: black;
+    color: white;
+}
+
+.confirm-order-btn {
+    text-align: center;
+}
+
+#modal-confirm-order {
+    width: 500px;
+    height: 182px;
+    border-radius: 5px;
+    border: none;
+    background: #fff;
+    position: fixed; /* чтoбы oкнo былo в видимoй зoне в любoм месте */
+    left: 43%; /* пoлoвинa экрaнa слевa */
+    margin-top: -150px;
+    margin-left: -150px; /* тут вся мaгия центрoвки css, oтступaем влевo и вверх минус пoлoвину ширины и высoты сooтветственнo =) */
+    display: none; /* в oбычнoм сoстoянии oкнa не дoлжнo быть */
+    opacity: 0; /* пoлнoстью прoзрaчнo для aнимирoвaния */
+    z-index: 5; /* oкнo дoлжнo быть нaибoлее бoльшем слoе */
+    padding: 20px 10px;
+}
 /* end cart */
 
 /* products */
@@ -126,3 +174,17 @@ a:hover {
     min-height: 85px;
 }
 /* end reviews */
+
+.center-subheader {
+    padding-top: 2px;
+}
+
+.pagination-products {
+    float: right;
+    margin-bottom: 5px;
+}
+
+.caption-category {
+    margin-top: -28px;
+    text-align: center;
+}

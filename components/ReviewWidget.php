@@ -4,7 +4,6 @@ namespace app\components;
 
 use yii\base\Widget;
 use app\traits\TBuildTree;
-use app\models\db\Reviews;
 
 class ReviewWidget extends Widget {
 

@@ -1,6 +1,6 @@
 function updatePageProductsWithAjax() {
     //update page after changed parameters of select tags sort type and number products per page
-    $('.ajax-update').change(function () {
+    $('.ajax-update-parameter').change(function () {
         ajaxQueryOfUpdateSortProducts();
     });
     //update page after click on arrow of control directions
@@ -13,9 +13,9 @@ function updatePageProductsWithAjax() {
 function ajaxQueryOfUpdateSortProducts() {
     var sortDirection = $('#sort-direction').attr('data-id');
     var productsPerPage = $('#products-per-page').val();
-    var idCategory = $('#update').attr('data-id');
+    var idCategory = $('#update').attr('category');
     var sortType = $('#sort-type').val();
-    //var tag = ;
+    var tag = $('#update').attr('tag');
 
     $.ajax({
         url: 'http://basic/shop/products',
@@ -25,13 +25,12 @@ function ajaxQueryOfUpdateSortProducts() {
             sort_direction: sortDirection,
             id_category: idCategory,
             sort_type: sortType,
-            tag: ''
+            tag: tag
         },
         success: function (page) {
             $('#update').html(page);
             updateAjaxVarsOnPage(productsPerPage, sortType);
             updatePageProductsWithAjax();
-            setProductsViewStyle();
         }
     });
 }
@@ -50,33 +49,3 @@ function changeDirectionOfSortProducts() {
         $('#sort-direction').attr('data-id', 'DESC');
     }
 }
-
-//select view style of products
-function setProductsViewStyle() {
-    (function () {
-        var container = document.getElementById('cbp-vm'),
-            optionSwitch = Array.prototype.slice.call(container.querySelectorAll('div.cbp-vm-options > a'));
-
-        function init() {
-            optionSwitch.forEach(function (el, i) {
-                el.addEventListener('click', function (ev) {
-                    ev.preventDefault();
-                    _switch(this);
-                }, false);
-            });
-        }
-
-        function _switch(opt) {
-            // remove other view classes and any any selected option
-            optionSwitch.forEach(function (el) {
-                classie.remove(container, el.getAttribute('data-view'));
-                classie.remove(el, 'cbp-vm-selected');
-            });
-            // add the view class for this option
-            classie.add(container, opt.getAttribute('data-view'));
-            // this option stays selected
-            classie.add(opt, 'cbp-vm-selected');
-        }
-        init();
-    })();
-}setProductsViewStyle();

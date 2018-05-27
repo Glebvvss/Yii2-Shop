@@ -50,7 +50,7 @@
                 </div>
                 <? endif; ?>
                 <div class="purchase">
-                    <a href="#">Purchase Now</a>
+                    <a href="" class="add-to-cart" id="to-cart-<?= $product['id'] ?>">Purchase Now</a href="">
                     <div class="social-icons">
                         <ul>
                             <li><a class="facebook1" href="#"></a></li>
@@ -90,3 +90,5 @@
         </div>
     </div>
 </div>
+
+<?= app\components\RelatedProductsWidget::widget(['id_product' => $id_product]); ?>

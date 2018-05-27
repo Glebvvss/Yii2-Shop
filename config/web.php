@@ -21,6 +21,9 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                //default admin route
+                '/admin' => '/admin/admin/products',
+
                 //products-page
                 'shop/products/id-category/<id_category:>/<products_per_page:>/<sort_direction:>/sort-type/<sort_type:>/page/<page:>/per-page/<per-page:>/' =>  'shop/products',
                 'shop/products/id-category/<id_category:>/page/<page:>/per-page/<per-page:>/' => 'shop/products',

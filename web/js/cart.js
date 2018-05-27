@@ -1,9 +1,9 @@
 //add product tp cart
-$('.add-to-cart').click(function() {
+$('.add-to-cart').click(function(e) {
+    e.preventDefault();
     var id = $(this).attr('id');
     id = id.split('-');
     var idProduct = id[2];
-
     $.ajax({
         url: 'http://basic/cart/add-to-cart-ajax',
         type: 'GET',
@@ -20,7 +20,8 @@ $('.add-to-cart').click(function() {
 });
 
 function removeFromCart() {
-    $('.remove-position').click(function () {
+    $('.remove-position').click(function (e) {
+        e.preventDefault();
         var clickedId = $(this).attr('id');
         var arrayClickedId = clickedId.split('-');
         var idProduct = arrayClickedId[1];
@@ -41,5 +42,45 @@ function removeFromCart() {
         });
     });
 }removeFromCart();
+
+(function confirmOrderModal() {
+    $('#open-modal-order-page').click(function(event) {
+        event.preventDefault();
+        $('#overlay').fadeIn(400,
+            function(){
+                $('#modal-confirm-order')
+                    .css('display', 'block')
+                    .animate({opacity: 1, top: '50%'}, 200);
+            });
+    });
+
+    $('#overlay').click( function(){
+        $('#modal-confirm-order')
+            .animate({opacity: 0, top: '45%'}, 200,
+                function(){
+                    $(this).css('display', 'none');
+                    $('#overlay').fadeOut(400);
+                }
+            );
+        });
+
+}());
+
+(function changeQtyByProduct() {
+    $('.cart-qty-input').change(function() {
+        var idProduct = $(this).attr('product');
+        var qty = $(this).val();
+
+        $.ajax({
+            url: 'http://basic/cart/change-qty-product',
+            type: 'GET',
+            data: {
+                id_product: idProduct,
+                qty: qty
+            }
+        });
+    });
+}());
+
 
 
