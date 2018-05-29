@@ -51,11 +51,11 @@
                         </ul>
                         <ul>
                             <li class="text-info">Password: </li>
-                            <li><?=$f->field($reg_model, 'password')->label(false)->textInput(['class' => ''])?></li>
+                            <li><?=$f->field($reg_model, 'password')->label(false)->passwordInput(['class' => ''])?></li>
                         </ul>
                         <ul>
                             <li class="text-info">Re-enter Password:</li>
-                            <li><?=$f->field($reg_model, 'confirm_password')->label(false)->textInput(['class' => ''])?></li>
+                            <li><?=$f->field($reg_model, 'confirm_password')->label(false)->passwordInput(['class' => ''])?></li>
                         </ul>
                         <ul>
                             <li class="text-info">Mobile Number:</li>

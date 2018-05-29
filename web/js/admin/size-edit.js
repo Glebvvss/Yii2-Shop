@@ -5,7 +5,7 @@ function addSize() {
         var idProduct = id.split('-');
 
         $.ajax({
-            url: 'http://basic/admin/admin/add-size-ajax',
+            url: 'http://basic/admin/product/add-size-ajax',
             type: 'POST',
             data: {
                 id_product: idProduct[1],
@@ -29,7 +29,7 @@ function deleteSize() {
         var idProduct = idOfProduct.split('-');
 
         $.ajax({
-            url: 'http://basic/admin/admin/delete-size-ajax',
+            url: 'http://basic/admin/product/delete-size-ajax',
             type: 'POST',
             data: {
                 id_product: idProduct[1],

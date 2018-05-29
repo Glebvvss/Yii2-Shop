@@ -4,7 +4,7 @@ function addTag() {
         var id = $('#tag-update-ajax').attr('data-id');
         var idProduct = id.split('-');
         $.ajax({
-            url: 'http://basic/admin/admin/add-tag-ajax',
+            url: 'http://basic/admin/product/add-tag-ajax',
             type: 'POST',
             data: {
                 id_product: idProduct[1],
@@ -28,7 +28,7 @@ function deleteTag() {
         var idProduct = idOfProduct.split('-');
 
         $.ajax({
-            url: 'http://basic/admin/admin/delete-tag-ajax',
+            url: 'http://basic/admin/product/delete-tag-ajax',
             type: 'POST',
             data: {
                 id_product: idProduct[1],

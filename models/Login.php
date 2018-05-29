@@ -22,7 +22,7 @@ class Login extends Model {
         if ( $this->hasErrors() ) return;
 
         $user = $this->getUser();
-        if (!$user || !$user->validatePassword($this->password)) {
+        if ( !$user || !$user->validatePassword($this->password) ) {
             $this->addError($attribute, 'Incorrect username or password.');
         }
     }

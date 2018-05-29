@@ -34,9 +34,6 @@ class UserIdentity extends Users implements IdentityInterface {
     }
 
     public function validatePassword($password) {
-        if ( $this->password === $password ) {
-            return true;
-        }
-        return false;
+        return password_verify($password, $this->password);
     }
 }

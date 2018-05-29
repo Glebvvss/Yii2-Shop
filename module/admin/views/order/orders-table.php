@@ -45,7 +45,7 @@
 
     <? function toDetails($provider) { ?>
         <? ob_start() ?>
-        <a href="<?=Yii::$app->urlManager->createUrl(['admin/admin/order-details', 'id_order' => $provider['id_order'] ])?>">details</a>
+        <a href="<?=Yii::$app->urlManager->createUrl(['admin/order/order-details', 'id_order' => $provider['id_order'] ])?>">details</a>
         <? return ob_get_clean(); ?>
     <? } ?>
 

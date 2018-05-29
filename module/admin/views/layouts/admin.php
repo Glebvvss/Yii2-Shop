@@ -35,9 +35,9 @@ AppAsset::register($this);
     <div class="header-admin">
         <div class="menu-admin">
             <ul class="">
-                <li><a href="<?= Yii::$app->urlManager->createUrl('admin/admin/orders') ?>">Orders</a></li>
-                <li><a href="<?= Yii::$app->urlManager->createUrl('admin/admin/products') ?>">Products</a></li>
-                <li><a href="<?= Yii::$app->urlManager->createUrl('admin/admin/categories') ?>">Categories</a></li>
+                <li><a href="<?= Yii::$app->urlManager->createUrl('admin/order/orders') ?>">Orders</a></li>
+                <li><a href="<?= Yii::$app->urlManager->createUrl('admin/product/products') ?>">Products</a></li>
+                <li><a href="<?= Yii::$app->urlManager->createUrl('admin/category/categories') ?>">Categories</a></li>
             </ul>
         </div>
     </div>

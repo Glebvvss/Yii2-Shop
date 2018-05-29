@@ -14,6 +14,7 @@ use yii\db\Expression;
 use app\components\validators\PasswordValidator;
 use app\components\validators\UsernameUniqueValidator;
 use app\components\validators\EmailUniqueValidator;
+use app\models\db\Users;
 
 class Registration extends Model {
 
@@ -74,7 +75,7 @@ class Registration extends Model {
         $user->last_name = $this->last_name;
         $user->username = $this->username;
         $user->email = $this->email;
-        $user->password = $this->password;
+        $user->password = password_hash($this->password, PASSWORD_BCRYPT);
         $user->mobile_phone = $this->mobile_phone;
         $user->image_name = $this->image_name;
         $user->save();

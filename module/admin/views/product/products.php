@@ -10,7 +10,7 @@
 
 <div class="row">
     <div class="add-product col-md-3">
-        <a href="<?= Yii::$app->urlManager->createUrl('admin/admin/add-product') ?>">Add Product</a>
+        <a href="<?= Yii::$app->urlManager->createUrl('admin/product/add-product') ?>">Add Product</a>
     </div>
     <div class="col-md-6">
 
@@ -52,14 +52,14 @@ echo yii\grid\GridView::widget([
             'attribute' => '',
             'format' => 'raw',
             'value' => function($provider) {
-                return Html::a('<i class="fas fa-pencil-alt"></i>', Yii::$app->urlManager->createUrl(['admin/admin/edit-product', 'id_product' => $provider->id ]));
+                return Html::a('<i class="fas fa-pencil-alt"></i>', Yii::$app->urlManager->createUrl(['admin/product/edit-product', 'id_product' => $provider->id ]));
             }
         ],
         [
             'attribute' => '',
             'format' => 'raw',
             'value' => function($provider) {
-                return Html::a('<i class="fas fa-trash-alt"></i>', Yii::$app->urlManager->createUrl(['admin/admin/index', 'id_product' => $provider->id]),[ 'class' => 'pre-delete-product', 'id' => $provider->id ]);
+                return Html::a('<i class="fas fa-trash-alt"></i>', Yii::$app->urlManager->createUrl(['admin/product/delete-product', 'id_product' => $provider->id]),[ 'class' => 'pre-delete-product', 'id' => $provider->id ]);
             }
         ]
     ]

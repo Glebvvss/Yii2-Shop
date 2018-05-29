@@ -17,6 +17,28 @@ use app\models\db\Users;
 
 class SiteController extends Controller {
 
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout', 'registration', 'login', 'account'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['logout', 'account'],
+                        'roles' => ['user'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['registration', 'login'],
+                        'roles' => ['?'],
+                    ]
+                ],
+            ],
+        ];
+    }
+
     public function actionIndex() {
         $products = Products::find()
             ->orderBy(['id' => SORT_DESC])

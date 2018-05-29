@@ -14,6 +14,15 @@ $config = [
     'modules' => [
         'admin' => [
             'class' => 'app\module\admin\AdminModule',
+            'as access' => [
+                'class' => 'yii\filters\AccessControl',
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['admin']
+                    ],
+                ]
+            ],
         ],
     ],
     'components' => [
@@ -22,7 +31,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 //default admin route
-                '/admin' => '/admin/admin/products',
+                '/admin' => '/admin/product/products',
 
                 //products-page
                 'shop/products/id-category/<id_category:>/<products_per_page:>/<sort_direction:>/sort-type/<sort_type:>/page/<page:>/per-page/<per-page:>/' =>  'shop/products',

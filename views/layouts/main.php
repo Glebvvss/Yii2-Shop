@@ -43,8 +43,9 @@ AppAsset::register($this);
                         <? else : ?>
                             <li><a href="<?= Yii::$app->urlManager->createUrl('site/login') ?>"><span class="glyphicon glyphicon-user"> </span>Login</a></li>
                         <? endif; ?>
-						<li><a href="<?= Yii::$app->urlManager->createUrl('site/registration') ?>"><span class="glyphicon glyphicon-lock"> </span>Create an Account</a></li>
-
+                        <? if ( Yii::$app->user->isGuest ) : ?>
+						    <li><a href="<?= Yii::$app->urlManager->createUrl('site/registration') ?>"><span class="glyphicon glyphicon-lock"> </span>Create an Account</a></li>
+                        <? endif; ?>
                         <? if ( !Yii::$app->user->isGuest ) : ?>
                             <li><a href="<?= Yii::$app->urlManager->createUrl('site/account') ?>"><i class="fas fa-pencil-alt font-awersome-icon"></i>Edit Account</a></li>
                         <? endif; ?>
@@ -153,8 +154,8 @@ AppAsset::register($this);
 						    <li><a href="<?=Yii::$app->urlManager->createUrl('site/login')?>">login</a></li>
                         <? endif; ?>
 
-						<li><a href="register.html">create an account</a></li>
-						<li><a href="checkout.html">my shopping bag</a></li>
+						<li><a href="<?= Yii::$app->urlManager->createUrl('site/registration'); ?>">create an account</a></li>
+						<li><a href="<?= Yii::$app->urlManager->createUrl('cart/cart'); ?>">my shopping bag</a></li>
 					</ul>
 				</div>
 				<div class="col-md-4 span1_of_4">

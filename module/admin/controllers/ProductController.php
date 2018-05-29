@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Gleb
+ * Date: 29.05.2018
+ * Time: 1:08
+ */
 
 namespace app\module\admin\controllers;
 
@@ -14,11 +20,8 @@ use app\admin\models\EditProduct;
 use app\admin\models\TagEdit;
 use app\admin\models\SizeEdit;
 use app\models\db\Categories;
-use app\admin\models\OrderList;
-use app\admin\models\OrderDetails;
-use app\models\db\Orders;
 
-class AdminController extends Controller {
+class ProductController extends Controller {
 
     public function actionProducts() {
         $this->layout = 'admin';
@@ -109,9 +112,9 @@ class AdminController extends Controller {
         $tagEdit->addTag( $tag, $id_product );
 
         $tag_list = TagProduct::find()->joinWith('tags')
-                                      ->asArray()
-                                      ->where(['id_product' => $id_product])
-                                      ->all();
+            ->asArray()
+            ->where(['id_product' => $id_product])
+            ->all();
 
         return $this->render('tag-edit', [
             'id_product' => $id_product,
@@ -128,9 +131,9 @@ class AdminController extends Controller {
         $tagEdit->deleteTag( $id_tag, $id_product );
 
         $tag_list = TagProduct::find()->joinWith('tags')
-                                      ->asArray()
-                                      ->where(['id_product' => $id_product])
-                                      ->all();
+            ->asArray()
+            ->where(['id_product' => $id_product])
+            ->all();
 
         return $this->render('tag-edit', [
             'id_product' => $id_product,
@@ -147,9 +150,9 @@ class AdminController extends Controller {
         $sizeEdit->addSize( $size, $id_product );
 
         $size_list = SizeProduct::find()->joinWith('sizes')
-                                        ->asArray()
-                                        ->where(['id_product' => $id_product])
-                                        ->all();
+            ->asArray()
+            ->where(['id_product' => $id_product])
+            ->all();
 
 
         return $this->render('size-edit', [
@@ -167,96 +170,14 @@ class AdminController extends Controller {
         $sizeEdit->deleteSize( $id_size, $id_product );
 
         $size_list = SizeProduct::find()->joinWith('sizes')
-                                        ->asArray()
-                                        ->where(['id_product' => $id_product])
-                                        ->all();
+            ->asArray()
+            ->where(['id_product' => $id_product])
+            ->all();
 
         return $this->render('size-edit', [
             'id_product' => $id_product,
             'size_list' => $size_list
         ]);
-    }
-
-    public function actionCategories() {
-        $delete_products_by_category = Yii::$app->request->post('products-delete-by-category');
-        $delete_category = Yii::$app->request->post('deleteCategory');
-        $new_category = Yii::$app->request->post('addCategory');
-        $id_parent = Yii::$app->request->post('parentId');
-        $this->layout = 'admin';
-
-        $categoryCRUD = new CategoryCRUD();
-        if ( $new_category ) {
-            $categoryCRUD->addCategory( $new_category, $id_parent );
-        }
-        if ( $delete_category ) {
-            $categoryCRUD->deleteCategory($delete_category, $delete_products_by_category);
-        }
-
-        $categories = Categories::find()->asArray()->all();
-        $categories_list_json = json_encode($categories);
-        file_put_contents('json/admin/categories.json', $categories_list_json);
-        return $this->render('categories');
-    }
-
-    public function actionOrders() {
-        $this->layout = 'admin';
-
-        $orderList = new OrderList();
-        $dataProvider = $orderList->getOrdersInDataProviderFormat();
-        return $this->render('orders', [
-            'dataProvider' => $dataProvider
-        ]);
-    }
-
-    public function actionUpdateOrderPageByFilterAjax() {
-        $filter = Yii::$app->request->post('filter');
-        $this->layout = false;
-
-        $orderList = new OrderList();
-        $dataProvider = $orderList->getOrdersInDataProviderFormat( $filter );
-        return $this->render('orders-table', [
-            'dataProvider' => $dataProvider
-        ]);
-    }
-
-    public function actionUpdateStatusOfOrderAjax() {
-        $id_order = Yii::$app->request->post('id_order');
-        $status = Yii::$app->request->post('status');
-        $filter = Yii::$app->request->post('filter');
-        $this->layout = false;
-
-        $orderList = new OrderList();
-        $orderList->changeStatusById($id_order, $status);
-        $dataProvider = $orderList->getOrdersInDataProviderFormat( $filter );
-        return $this->render('orders-table', [
-            'dataProvider' => $dataProvider
-        ]);
-    }
-
-    public function actionOrderDetails() {
-        $id_order = Yii::$app->request->get('id_order');
-        $this->layout = 'admin';
-
-        $messageFromUser = Orders::find()->select('message')
-                                         ->where(['id' => $id_order])
-                                         ->one();
-
-        $orderDetails = new OrderDetails();
-        $dataProvider = $orderDetails->getDetailsOfOrder( $id_order );
-        $buyerData = $orderDetails->getBuyerInfo( $id_order );
-        return $this->render( 'order-details', [
-            'messageFromUser' => $messageFromUser,
-            'dataProvider' => $dataProvider,
-            'buyerData' => $buyerData
-        ]);
-    }
-
-    public function actionUpdateStatusOrderDetailsAjax() {
-        $id_order = Yii::$app->request->post('id_order');
-        $status = Yii::$app->request->post('status');
-
-        $orderList = new OrderList();
-        $orderList->changeStatusById($id_order, $status);
     }
 
 }

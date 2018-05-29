@@ -12,7 +12,7 @@ $('.pre-delete-product').click( function(e){
         });
 
     $('#del-product').click(function() {
-        var url = "http://basic/admin/admin/delete-product?id_product=" + clickedId;
+        var url = "http://basic/admin/product/delete-product?id_product=" + clickedId;
         $(location).attr('href',url);
     });
 

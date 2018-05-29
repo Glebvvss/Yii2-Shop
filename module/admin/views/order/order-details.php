@@ -3,7 +3,7 @@
 ?>
 
 <div class="back-to-list">
-    <p><a href="<?=Yii::$app->urlManager->createUrl('admin/admin/orders')?>">Back To List</a></p>
+    <p><a href="<?=Yii::$app->urlManager->createUrl('admin/order/orders')?>">Back To List</a></p>
 </div>
 
 <div class="status-block">

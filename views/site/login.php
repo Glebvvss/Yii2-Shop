@@ -38,7 +38,7 @@
                         </div>
                         <div>
                             <span>Password<label>*</label></span>
-                            <?=$f->field($login_model, 'password')->label(false)->textInput(['class' => '']);?>
+                            <?=$f->field($login_model, 'password')->label(false)->passwordInput(['class' => '']);?>
                         </div>
                         <a class="forgot" href="#">Forgot Your Password?</a>
                         <input type="submit" value="Login">
