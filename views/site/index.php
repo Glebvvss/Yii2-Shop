@@ -64,6 +64,8 @@ $this->title = 'E-Shop';
 <!-- content-section-starts-here -->
 <div class="container">
 	<div class="main-content">
+
+
 		<div class="online-strip">
 			<div class="col-md-4 follow-us">
 				<h3>follow us : <a class="twitter" href="https://twitter.com/"></a><a class="facebook" href="https://www.facebook.com"></a></h3>
@@ -85,6 +87,7 @@ $this->title = 'E-Shop';
 			<div class="clearfix"></div>
 		</div>
 
+
 		<!--latest items-->
 		<div class="products-grid">
 			<header>
@@ -92,7 +95,7 @@ $this->title = 'E-Shop';
 			</header>
 
             <?php foreach($products as $product) : ?>
-			<div class="col-md-4 col-xs-12 product simpleCart_shelfItem text-center">
+			<div class="col-md-4 col-sm-6 product simpleCart_shelfItem text-center">
 				<img src="/images/product/<?=$product->img?>" alt="" />
 				<div class="mask">
 					<a href="<?= Yii::$app->urlManager->createUrl(['shop/product-single', 'id_product' => $product->id]) ?>">Quick View</a>

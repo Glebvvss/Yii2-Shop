@@ -188,3 +188,13 @@ a:hover {
     margin-top: -28px;
     text-align: center;
 }
+
+.border-dropdown-menu {
+    min-width: 100px;
+    padding: 10px;
+}
+
+.block-category {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}

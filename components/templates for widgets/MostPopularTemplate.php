@@ -6,7 +6,7 @@
             <li><a href="<?= Yii::$app->urlManager->createUrl(['shop/product-single', 'id_product' => $product->id]) ?>"><img src="/web/images/product/<?= $product->img ?>" class="img-responsive" alt="" /></a>
                 <div class="product liked-product simpleCart_shelfItem">
                     <a class="like_name" href="<?= Yii::$app->urlManager->createUrl(['shop/product-single', 'id_product' => $product->id]) ?>"><?= $product->name_product ?></a>
-                    <p><a class="item_add" href="#"><i></i> <span class=" item_price">$<?= sprintf("%.2f", $product->price/100);  ?></span></a></p>
+                    <p onmousedown="return false" class="add-to-cart" style="cursor: pointer;" id="to-cart-<?= $product->id ?>"><i></i> <span class="item_price">$<?= sprintf("%.2f", $product->price/100);  ?></span></p>
                 </div>
             </li>
             <? endforeach; ?>
@@ -38,6 +38,5 @@
 
             });
         </script>
-        <!--<script type="text/javascript" src="js/jquery.flexisel.js"></script>-->
     </div>
 </div>

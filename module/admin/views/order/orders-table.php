@@ -52,6 +52,7 @@
     <?  function statusSelect($provider) { ?>
         <? ob_start(); ?>
         <select class="form-control status" id="select_tag_id-<?=$provider['id_order']?>">
+            <option <? if ( $provider['status'] == 'cancel order' ) echo 'selected'; ?> value="cancel order" class="delete-order-select">cancel order</option>
             <option <? if ( $provider['status'] == 'new order' ) echo 'selected'; ?> value="new order">new order</option>
             <option <? if ( $provider['status'] == 'in processing' ) echo 'selected'; ?> value="in processing">in processing</option>
             <option <? if ( $provider['status'] == 'complete' ) echo 'selected'; ?> value="complete">complete</option>

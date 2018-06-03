@@ -5,37 +5,24 @@
 
 <div class="registration-form">
     <div class="container">
-        <div class="dreamcrub">
-            <ul class="breadcrumbs">
-                <li class="home">
-                    <a href="index.html" title="Go to Home Page">Home</a>&nbsp;
-                    <span>&gt;</span>
-                </li>
-                <li class="women">
-                    Registration
-                </li>
-            </ul>
-            <ul class="previous">
-                <li><a href="index.html">Back to Previous Page</a></li>
-            </ul>
-            <div class="clearfix"></div>
-        </div>
         <h2>Registration</h2>
         <div class="registration-grids">
             <div class="reg-form">
                 <div class="reg">
                     <p>Welcome, please enter the following details to continue.</p>
-                    <p>If you have previously registered with us, <a href="#">click here</a></p>
+                    <p>We are glad that you have joined us!</p>
 
                     <? $f = ActiveForm::begin([
                         'enableClientValidation' => false,
                         'enableAjaxValidation' => true,
                         'validationUrl' => '/site/registration',
-                        'options' => ['enctype' => 'multipart/form-data']
+                        'options' => ['enctype' => 'multipart/form-data'],
+                        'errorCssClass' => ''
                     ]); ?>
+
                         <ul>
                             <li class="text-info">First Name: </li>
-                            <li><?=$f->field($reg_model, 'first_name')->label(false)->textInput(['class' => ''])?></li>
+                            <li><?=$f->field($reg_model, 'first_name', [])->label(false)->textInput(['class' => ''])?></li>
                         </ul>
                         <ul>
                             <li class="text-info">Last Name: </li>
@@ -66,7 +53,7 @@
                             <li><?=$f->field($reg_model, 'image')->fileInput()->label(false)?></li>
                         </ul>
                         <input class="" type="submit" value="REGISTER NOW">
-                        <p class="click">By clicking this button, you are agree to my  <a href="#">Policy Terms and Conditions.</a></p>
+                        <p class="click">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                     <? ActiveForm::end(); ?>
 
                 </div>

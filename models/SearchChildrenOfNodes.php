@@ -23,8 +23,8 @@ class SearchChildrenOfNodes implements ISearchChildrenOfNodes {
     }
 
     public function getChildrenNodesList($tree, $id_parent_node) {
-        $node = $this->selectNodeWithChildrenById($tree, $id_parent_node);
-        $this->addChildrenOfNodeToList($node);
+        $this->selectNodeWithChildrenById($tree, $id_parent_node);
+        $this->addChildrenOfNodeToList($this->selectedNodeWithChildren);
 
         return $this->children_list;
     }
@@ -33,7 +33,8 @@ class SearchChildrenOfNodes implements ISearchChildrenOfNodes {
         foreach ( $tree as $node ) {
             if ( $node['id'] == $id_parent_node ) {
                 $adapt_node[] = $node;
-                return $this->selectedNodeWithChildren = $adapt_node;
+                $this->selectedNodeWithChildren = $adapt_node;
+                return;
             }
             if ( $node[$this->subnode_name] ) {
                 $this->selectNodeWithChildrenById($node[$this->subnode_name], $id_parent_node);

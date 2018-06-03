@@ -16,19 +16,7 @@ use app\models\db\Categories;
 class CategoryController extends Controller {
 
     public function actionCategories() {
-        $delete_products_by_category = Yii::$app->request->post('products-delete-by-category');
-        $delete_category = Yii::$app->request->post('deleteCategory');
-        $new_category = Yii::$app->request->post('addCategory');
-        $id_parent = Yii::$app->request->post('parentId');
         $this->layout = 'admin';
-
-        $categoryCRUD = new CategoryCRUD();
-        if ( $new_category ) {
-            $categoryCRUD->addCategory( $new_category, $id_parent );
-        }
-        if ( $delete_category ) {
-            $categoryCRUD->deleteCategory($delete_category, $delete_products_by_category);
-        }
 
         $categories = Categories::find()->asArray()->all();
         $categories_list_json = json_encode($categories);
@@ -36,20 +24,25 @@ class CategoryController extends Controller {
         return $this->render('categories');
     }
 
+    public function actionDeleteCategory() {
+        $category = Yii::$app->request->post('category');
+        $this->layout = 'admin';
 
+        $categoryCRUD = new CategoryCRUD();
+        $categoryCRUD->deleteCategory($category);
 
+        $this->redirect('/admin/category/categories');
+    }
 
+    public function actionAddCategory() {
+        $category = Yii::$app->request->post('category');
+        $id_parent = Yii::$app->request->post('parentId');
+        $this->layout = 'admin';
 
+        $categoryCRUD = new CategoryCRUD();
+        $categoryCRUD->addCategory( $category, $id_parent );
 
-
-
-
-
-
-
-
-
-
-
+        $this->redirect('/admin/category/categories');
+    }
 
 }

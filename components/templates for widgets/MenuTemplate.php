@@ -1,35 +1,32 @@
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
         <li><a href="<?= Yii::$app->urlManager->createUrl('site/index')?> ">Home</a></li>
-
-        <?php foreach($menu as $category) : ?>
+        <? foreach($menu as $category) : ?>
             <li class="dropdown">
-                <?php if($category['id_parent'] == 0) : ?>
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown"><?=$category['category']?>  <?php if($category['subcategories']) { echo "<b class=\"caret\"></b>"; }; ?></a>
-                <?php endif; ?>
-
-                <?php if($category['subcategories']) : ?>
-                    <ul class="dropdown-menu multi-column menuxa">
-                        <div class="row">
-                            <?php foreach( $category['subcategories'] as $subcategory ) : ?>
-                                <div class="col-sm-6">
+                <? if($category['id_parent'] == 0) : ?>
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown"><?=$category['category']?>  <? if($category['subcategories']) { echo "<b class=\"caret\"></b>"; }; ?></a>
+                <? endif; ?>
+                <? if($category['subcategories']) : ?>
+                    <div class="dropdown-menu border-dropdown-menu">
+                        <div class="raw">
+                            <? foreach( $category['subcategories'] as $subcategory ) : ?>
+                                <div class="block-category">
                                     <ul class="multi-column-dropdown">
-                                        <h6><?=$subcategory['category']?></h6>
-                                        <?php if($subcategory['subcategories']) : ?>
-                                            <?php foreach($subcategory['subcategories'] as $subcategoryOfSub) : ?>
-                                                <li><a href="<?=Yii::$app->urlManager->createUrl(['shop/products', 'id_category' => $subcategoryOfSub['id']])?>"><?=$subcategoryOfSub['category']?></a></li>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
+                                        <h6><?=ucfirst($subcategory['category'])?></h6>
+                                        <? if($subcategory['subcategories']) : ?>
+                                            <? foreach($subcategory['subcategories'] as $subcategoryOfSub) : ?>
+                                                <li><a href="<?=Yii::$app->urlManager->createUrl(['shop/products', 'id_category' => $subcategoryOfSub['id']])?>"><?=ucfirst($subcategoryOfSub['category'])?></a></li>
+                                            <? endforeach; ?>
+                                        <? endif; ?>
+                                        <hr>
                                     </ul>
                                 </div>
-                            <?php endforeach; ?>
+                            <? endforeach; ?>
                         </div>
-                    </ul>
-                <?php endif; ?>
-
+                    </div>
+                <? endif; ?>
             </li>
-        <?php endforeach; ?>
-
-        <li><a href="<?= Yii::$app->urlManager->createUrl('site/contact') ?>">CONTACT</a></li>
+        <? endforeach; ?>
+        <li><a href="<?= Yii::$app->urlManager->createUrl('site/feedback') ?>">FEEDBACK</a></li>
     </ul>
 </div>

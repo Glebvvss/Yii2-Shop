@@ -38,6 +38,7 @@ class Registration extends Model {
             ['confirm_password', PasswordValidator::classname()],
             ['username', UsernameUniqueValidator::classname()],
             ['email', EmailUniqueValidator::classname()],
+            [['password', 'confirm_password'], 'safe'],
             ['email', 'email'],
         ];
     }

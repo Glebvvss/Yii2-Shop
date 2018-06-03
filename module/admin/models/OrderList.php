@@ -8,6 +8,7 @@
 
 namespace app\admin\models;
 
+use Yii;
 use yii\db\Query;
 use yii\data\ArrayDataProvider;
 use app\models\db\Orders;
@@ -18,7 +19,9 @@ use app\models\db\Products;
 class OrderList implements IOrderFilter {
 
     public function getOrdersInDataProviderFormat( $filter = 'all' ) {
-        if ( $filter == null ) $filter = 'all';
+        if ( !$this->validateFilter($filter) ) {
+            $filter = 'all';
+        }
         $orders = $this->getOrdersList( $filter );
         return $this->createDataProvider($orders);
     }
@@ -31,6 +34,7 @@ class OrderList implements IOrderFilter {
 
         if ( $new_status == 'cancel order' ) {
             $this->deleteOrderFromList($id_order);
+            return;
         }
 
         if ( $new_status == 'complete' ) {
@@ -41,9 +45,18 @@ class OrderList implements IOrderFilter {
         $order->update();
     }
 
+    private function validateFilter($filter) {
+        $tpl = '/^(new order|complete|in processing)$/';
+        if ( preg_match($tpl, $filter) ) {
+            return true;
+        }
+        return false;
+    }
+
     private function deleteOrderFromList($id_order) {
         OrderProduct::deleteAll(['id_order' => $id_order]);
-        Orders::findOne(['id' => $id_order])->delete();
+        $sql = 'DELETE FROM `orders` WHERE id = ' . $id_order;
+        Yii::$app->db->createCommand($sql)->execute();
     }
 
     private function addSalesByProductId($id_order) {

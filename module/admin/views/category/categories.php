@@ -1,6 +1,7 @@
 <?
-    use yii\widgets\ActiveForm;
     $this->title = 'Category Editor';
+    use yii\widgets\ActiveForm;
+
 ?>
 
 <h1 class="caption-admin">Categories</h1>
@@ -9,11 +10,11 @@
 
         <div class="col-md-5 col-sm-12">
             <h3 style="text-align: center;">Add Category</h3>
-            <? ActiveForm::begin(); ?>
+            <? ActiveForm::begin(['action' =>['/admin/category/add-category']]); ?>
             <h5>Add Main Category</h5>
             <div class="row">
                 <div class="form-group col-md-10">
-                    <input name="addCategory" type="text" class="form-control" id="add-main-category" aria-describedby="main-category" placeholder="Main Category">
+                    <input name="category" type="text" class="form-control" id="add-main-category" aria-describedby="main-category" placeholder="Main Category">
                 </div>
                 <div class="col-md-2">
                     <button class="btn btn-primary" type="submit" id="add-main-category-btn">Add</button>
@@ -21,7 +22,7 @@
             </div>
             <? ActiveForm::end(); ?>
 
-            <? ActiveForm::begin(); ?>
+            <? ActiveForm::begin(['action' =>['/admin/category/add-category']]); ?>
             <h5>Add Type Category</h5>
             <div class="row">
                 <div class="form-group col-md-5">
@@ -35,7 +36,7 @@
 
                 <div class="form-group col-md-5">
                     <label for="">Type Category</label>
-                    <input name="addCategory" type="text" class="form-control">
+                    <input name="category" type="text" class="form-control">
                 </div>
 
                 <div class="col-md-2" style="margin-top: 19px;">
@@ -44,7 +45,7 @@
             </div>
             <? ActiveForm::end(); ?>
 
-            <? ActiveForm::begin(); ?>
+            <? ActiveForm::begin(['action' =>['/admin/category/add-category']]); ?>
             <h5>Add Category</h5>
             <div class="row">
                 <div class="form-group col-md-4">
@@ -67,7 +68,7 @@
 
                 <div class="form-group col-md-4">
                     <label for="">Category</label>
-                    <input name="addCategory" type="text" id="add-category-input" class="form-control">
+                    <input name="category" type="text" id="add-category-input" class="form-control">
                 </div>
             </div>
             <div class="block-parent-center">
@@ -81,14 +82,17 @@
 
 
         <div class="col-md-5 col-sm-12">
-            <? ActiveForm::begin(['id' => 'del-main-category-form']); ?>
+            <? ActiveForm::begin([
+                'id' => 'del-main-category-form',
+                'action' =>['/admin/category/delete-category']
+            ]); ?>
             <h3 style="text-align: center;">Delete Category</h3>
             <div>
                 <h5>Delete Main Category</h5>
                 <div class="row">
                     <div class="form-group col-md-10">
                         <label for="">Main Category</label>
-                        <select name="deleteCategory" class="form-control" id="del-main-category-main">
+                        <select name="category" class="form-control" id="del-main-category-main">
 
                             <!--  -->
 
@@ -101,7 +105,10 @@
             </div>
             <? ActiveForm::end(); ?>
 
-            <? ActiveForm::begin(['id' => 'del-type-category-form']); ?>
+            <? ActiveForm::begin([
+                'id' => 'del-type-category-form',
+                'action' =>['/admin/category/delete-category']
+            ]); ?>
             <h5>Delete Type Category</h5>
             <div class="row">
                 <div class="form-group col-md-5">
@@ -115,7 +122,7 @@
 
                 <div class="form-group col-md-5">
                     <label for="">Type Category</label>
-                    <select name="deleteCategory" class="form-control" id="del-type-category-type">
+                    <select name="category" class="form-control" id="del-type-category-type">
 
                         <!--  -->
 
@@ -128,7 +135,10 @@
             </div>
             <? ActiveForm::end(); ?>
 
-            <? ActiveForm::begin(['id' => 'del-category-form']); ?>
+            <? ActiveForm::begin([
+                'id' => 'del-category-form',
+                'action' =>['/admin/category/delete-category']
+            ]); ?>
             <h5>Delete Category</h5>
             <div class="row">
                 <div class="form-group col-md-4">
@@ -151,7 +161,7 @@
 
                 <div class="form-group col-md-4">
                     <label for="">Category</label>
-                    <select name="deleteCategory" class="form-control" id="del-category">
+                    <select name="category" class="form-control" id="del-category">
 
                         <!--  -->
 
@@ -168,10 +178,13 @@
     </div>
 </div>
 
-<div id="modal_form">
-    <span id="modal_close"><i class="fas fa-times"></i></span>
-    <p>Are you want delete products of category with category?</p>
-    <button id="del-with-products" class="btn">Yes</button>
-    <button id="del-category-only" class="btn">No</button>
+<div class="modal_form" id="modal_form_delete_category">
+    <p>Remember! Deleting categories can cause the products in this category to lose the category ID. Are you agree delete category?</p>
+    <div class="down-block">
+        <div class="center-buttons">
+            <button id="del-category-btn" class="btn">Yes</button>
+            <button id="no-del-category-btn" class="btn">No</button>
+        </div>
+    </div>
 </div>
 <div id="overlay"></div>

@@ -43,7 +43,7 @@ class AppAsset extends AssetBundle
         'js/admin/categories.js',
         'js/admin/categories-modal.js',
         'js/admin/order-details.js',
-        'js/admin/pre-delete-product.js'
+        'js/admin/pre-delete-product.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

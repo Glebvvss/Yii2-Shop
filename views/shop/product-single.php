@@ -41,11 +41,15 @@
                 <? if ( $product['sizes'] ) : ?>
                 <div class="span span4">
                     <p class="left">SIZE</p>
-                    <p class="right"><span class="selection-box"><select class="domains valid" name="domains">
-                                        <?php foreach($product['sizes'] as $size) : ?>
-										   <option><?=$size['sizes'][0]['size']?></option>
-                                        <?php endforeach; ?>
-									   </select></span></p>
+                    <p class="right">
+                        <span class="selection-box">
+                            <select class="domains valid" name="domains">
+                                <?php foreach($product['sizes'] as $size) : ?>
+                                   <option><?=$size['sizes'][0]['size']?></option>
+                                <?php endforeach; ?>
+                           </select>
+                        </span>
+                    </p>
                     <div class="clearfix"></div>
                 </div>
                 <? endif; ?>
@@ -69,7 +73,7 @@
                     <ul class="hor-nav">
                         <li class="active"> <a class="test" data-toggle="tab" href="#more-information"> More Information</a> </li>
                         <li> <a href="#features" class="test" data-toggle="tab">Specifications</a> </li>
-                        <li> <a class="test" href="#reviews" data-toggle="tab">Reviews (7)</a> </li>
+                        <li> <a class="test" href="#reviews" data-toggle="tab">Reviews</a> </li>
                     </ul>
                 </div>
                 <hr>

@@ -24,47 +24,47 @@ $this->title = 'admin | products';
 
 <div id="ajax-update-orders-page">
     <?
-        echo yii\grid\GridView::widget([
-            'dataProvider' => $dataProvider,
-            'columns' => [
-                [
-                    'attribute' => 'id',
-                    'format' => 'raw',
-                    'value' => function($provider) {
-                        return $provider['id_order'];
-                    }
-                ],
-                'username',
-                'email',
-                'first_name',
-                'last_name',
-                'mobile_phone',
-                [
-                    'attribute' => 'total',
-                    'format' => 'raw',
-                    'value' => function($provider) {
-                        return '$' . sprintf("%.2f", $provider['total_sum']/100 );
-                    }
-                ],
-                'total_qty',
-                'message',
-                [
-                    'attribute' => 'status',
-                    'format' => 'raw',
-                    'value' => function($provider) {
-                        return statusSelect($provider);
-                    }
-                ],
-                [
-                    'attribute' => 'to order',
-                    'format' => 'raw',
-                    'value' => function($provider) {
-                        return toDetails($provider);
-                    }
-                ]
-
+    echo yii\grid\GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            [
+                'attribute' => 'id',
+                'format' => 'raw',
+                'value' => function($provider) {
+                    return $provider['id_order'];
+                }
+            ],
+            'username',
+            'email',
+            'first_name',
+            'last_name',
+            'mobile_phone',
+            [
+                'attribute' => 'total',
+                'format' => 'raw',
+                'value' => function($provider) {
+                    return '$' . sprintf("%.2f", $provider['total_sum']/100 );
+                }
+            ],
+            'total_qty',
+            'message',
+            [
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function($provider) {
+                    return statusSelect($provider);
+                }
+            ],
+            [
+                'attribute' => 'to order',
+                'format' => 'raw',
+                'value' => function($provider) {
+                    return toDetails($provider);
+                }
             ]
-        ]);
+
+        ]
+    ]);
     ?>
 
     <? function toDetails($provider) { ?>
@@ -86,9 +86,15 @@ $this->title = 'admin | products';
 
 </div>
 
-<div class="model_form" id="modal_form_delete_order">
+<div class="modal_form" id="modal_form_delete_order">
     <p>Are cancel this order?</p>
-    <button id="del-order" class="btn">Yes</button>
-    <button id="dont-del-order" class="btn">No</button>
+    <div class="down-block">
+        <div class="center-buttons">
+            <button id="del-order" class="btn">Yes</button>
+            <button id="dont-del-order" class="btn">No</button>
+        </div>
+    </div>
 </div>
 <div id="overlay"></div>
+
+

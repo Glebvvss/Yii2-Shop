@@ -32,9 +32,13 @@ class AddProduct extends Model {
     public function addProduct() {
         $product = new Products();
 
-        $id_country = $this->getIdCountry();
-        $id_brand = $this->getIdBrand();
-        $name_img = $this->uploadFile();
+        $id_country = $this->getIdCountryByCountry();
+        $id_brand = $this->getIdBrandByBrand();
+
+        if ( $this->issetFile() ) {
+            $name_img = $this->uploadFile();
+            $product->img = $name_img;
+        }
 
         $product->specifications = $this->specifications;
         $product->name_product = $this->name_product;
@@ -42,7 +46,6 @@ class AddProduct extends Model {
         $product->id_category = $this->id_category;
         $product->id_country = $id_country;
         $product->id_brand = $id_brand;
-        $product->img = $name_img;
         $product->price = $this->price;
         $product->color = $this->color;
         $product->about = $this->about;
@@ -52,8 +55,6 @@ class AddProduct extends Model {
     }
 
     private function uploadFile() {
-        if ( $_FILES['AddProduct']['tmp_name']['img'] == null ) return;
-
         $id_product = $this->idNewProduct();
         $extension = explode('/', $_FILES['AddProduct']['type']['img']);
         $new_name_file = 'product' . $id_product . '.' . $extension[1];
@@ -64,12 +65,19 @@ class AddProduct extends Model {
         return $new_name_file;
     }
 
+    private function issetFile() {
+        if ( $_FILES['AddProduct']['tmp_name']['img'] == null ) {
+            return false;
+        }
+        return true;
+    }
+
     private function idNewProduct() {
         $max_id = Products::find()->max('id');
         return $max_id + 1;
     }
 
-    private function getIdCountry() {
+    private function getIdCountryByCountry() {
         if ( !$this->country ) return;
         $country_row = Countries::findOne(['country' => $this->country]);
         if ( !$country_row ) {
@@ -82,7 +90,7 @@ class AddProduct extends Model {
         return $country_row->id;
     }
 
-    private function getIdBrand() {
+    private function getIdBrandByBrand() {
         if ( !$this->brand ) return;
 
         $brand_row = Brands::findOne(['brand' => $this->brand]);

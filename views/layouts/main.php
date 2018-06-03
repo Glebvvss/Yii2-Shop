@@ -131,7 +131,7 @@ AppAsset::register($this);
 		<div class="container">
 		 <div class="footer_top">
 			<div class="span_of_4">
-				<div class="col-md-4 span1_of_4">
+				<div class="col-md-3 span1_of_4">
 					<h4>Shop</h4>
 
 					<ul class="f_nav">
@@ -144,7 +144,7 @@ AppAsset::register($this);
 					</ul>
 				</div>
 
-				<div class="col-md-4 span1_of_4">
+				<div class="col-md-3 span1_of_4">
 					<h4>account</h4>
 					<ul class="f_nav">
 
@@ -158,12 +158,18 @@ AppAsset::register($this);
 						<li><a href="<?= Yii::$app->urlManager->createUrl('cart/cart'); ?>">my shopping bag</a></li>
 					</ul>
 				</div>
-				<div class="col-md-4 span1_of_4">
+				<div class="col-md-3 span1_of_4">
 					<h4>popular</h4>
 					<ul class="f_nav">
 
 					</ul>
 				</div>
+                <div class="col-md-3 span1_of_4">
+                    <h4>popular</h4>
+                    <ul class="f_nav">
+
+                    </ul>
+                </div>
 				<div class="clearfix"></div>
 				</div>
 		  </div>

@@ -1,43 +1,47 @@
 function filterOrders() {
-    $('#filter-orders').change(function() {
-        var filter = $('#filter-orders').val();
-        $.ajax({
-            url: 'http://basic/admin/order/update-order-page-by-filter-ajax',
-            type: 'POST',
-            data: {
-                filter: filter
-            },
-            success: function(page) {
-                $('#ajax-update-orders-page').html(page);
-                filterOrders();
-                changeStatusOfOrder();
-                openModalWindow();
-            }
+    $(document).ready(function() {
+        $('#filter-orders').change(function() {
+            var filter = $('#filter-orders').val();
+            $.ajax({
+                url: 'http://basic/admin/order/update-order-page-by-filter-ajax',
+                type: 'GET',
+                data: {
+                    filter: filter
+                },
+                success: function(page) {
+                    $('#ajax-update-orders-page').html(page);
+                    changeStatusOfOrder();
+                    openModalWindow();
+                    filterOrders();
+                }
+            });
         });
     });
 }filterOrders();
 
 function changeStatusOfOrder() {
-    $('.status').change(function () {
-        var filter = $('#filter-orders').val();
-        var selectedId = $(this).attr('id');
-        var orderId = selectedId.split('-');
-        var status = $(this).val();
+    $(document).ready(function() {
+        $('.status').change(function () {
+            var filter = $('#filter-orders').val();
+            var selectedId = $(this).attr('id');
+            var orderId = selectedId.split('-');
+            var status = $(this).val();
 
-        if ( status == 'cancel order') {
-            $('#del-order').click(function() {
+            if ( status == 'cancel order') {
+                $('#del-order').click(function () {
+                    ajaxRequest(orderId[1], filter, status);
+                });
+            } else {
                 ajaxRequest(orderId[1], filter, status);
-            });
-        } else {
-            ajaxRequest(orderId[1], filter, status);
-        }
+            }
+        });
     });
 }changeStatusOfOrder();
 
 function ajaxRequest(orderId, filter, status) {
     $.ajax({
         url: 'http://basic/admin/order/update-status-of-order-ajax',
-        type: 'POST',
+        type: 'GET',
         data: {
             id_order: orderId,
             filter: filter,
@@ -45,13 +49,13 @@ function ajaxRequest(orderId, filter, status) {
         },
         success: function (page) {
             $('#ajax-update-orders-page').html(page);
-            filterOrders();
             changeStatusOfOrder();
             openModalWindow();
+            filterOrders();
+            closeModelWindow();
         }
     });
 }
-
 
 function openModalWindow() {
     $(document).ready(function() {
@@ -66,15 +70,18 @@ function openModalWindow() {
                         .animate({opacity: 1, top: '50%'}, 200);
                 });
         });
-
-        $('#dont-del-order, #overlay').click( function(){
-            $('#modal_form_delete_order')
-                .animate({opacity: 0, top: '45%'}, 200,
-                    function(){
-                        $(this).css('display', 'none');
-                        $('#overlay').fadeOut(400);
-                    }
-                );
-        });
     });
 }openModalWindow();
+
+function closeModelWindow() {
+    $('#del-order, #dont-del-order, #overlay').click( function(){
+        $('#modal_form_delete_order')
+            .animate({opacity: 0, top: '45%'}, 200,
+                function(){
+                    $(this).css('display', 'none');
+                    $('#overlay').fadeOut(400);
+                }
+            );
+    });
+}closeModelWindow();
+

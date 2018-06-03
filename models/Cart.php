@@ -25,12 +25,11 @@ class Cart implements ICart {
     public function confirmOrder() {
         $order = new Orders;
 
-        //$order->id_user = Yii::$app->user->getId();
-        $order->id_user = 3;
+        $order->id_user = Yii::$app->user->getId();
         $order->total_sum = $_SESSION['cart.sum'];
         $order->total_qty = $_SESSION['cart.qty'];
         $order->status = 'new order';
-        $order->message = 'user text';
+        $order->message = $_POST['message'];
         $order->date = date(date('Y-m-d'));
         $order->time = date('H:i:s');
         $order->save();
@@ -85,11 +84,11 @@ class Cart implements ICart {
     }
 
     public function removeFromCart($id_product) {
+        if ( !$_SESSION['cart'][$id_product] || empty($_SESSION['cart'][$id_product]) )  return;
+
         $this->changeSumOfCartToDown($id_product);
         $this->changeTotalCountOfCartToDown($id_product);
-        if ( $_SESSION['cart'][$id_product] ) {
-            unset( $_SESSION['cart'][$id_product] );
-        }
+        unset( $_SESSION['cart'][$id_product] );
     }
 
     public function getSumOfCart() {

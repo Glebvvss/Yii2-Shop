@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 use yii\web\Controller;
 use app\models\db\Products;
 use app\models\Login;
@@ -13,7 +12,7 @@ use app\models\Account;
 use yii\web\UploadedFile;
 use yii\widgets\ActiveForm;
 use yii\web\Response;
-use app\models\db\Users;
+use app\models\FeedbackForm;
 
 class SiteController extends Controller {
 
@@ -108,6 +107,16 @@ class SiteController extends Controller {
         return $this->render('account', [
             'account_model' => $account_model,
             'user' => $user
+        ]);
+    }
+
+    public function actionFeedback() {
+        $feedback_model = new FeedbackForm();
+        if ( $feedback_model->load( Yii::$app->request->post() ) && $feedback_model->validate() ) {
+            $feedback_model->submit();
+        }
+        return $this->render('feedback', [
+            'feedback_model' => $feedback_model
         ]);
     }
 

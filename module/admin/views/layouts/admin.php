@@ -38,6 +38,8 @@ AppAsset::register($this);
                 <li><a href="<?= Yii::$app->urlManager->createUrl('admin/order/orders') ?>">Orders</a></li>
                 <li><a href="<?= Yii::$app->urlManager->createUrl('admin/product/products') ?>">Products</a></li>
                 <li><a href="<?= Yii::$app->urlManager->createUrl('admin/category/categories') ?>">Categories</a></li>
+                <li><a href="<?= Yii::$app->urlManager->createUrl('admin/user/users') ?>">Users</a></li>
+                <li><a href="<?= Yii::$app->urlManager->createUrl('admin/user/feedback') ?>">Feedback</a></li>
             </ul>
         </div>
     </div>

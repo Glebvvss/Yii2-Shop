@@ -64,6 +64,7 @@ class GetProducts implements IGetProducts {
 
     private function selectProductsFromCategoryWithChildren() {
         $tree = $this->getTreeChildrenCategories();
+
         $searchChildrenOfNodes = new SearchChildrenOfNodes();
         $children_category_list = $searchChildrenOfNodes->setSubnodeName('subcategories')
                                                         ->getChildrenNodesList($tree, $this->id_category);

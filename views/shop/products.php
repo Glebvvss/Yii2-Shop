@@ -1,5 +1,6 @@
 <?php
     $this->title = 'E-SHOP | Categories';
+    use yii\widgets\Pjax;
 ?>
 
 <div>
@@ -17,16 +18,18 @@
 
             <div class="new-product">
                 <div id="update" category="<?= $id_category ?>" tag="<?= $tag ?>">
-
-                    <? if ( !empty($category) ) : ?>
+                    
                     <div class="caption-category">
-                        <h2><?= $category->category ?></h2>
+                        <?
+                            if ( $tag ) {
+                                echo '<h2> Products By Tag - '. ucfirst($tag) . '</h2>';
+                            } else if ( !empty($category) ) {
+                                echo '<h2>'. $category->category . '</h2>';
+                            } else {
+                                echo '<h2>All Products</h2>';
+                            }
+                        ?>
                     </div>
-                    <? else : ?>
-                    <div class="caption-category">
-                        <h2>All Products</h2>
-                    </div>
-                    <? endif; ?>
 
                     <div>
                         <div class="sort">
@@ -91,7 +94,7 @@
 
                         <div class="row">
                             <?php foreach($products as $product) : ?>
-                            <div class="col-md-4">
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                 <a class="cbp-vm-image" href="<?=Yii::$app->urlManager->createUrl(['shop/product-single', 'id_product' => $product['id']])?>">
                                     <div class="simpleCart_shelfItem">
                                         <div class="view view-first">
@@ -131,4 +134,7 @@
         <div class="clearfix"></div>
     </div>
 </div>
+
+
+
 <?= app\components\MostPopularWidget::widget(); ?>

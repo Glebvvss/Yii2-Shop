@@ -14,18 +14,20 @@ use app\interfaces\ICategoriesOfSidebar;
 class CategoriesOfSidebar implements ICategoriesOfSidebar {
 
     public function getCategories(int $id_category) {
-        $subquery = $this->getSubquery($id_category);
+        $id_parent = $this->getParentCategoryId($id_category);
         return Categories::find()
-            ->where(['id_parent' => $subquery['id_parent']])
+            ->where(['id_parent' => $id_parent])
             ->all();
     }
 
-    private function getSubquery(int $id_category) {
-        return Categories::find()
+    private function getParentCategoryId(int $id_category) {
+        $category = Categories::find()
             ->select('id_parent')
             ->where(['id' => $id_category])
             ->asArray()
             ->one();
+
+        return $category['id_parent'];
     }
 
 }

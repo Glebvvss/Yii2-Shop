@@ -5,18 +5,6 @@ $this->title = 'E-SHOP | Account';
 
 <div class="registration-form">
     <div class="container">
-        <div class="dreamcrub">
-            <ul class="breadcrumbs">
-                <li class="home">
-                    <a href="<?=Yii::$app->urlManager->createUrl('site/index')?>" title="Go to Home Page">Home</a>&nbsp;
-                    <span>&gt;</span>
-                </li>
-                <li class="women">
-                    Registration
-                </li>
-            </ul>
-            <div class="clearfix"></div>
-        </div>
         <h2>Registration</h2>
         <div class="registration-grids">
             <div class="reg-form">
@@ -27,7 +15,8 @@ $this->title = 'E-SHOP | Account';
                         'enableClientValidation' => false,
                         'enableAjaxValidation' => true,
                         'validationUrl' => '/site/account',
-                        'options' => ['enctype' => 'multipart/form-data']
+                        'options' => ['enctype' => 'multipart/form-data'],
+                        'errorCssClass' => ''
                     ]); ?>
                     <ul>
                         <li class="text-info">First Name: </li>

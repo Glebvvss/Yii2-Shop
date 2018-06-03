@@ -14,22 +14,25 @@ use app\models\db\Products;
 use app\models\db\TagProduct;
 use app\models\db\SizeProduct;
 use app\admin\models\CategoryCRUD;
-use app\models\SearchFilter;
+use app\admin\models\TableProduct;
 use app\admin\models\AddProduct;
 use app\admin\models\EditProduct;
 use app\admin\models\TagEdit;
 use app\admin\models\SizeEdit;
 use app\models\db\Categories;
+use app\models\db\Brands;
 
 class ProductController extends Controller {
 
     public function actionProducts() {
         $this->layout = 'admin';
-        $searchModel = new SearchFilter();
-        $dataProvider = $searchModel->search( Yii::$app->request->get() );
+        $tableProduct = new TableProduct();
+        $dataProvider = $tableProduct->dataFilter( Yii::$app->request->get() );
+        $brands = Brands::find()->asArray()->all();
         return $this->render('products', [
             'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel
+            'tableProduct' => $tableProduct,
+            'brands' => $brands
         ]);
     }
 
@@ -41,7 +44,7 @@ class ProductController extends Controller {
         $add_product_model->id_category = $id_category;
         if ( $add_product_model->load( yii::$app->request->post() ) && $add_product_model->validate() ) {
             $id_product = $add_product_model->addProduct();
-            $this->redirect( Yii::$app->urlManager->createUrl(['/admin/admin/edit-product', 'id_product' => $id_product]) );
+            $this->redirect( Yii::$app->urlManager->createUrl(['/admin/product/edit-product', 'id_product' => $id_product]) );
         }
 
         $categories = Categories::find()->asArray()->all();
@@ -54,17 +57,26 @@ class ProductController extends Controller {
 
     public function actionDeleteProduct() {
         $id_product = (int) Yii::$app->request->get('id_product');
-        $product = Products::findOne($id_product);
 
-        if ( empty($product) ) return;
-        $product->delete();
-        $this->redirect('/admin/admin/products');
+        if ( !$id_product || $id_product == 0 ) {
+            $this->redirect('/admin');
+        }
+
+        TagProduct::deleteAll(['id_product' => $id_product]);
+        SizeProduct::deleteAll(['id_product' => $id_product]);
+        Products::findOne($id_product)->delete();
+
+        $this->redirect('/admin');
     }
 
     public function actionEditProduct() {
         $id_category = Yii::$app->request->post('category');
         $id_product = Yii::$app->request->get('id_product');
         $this->layout = 'admin';
+
+        if ( !$id_product ) {
+            $this->redirect('/admin');
+        }
 
         $product_info = Products::find()->where(['products.id' => $id_product])
                                         ->joinWIth('brands')
@@ -112,9 +124,9 @@ class ProductController extends Controller {
         $tagEdit->addTag( $tag, $id_product );
 
         $tag_list = TagProduct::find()->joinWith('tags')
-            ->asArray()
-            ->where(['id_product' => $id_product])
-            ->all();
+                                      ->asArray()
+                                      ->where(['id_product' => $id_product])
+                                      ->all();
 
         return $this->render('tag-edit', [
             'id_product' => $id_product,
@@ -131,9 +143,9 @@ class ProductController extends Controller {
         $tagEdit->deleteTag( $id_tag, $id_product );
 
         $tag_list = TagProduct::find()->joinWith('tags')
-            ->asArray()
-            ->where(['id_product' => $id_product])
-            ->all();
+                                      ->asArray()
+                                      ->where(['id_product' => $id_product])
+                                      ->all();
 
         return $this->render('tag-edit', [
             'id_product' => $id_product,
@@ -150,9 +162,9 @@ class ProductController extends Controller {
         $sizeEdit->addSize( $size, $id_product );
 
         $size_list = SizeProduct::find()->joinWith('sizes')
-            ->asArray()
-            ->where(['id_product' => $id_product])
-            ->all();
+                                        ->asArray()
+                                        ->where(['id_product' => $id_product])
+                                        ->all();
 
 
         return $this->render('size-edit', [
@@ -170,9 +182,9 @@ class ProductController extends Controller {
         $sizeEdit->deleteSize( $id_size, $id_product );
 
         $size_list = SizeProduct::find()->joinWith('sizes')
-            ->asArray()
-            ->where(['id_product' => $id_product])
-            ->all();
+                                        ->asArray()
+                                        ->where(['id_product' => $id_product])
+                                        ->all();
 
         return $this->render('size-edit', [
             'id_product' => $id_product,

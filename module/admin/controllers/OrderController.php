@@ -27,7 +27,11 @@ class OrderController extends Controller {
     }
 
     public function actionUpdateOrderPageByFilterAjax() {
-        $filter = Yii::$app->request->post('filter');
+        if ( !Yii::$app->request->isAjax ) {
+            $this->goBack();
+        }
+
+        $filter = Yii::$app->request->get('filter');
         $this->layout = false;
 
         $orderList = new OrderList();
@@ -38,9 +42,13 @@ class OrderController extends Controller {
     }
 
     public function actionUpdateStatusOfOrderAjax() {
-        $id_order = Yii::$app->request->post('id_order');
-        $status = Yii::$app->request->post('status');
-        $filter = Yii::$app->request->post('filter');
+        if ( !Yii::$app->request->isAjax ) {
+            $this->goBack();
+        }
+
+        $id_order = Yii::$app->request->get('id_order');
+        $status = Yii::$app->request->get('status');
+        $filter = Yii::$app->request->get('filter');
         $this->layout = false;
 
         $orderList = new OrderList();
@@ -70,6 +78,10 @@ class OrderController extends Controller {
     }
 
     public function actionUpdateStatusOrderDetailsAjax() {
+        if ( !Yii::$app->request->isAjax ) {
+            $this->goBack();
+        }
+
         $id_order = Yii::$app->request->post('id_order');
         $status = Yii::$app->request->post('status');
 

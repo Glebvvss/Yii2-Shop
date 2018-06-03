@@ -7,37 +7,29 @@ var formId;
             formId = $(this).attr('form');
             $('#overlay').fadeIn(400,
                 function(){
-                    $('#modal_form')
+                    $('#modal_form_delete_category')
                         .css('display', 'block')
                         .animate({opacity: 1, top: '50%'}, 200);
                 });
         });
+    });
+}());
 
-        $('#modal_close, #overlay').click( function(){
-            $('#modal_form')
-                .animate({opacity: 0, top: '45%'}, 200,
-                    function(){
-                        $(this).css('display', 'none');
-                        $('#overlay').fadeOut(400);
-                    }
-                );
-        });
+
+(function closeModalWindow() {
+    $('#no-del-category-btn, #overlay').click( function(){
+        $('#modal_form_delete_category')
+            .animate({opacity: 0, top: '45%'}, 200,
+                function(){
+                    $(this).css('display', 'none');
+                    $('#overlay').fadeOut(400);
+                }
+            );
     });
 }());
 
 (function submitDeleteForms() {
-    $('#del-with-products').click(function () {
-        $('<input>', {
-            type: 'text',
-            name: 'productsDelete',
-            value: 1,
-            id: 'products-delete-by-category'
-        }).appendTo('#' + formId);
-        $('#products-delete-with-category').hide();
-        $('#' + formId).submit();
-    });
-
-    $('#del-category-only').click(function () {
-        $('#' + formId).submit();
+    $('#del-category-btn').click(function() {
+        $( '#' + formId ).submit();
     });
 }());

@@ -6,21 +6,6 @@
 <div class="content">
     <div class="container">
         <div class="login-page">
-            <div class="dreamcrub">
-                <ul class="breadcrumbs">
-                    <li class="home">
-                        <a href="<?=Yii::$app->urlManager->createUrl('site/index')?>" title="Go to Home Page">Home</a>&nbsp;
-                        <span>&gt;</span>
-                    </li>
-                    <li class="women">
-                        Login
-                    </li>
-                </ul>
-                <ul class="previous">
-                    <li><a href="index.html">Back to Previous Page</a></li>
-                </ul>
-                <div class="clearfix"></div>
-            </div>
             <div class="account_grid">
                 <div class="col-md-6 login-left wow fadeInLeft" data-wow-delay="0.4s">
                     <h2>NEW CUSTOMERS</h2>
@@ -31,7 +16,7 @@
                     <h3>REGISTERED CUSTOMERS</h3>
                     <p>If you have an account with us, please log in.</p>
 
-                    <? $f = ActiveForm::begin(); ?>
+                    <? $f = ActiveForm::begin(['errorCssClass' => '']); ?>
                         <div>
                             <span>Email Address<label>*</label></span>
                             <?=$f->field($login_model, 'email')->label(false)->textInput(['class' => '']);?>
