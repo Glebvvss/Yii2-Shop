@@ -34,7 +34,7 @@ class CategoryCRUD implements ICategoryCRUD {
         $category_list = $this->getCategoryWithChildren( $id_category );
 
         Products::updateAll(['id_category' => NULL], ['id_category' => $category_list]);
-        Categories::find()->where(['id' => $category_list])->one()->delete();
+        Categories::deleteAll(['id' => $category_list]);
     }
 
     public function getParentsOfCategoryById( $id_category ) {

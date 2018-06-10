@@ -84,7 +84,6 @@ class OrderList implements IOrderFilter {
         $query = new Query();
         return $query->select('orders.id as id_order, first_name, last_name, mobile_phone, message, total_qty, total_sum, email, username, status' )
                      ->from('orders')
-                     ->join('LEFT JOIN', 'users', 'users.id = orders.id_user')
                      ->where(['status' => $filter])
                      ->orderBy(['id_order' => SORT_DESC])
                      ->createCommand()
@@ -95,7 +94,6 @@ class OrderList implements IOrderFilter {
         $query = new Query();
         return $query->select('orders.id as id_order, first_name, last_name, mobile_phone, message, total_qty, total_sum, email, username, status' )
                      ->from('orders')
-                     ->join('LEFT JOIN', 'users', 'users.id = orders.id_user')
                      ->orderBy(['id_order' => SORT_DESC])
                      ->createCommand()
                      ->queryAll();

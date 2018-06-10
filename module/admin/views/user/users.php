@@ -3,6 +3,7 @@
     use yii\widgets\Pjax;
 ?>
 
+<h1 class="caption-admin">Users</h1><br>
 <?
 
 Pjax::begin();
@@ -10,6 +11,9 @@ Pjax::begin();
 echo yii\grid\GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $tableUser,
+    'tableOptions' => [
+        'class' => 'table table-striped table-bordered style-admin-for-table'
+    ],
     'columns' => [
         'id',
         'first_name',
@@ -19,14 +23,14 @@ echo yii\grid\GridView::widget([
         'mobile_phone',
         'role',
         [
-            'attribute' => 'give administrator rights',
+            'attribute' => 'set admin role',
             'format' => 'raw',
             'value' => function($provider) {
                 return setAdmin($provider['id']);
             }
         ],
         [
-            'attribute' => 'pick admin rights',
+            'attribute' => 'unset admin role',
             'format' => 'raw',
             'value' => function($provider) {
                 return unsetAdmin($provider['id']);
@@ -39,13 +43,13 @@ echo yii\grid\GridView::widget([
 
 <? function setAdmin($id_user) { ?>
     <? ob_start(); ?>
-        <a href="<?= Yii::$app->urlManager->createUrl(['/admin/user/set-admin', 'id_user' => $id_user]) ?>">set admin</a>'
+        <a href="<?= Yii::$app->urlManager->createUrl(['/admin/user/set-admin', 'id_user' => $id_user]) ?>">set admin</a>
     <? return ob_get_clean(); ?>
 <? } ?>
 
 <? function unsetAdmin($id_user) { ?>
     <? ob_start(); ?>
-    <a href="<?= Yii::$app->urlManager->createUrl(['/admin/user/set-user', 'id_user' => $id_user]) ?>">unset admin</a>'
+    <a href="<?= Yii::$app->urlManager->createUrl(['/admin/user/set-user', 'id_user' => $id_user]) ?>">unset admin</a>
     <? return ob_get_clean(); ?>
 <? } ?>
 

@@ -15,27 +15,49 @@ use yii\db\Query;
 use app\models\db\Orders;
 use app\models\db\OrderProduct;
 use yii\db\Expression;
+use app\models\db\Users;
 
 class Cart implements ICart {
+
+    private $first_name;
+    private $last_name;
+    private $email;
 
     public function __construct() {
         Yii::$app->session->open();
     }
 
-    public function confirmOrder() {
+    public function confirmOrder( $post ) {
         $order = new Orders;
+        if ( !Yii::$app->user->isGuest ) {
+            $id_user = Yii::$app->user->getId();
+            $user = Users::findOne($id_user);
 
-        $order->id_user = Yii::$app->user->getId();
+            $order->mobile_phone = $user->mobile_phone;
+            $order->first_name = $user->first_name;
+            $order->last_name = $user->last_name;
+            $order->username = $user->username;
+            $order->email = $user->email;
+        } else {
+            $order->mobile_phone = $post['ConfirmOrderForm']['mobile_phone'];
+            $order->first_name = $post['ConfirmOrderForm']['first_name'];
+            $order->last_name = $post['ConfirmOrderForm']['last_name'];
+            $order->email = $post['ConfirmOrderForm']['email'];
+        }
+
         $order->total_sum = $_SESSION['cart.sum'];
         $order->total_qty = $_SESSION['cart.qty'];
         $order->status = 'new order';
-        $order->message = $_POST['message'];
+        $order->message = $post['ConfirmOrderForm']['message'];
         $order->date = date(date('Y-m-d'));
         $order->time = date('H:i:s');
         $order->save();
 
         $this->addProductsByOrder();
+        $this->clearSessionOfCart();
+    }
 
+    private function clearSessionOfCart() {
         unset($_SESSION['cart']);
         unset($_SESSION['cart.sum']);
         unset($_SESSION['cart.qty']);

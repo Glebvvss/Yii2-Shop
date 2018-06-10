@@ -64,16 +64,49 @@
     </div>
 </div>
 
-<div id="modal-confirm-order">
-    <p>In the follow field you can write your address and other information for the administrator, who call you soon after confirm order.</p>
-    <? ActiveForm::begin([
-            'action' => Yii::$app->urlManager->createUrl('cart/confirm-order')
-    ]); ?>
 
-    <div><textarea name="message" class="form-control" rows="3" style="resize: none;"></textarea></div>
-    <div class="parent-flex">
-        <button class="button-confirm-order btn btn-sm" type="submit">Confirm Order</button>
-    </div>
-    <? ActiveForm::end(); ?>
+
+<div id="modal-confirm-order">
+    <? if ( !Yii::$app->user->isGuest ) : ?>
+
+        <div id="modal-order-user">
+            <? $f = ActiveForm::begin([
+                    'action' => Yii::$app->urlManager->createUrl('cart/confirm-order')
+            ]); ?>
+            <p>In the follow field you can write your address and other information for the administrator, who call you soon after confirm order.</p>
+            <div class="row">
+                <div class="col-md-12" style="margin-top: 15px;"><?= $f->field($confirm_order_form, 'message')->textArea(['rows' => 4])->label(false) ?></div>
+                <div class="col-md-12">
+                    <div class="parent-flex">
+                        <button class="button-confirm-order btn btn-sm" type="submit">Confirm Order</button>
+                    </div>
+                </div>
+            </div>
+            <? ActiveForm::end(); ?>
+        </div>
+
+    <? else: ?>
+
+        <div id="modal-order-guest">
+            <? $f = ActiveForm::begin([
+                'action' => Yii::$app->urlManager->createUrl('cart/confirm-order')
+            ]); ?>
+            <p>In the follow form you can write your address and other information for the administrator, who call you soon after confirm order.</p>
+            <div class="row">
+                <div class="col-md-6"><?= $f->field($confirm_order_form, 'first_name') ?></div>
+                <div class="col-md-6"><?= $f->field($confirm_order_form, 'last_name') ?></div>
+                <div class="col-md-6"><?= $f->field($confirm_order_form, 'mobile_phone') ?></div>
+                <div class="col-md-6"><?= $f->field($confirm_order_form, 'email') ?></div>
+                <div class="col-md-12"><?= $f->field($confirm_order_form, 'message')->textArea(['row' => 4]) ?></div>
+                <div class="col-md-12">
+                    <div class="parent-flex">
+                        <button class="button-confirm-order btn btn-sm" type="submit">Confirm Order</button>
+                    </div>
+                </div>
+            </div>
+            <? ActiveForm::end(); ?>
+        </div>
+
+    <? endif; ?>
 </div>
 <div id="overlay"></div>

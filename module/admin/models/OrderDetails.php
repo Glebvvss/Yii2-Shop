@@ -5,19 +5,12 @@ namespace app\admin\models;
 use yii\db\Query;
 use yii\data\ArrayDataProvider;
 use app\models\db\Orders;
-use app\models\db\Users;
 use app\admin\interfaces\IOrderDetails;
 
 class OrderDetails implements IOrderDetails {
 
     public function getBuyerInfo( $id_order ) {
-        $id_user = $this->getUserIdByOrderId( $id_order );
-        return Users::findOne(['id' => $id_user]);
-    }
-
-    private function getUserIdByOrderId( $id_order ) {
-        $row = Orders::findOne(['id' => $id_order]);
-        return $row->id_user;
+        return Orders::findOne($id_order);
     }
 
     public function getDetailsOfOrder( $id_order ) {

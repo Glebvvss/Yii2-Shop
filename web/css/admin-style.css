@@ -1,11 +1,12 @@
-
 .caption-admin {
     text-align: center;
 }
 
 .header-admin {
     display: flex;
-    padding-bottom: 40px;
+    padding-bottom: 15px;
+    margin-bottom: 40px;
+    background-color: #816263;
 }
 
 .menu-admin {
@@ -19,6 +20,9 @@
     display: inline;
 }
 
+.style-admin-for-table a {
+    color: #816263;
+}
 
 /* add-edit-products page */
 .add-product {
@@ -62,15 +66,20 @@
     margin-right: auto;
 }
 
-.admin-tag {
+.admin-row-list {
     display: inline-block;
     border: none;
-    border-radius: 6px;
-
+    border-radius: 0;
     margin: 3px;
     padding: 5px;
-    background-color: #424242;
+    background-color: #816263;
     color: white;
+    cursor: default;
+}
+
+.admin-row-list:hover {
+    transition: 0.5s;
+    background-color: black;
 }
 
 .btn-tag {
@@ -96,6 +105,7 @@
 
 .block-parent-center {
     display: flex;
+    margin-bottom: 100px;
 }
 
 .center-button {
@@ -115,8 +125,8 @@
     background: #fff;
     position: fixed;
     top: 45%;
+    left: 50%;
     margin-top: -150px;
-    margin-left: -150px;
     opacity: 0;
     z-index: 5;
     padding: 20px 10px;
@@ -127,22 +137,22 @@
     width: 300px;
     height: 135px;
     display: none;
-    left: 50%;
+    margin-left: -150px;
 }
 
 #modal_form_delete_product {
-    width: 255px;
+    width: 256px;
+    margin-left: -128px;
     height: 90px;
     display: none;
-    left: 50%;
 }
 
 #modal_form_delete_order {
     text-align: center;
     width: 158px;
+    margin-left: -79px;
     height: 95px;
     display: none;
-    left: 55.5%;
 }
 
 .center-buttons {
@@ -203,3 +213,32 @@
     margin-top: 5px;
     margin-left: 20px;
 }
+
+/* category page */
+
+.custom-field {
+    border-radius: 0;
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    border: 1px solid #e6e6e6;
+    outline: none;
+    color: #000;
+}
+
+.custom-btn {
+    background-color: #816263;
+    color: white;
+    border-radius: 0;
+}
+
+.custom-btn:hover {
+    transition: 0.5s;
+    background-color: black;
+    color: white;
+}
+
+
+
+/* /category page  */

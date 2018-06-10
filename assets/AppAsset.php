@@ -23,27 +23,28 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/bootstrap.css',
         'css/style.css',
-        'css/admin-style.css',
         'css/site.css',
+        'css/admin-style.css',
         'css/flexslider.css',
         'css/component.css',
         'libs/font-awesome/css/fontawesome-all.min.css'
     ];
     public $js = [
         'js/bootstrap-3.1.1.min.js',
-        'js/products-page.js',
+        'js/productsPage.js',
         'js/jquery.flexisel.js',
         'js/jquery.flexslider.js',
+        'js/subscribeOnMailDistribution.js',
         'js/reviews.js',
         'js/cart.js',
         'js/admin/orders.js',
-        'js/admin/tag-edit.js',
-        'js/admin/edit-product.js',
-        'js/admin/size-edit.js',
+        'js/admin/tagEdit.js',
+        'js/admin/editProduct.js',
+        'js/admin/sizeEdit.js',
         'js/admin/categories.js',
-        'js/admin/categories-modal.js',
-        'js/admin/order-details.js',
-        'js/admin/pre-delete-product.js',
+        'js/admin/categoriesModal.js',
+        'js/admin/orderDetails.js',
+        'js/admin/preDeleteProduct.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

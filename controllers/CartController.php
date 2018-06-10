@@ -11,6 +11,7 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use app\models\Cart;
+use app\models\ConfirmOrderForm;
 
 class CartController extends Controller {
 
@@ -21,14 +22,16 @@ class CartController extends Controller {
         }
         $cart = new Cart();
         $products = $cart->getProductsFromCart();
+        $confirm_order_form = new ConfirmOrderForm();
         return $this->render('cart', [
+            'confirm_order_form' => $confirm_order_form,
             'products' => $products
         ]);
     }
 
     public function actionConfirmOrder() {
         $cart = new Cart();
-        $cart->confirmOrder();
+        $cart->confirmOrder( Yii::$app->request->post() );
         $this->goHome();
     }
 
@@ -47,16 +50,23 @@ class CartController extends Controller {
     public function actionDeleteFromCartAjax() {
         $this->layout = false;
         $id_product = Yii::$app->request->post('id_product');
+
         $cart = new Cart();
         $cart->removeFromCart($id_product);
         $products = $cart->getProductsFromCart();
         $cart_qty = $cart->getCountProductsInCart();
         $cart_sum = $cart->getSumOfCart();
-        return json_encode( [
-            'template' => $this->render('cart', ['products' => $products]),
+
+        $confirm_order_form = new ConfirmOrderForm();
+        return json_encode([
             'cartQty' => $cart_qty,
-            'cartSum' => $cart_sum
-        ] );
+            'cartSum' => $cart_sum,
+
+            'template' => $this->render('cart', [
+                'confirm_order_form' => $confirm_order_form,
+                'products' => $products
+            ]),
+        ]);
     }
 
     public function actionChangeQtyProduct() {

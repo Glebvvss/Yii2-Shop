@@ -12,12 +12,35 @@ $('.add-to-cart').click(function(e) {
         },
         dataType: 'json',
         success: function(obj) {
+            addToCartResultMessage();
             var cartSum = parseInt(obj.cartSum)/100;
             $('#sum-of-cart').text('$' + cartSum.toFixed(2));
             $('#count-of-cart').text(obj.cartQty);
         }
     });
 });
+
+
+function addToCartResultMessage(result) {
+    showAddToCartResultMessage();
+    setTimeout( function() {
+        hideAddToCartResultMessage();
+    }, 2000 );
+}
+
+function showAddToCartResultMessage() {
+    $('#add-to-cart-message').animate({opacity: 1}, 500)
+        .css('display', 'block');
+}
+
+function hideAddToCartResultMessage() {
+    $('#add-to-cart-message').animate({opacity: 0}, 500);
+
+    setTimeout(function(id) {
+        $('#add-to-cart-message').css('display', 'none');
+    }, 500);
+}
+//end add to cart
 
 function removeFromCart() {
     $('.remove-position').click(function (e) {
@@ -38,12 +61,14 @@ function removeFromCart() {
                 $('#sum-of-cart').text('$' + cartSum.toFixed(2));
                 $('#count-of-cart').text(obj.cartQty);
                 removeFromCart();
+                confirmOrderModal();
+                changeQtyByProduct();
             }
         });
     });
 }removeFromCart();
 
-(function confirmOrderModal() {
+function confirmOrderModal() {
     $('#open-modal-order-page').click(function(event) {
         event.preventDefault();
         $('#overlay').fadeIn(400,
@@ -64,9 +89,9 @@ function removeFromCart() {
             );
         });
 
-}());
+}confirmOrderModal();
 
-(function changeQtyByProduct() {
+function changeQtyByProduct() {
     $('.cart-qty-input').change(function() {
         var idProduct = $(this).attr('product');
         var qty = $(this).val();
@@ -80,7 +105,4 @@ function removeFromCart() {
             }
         });
     });
-}());
-
-
-
+}changeQtyByProduct();

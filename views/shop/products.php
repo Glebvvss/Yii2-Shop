@@ -18,7 +18,7 @@
 
             <div class="new-product">
                 <div id="update" category="<?= $id_category ?>" tag="<?= $tag ?>">
-                    
+
                     <div class="caption-category">
                         <?
                             if ( $tag ) {

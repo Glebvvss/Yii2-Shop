@@ -7,22 +7,20 @@
 
 <h1 class="caption-admin">Products</h1>
 
-<hr>
-<hr>
-
 <div class="row">
     <div class="add-product col-md-3">
-        <a href="<?= Yii::$app->urlManager->createUrl('admin/product/add-product') ?>">Add Product</a>
+        <a href="<?= Yii::$app->urlManager->createUrl('admin/product/add-product') ?>" style="color: #816263;">Add Product</a>
     </div>
 </div>
 
 <?
 
-Pjax::begin();
-
 echo yii\grid\GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $tableProduct,
+    'tableOptions' => [
+        'class' => 'table table-striped table-bordered style-admin-for-table'
+    ],
     'columns' => [
         'id',
         'name_product',
@@ -30,6 +28,14 @@ echo yii\grid\GridView::widget([
             'attribute' => 'brand',
             'value' => 'brand',
             'filter' => Html::dropDownList('brand', '', ArrayHelper::map($brands, 'id', 'brand'), ['class' => 'form-control']),
+        ],
+        [
+            'attribute' => 'category',
+            'format' => 'raw',
+            'value' => function($provider) use ($categories) {
+                return category($provider, $categories);
+            },
+            'filter' => Html::dropDownList('category', '', ArrayHelper::map($categories, 'id', 'category'), ['class' => 'form-control']),
         ],
         'color',
         [
@@ -59,9 +65,14 @@ echo yii\grid\GridView::widget([
     ]
 ]);
 
-Pjax::end();
-
 ?>
+
+<? function category($provider, $categories) { ?>
+    <? ob_start(); ?>
+        <div style="width: 100px;"><?= $provider['id_category'] ?> - <?= ucfirst( $provider['category'] ) ?> - by - <?= $categories[$provider['id_parent_category']]  ['category'] ?></div>
+    <? return ob_get_clean(); ?>
+<? } ?>
+
 
 <div class="modal_form" id="modal_form_delete_product">
     <p>Are you want delete selected product?</p>

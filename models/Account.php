@@ -57,10 +57,13 @@ class Account extends Model {
     private function updateUserDb() {
         $user = Users::find()->where(['id' => Yii::$app->user->getId()])->one();
 
+        if ( $this->image_name ) {
+            $user->image_name = $this->image_name;
+        }
+
         $user->first_name = $this->first_name;
         $user->last_name = $this->last_name;
         $user->mobile_phone = $this->mobile_phone;
-        $user->image_name = $this->image_name;
         $user->update();
     }
 

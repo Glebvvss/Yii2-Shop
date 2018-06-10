@@ -1,4 +1,3 @@
-
 <?
 
 $this->title = 'admin | products';
@@ -12,7 +11,7 @@ $this->title = 'admin | products';
     <div class="col-md-1 hidden-xs hidden-sm" id="filter-label"><b>Filter: </b></div>
     <div class="col-md-2" style="padding-right: 15px;">
         <div id="filter-select-style">
-            <select id="filter-orders" class="form-control">
+            <select id="filter-orders" class="form-control custom-field">
                 <option value="all">all</option>
                 <option value="new order">new order</option>
                 <option value="in processing">in processing</option>
@@ -26,6 +25,9 @@ $this->title = 'admin | products';
     <?
     echo yii\grid\GridView::widget([
         'dataProvider' => $dataProvider,
+        'tableOptions' => [
+            'class' => 'table table-striped table-bordered style-admin-for-table'
+        ],
         'columns' => [
             [
                 'attribute' => 'id',

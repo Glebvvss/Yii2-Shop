@@ -5,56 +5,57 @@
 
 <h1 class="caption-admin">Add Product</h1>
 
-<div class="add-products-body">
-    <div class="add-product-form">
-        <? $f = ActiveForm::begin() ?>
-            <!-- select category -->
-            <div id="select-category-ajax">
-                <hr>
-                <div class="form-group">
-                    <label for="">Main Category</label>
-                    <select class="form-control" id="select-main-category">
-
-                        <!-- -->
-
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="">Type Category</label>
-                    <select class="form-control" id="select-type-category">
-
-                        <!-- -->
-
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="">Category</label>
-                    <select class="form-control" name="category" id="select-category">
-
-                        <!-- -->
-
-                    </select>
-                </div>
-                <hr>
+<? $f = ActiveForm::begin() ?>
+    <!-- select category -->
+    <div class="row">
+        <div class="col-md-12">
+            <hr>
+            <!--<h4 class="caption-admin">Select Category</h4>-->
+        </div>
+        <div id="select-category-ajax">
+            <div class="form-group col-md-4">
+                <label for="">Main Category</label>
+                <select class="form-control custom-field" id="select-main-category-edit">
+                    <!-- -->
+                </select>
             </div>
-            <!-- /select category -->
 
-            <!-- -->
-            <?= $f->field($add_product_model, 'name_product'); ?>
-            <?= $f->field($add_product_model, 'price'); ?>
-            <?= $f->field($add_product_model, 'img')->fileInput([]); ?>
-            <?= $f->field($add_product_model, 'color'); ?>
-            <?= $f->field($add_product_model, 'country'); ?>
-            <?= $f->field($add_product_model, 'brand'); ?>
-            <?= $f->field($add_product_model, 'about')->textarea(['rows' => 5]); ?>
-            <?= $f->field($add_product_model, 'about_large')->textarea(['rows' => 5]); ?>
-            <?= $f->field($add_product_model, 'specifications')->textarea(['rows' => 5]); ?>
-            <!-- -->
-            <div class="parent-block">
-                <button type="submit" class="btn btn-primary btn-hor-center">Add Product</button>
+            <div class="form-group col-md-4">
+                <label for="">Type Category</label>
+                <select class="form-control custom-field" id="select-type-category-edit">
+                    <!-- -->
+                </select>
             </div>
-        <? ActiveForm::end() ?>
+
+            <div class="form-group col-md-4">
+                <label for="">Category</label>
+                <select class="form-control custom-field" name="category" id="select-category-edit">
+                    <!-- -->
+                </select>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <hr>
+        </div>
     </div>
-</div>
+    <!-- /select category -->
+
+    <!-- -->
+    <div class="row">
+        <div class="col-md-6"><?= $f->field($add_product_model, 'name_product')->textInput(['class' => 'custom-field']); ?></div>
+        <div class="col-md-6"><?= $f->field($add_product_model, 'price')->textInput(['class' => 'custom-field']); ?></div>
+        <div class="col-md-6"><?= $f->field($add_product_model, 'img')->fileInput([]); ?></div>
+        <div class="col-md-6"><?= $f->field($add_product_model, 'color')->textInput(['class' => 'custom-field']); ?></div>
+        <div class="col-md-6"><?= $f->field($add_product_model, 'country')->textInput(['class' => 'custom-field']); ?></div>
+        <div class="col-md-6"><?= $f->field($add_product_model, 'brand')->textInput(['class' => 'custom-field']); ?></div>
+
+        <div class="col-md-12"><?= $f->field($add_product_model, 'about')->textarea(['rows' => 5, 'class' => 'custom-field']); ?></div>
+        <div class="col-md-12"><?= $f->field($add_product_model, 'about_large')->textarea(['rows' => 5, 'class' => 'custom-field']); ?></div>
+        <div class="col-md-12"><?= $f->field($add_product_model, 'specifications')->textarea(['rows' => 5, 'class' => 'custom-field']); ?></div>
+    </div>
+    <!-- -->
+
+    <div class="parent-block col-md-12">
+        <button type="submit" class="btn custom-btn btn-hor-center">Add Product</button>
+    </div>
+<? ActiveForm::end() ?>

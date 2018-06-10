@@ -4,6 +4,8 @@
 use yii\widgets\Pjax;
 ?>
 
+<h1 class="caption-admin">Feedback</h1><br>
+
 <?
 
 Pjax::begin();

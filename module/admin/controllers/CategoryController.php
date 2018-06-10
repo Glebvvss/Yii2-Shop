@@ -16,6 +16,7 @@ use app\models\db\Categories;
 class CategoryController extends Controller {
 
     public function actionCategories() {
+
         $this->layout = 'admin';
 
         $categories = Categories::find()->asArray()->all();

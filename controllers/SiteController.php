@@ -13,6 +13,7 @@ use yii\web\UploadedFile;
 use yii\widgets\ActiveForm;
 use yii\web\Response;
 use app\models\FeedbackForm;
+use app\models\JoinToMailingList;
 
 class SiteController extends Controller {
 
@@ -118,6 +119,12 @@ class SiteController extends Controller {
         return $this->render('feedback', [
             'feedback_model' => $feedback_model
         ]);
+    }
+
+    public function actionJoinToMailingList() {
+        $email = Yii::$app->request->post('email');
+        $joinToMailingList = new JoinToMailingList();
+        return $joinToMailingList->joinToMailingList( $email );
     }
 
 }

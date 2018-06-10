@@ -21,6 +21,7 @@ use app\admin\models\TagEdit;
 use app\admin\models\SizeEdit;
 use app\models\db\Categories;
 use app\models\db\Brands;
+use app\models\db\OrderProduct;
 
 class ProductController extends Controller {
 
@@ -29,9 +30,11 @@ class ProductController extends Controller {
         $tableProduct = new TableProduct();
         $dataProvider = $tableProduct->dataFilter( Yii::$app->request->get() );
         $brands = Brands::find()->asArray()->all();
+        $categories = Categories::find()->asArray()->indexBy('id')->all();
         return $this->render('products', [
             'dataProvider' => $dataProvider,
             'tableProduct' => $tableProduct,
+            'categories' => $categories,
             'brands' => $brands
         ]);
     }
@@ -64,6 +67,7 @@ class ProductController extends Controller {
 
         TagProduct::deleteAll(['id_product' => $id_product]);
         SizeProduct::deleteAll(['id_product' => $id_product]);
+        //OrderProduct::deleteAll(['id_product' => $id_product]);
         Products::findOne($id_product)->delete();
 
         $this->redirect('/admin');

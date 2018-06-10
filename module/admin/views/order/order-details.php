@@ -11,7 +11,7 @@
     <div class="col-md-4">
         <div class="col-md-2" style="margin-top: 5px;"><b>Status: </b></div>
         <div class="col-md-10">
-            <select class="form-control status" id="status-<?= $_GET['id_order'] ?>">
+            <select class="form-control status " id="status-<?= $_GET['id_order'] ?>">
                 <option <? if ( $provider['status'] == 'new order' ) echo 'selected'; ?> value="new order">new order</option>
                 <option <? if ( $provider['status'] == 'in processing' ) echo 'selected'; ?> value="in processing">in processing</option>
                 <option <? if ( $provider['status'] == 'complete' ) echo 'selected'; ?> value="complete">complete</option>
