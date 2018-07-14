@@ -144,6 +144,42 @@ a:hover {
 }
 /* end login */
 
+/* account */
+
+@media screen and (max-width: 600px) {
+    #modal-change-password {
+        border-radius: 5px;
+        border: none;
+        background: #fff;
+        position: fixed;
+        display: none;
+        opacity: 0; 
+        z-index: 5;
+        padding: 20px 10px 0 10px;
+        width: 90%;
+        left: 5%; 
+    }
+}
+
+
+@media screen and (min-width: 601px) {
+    #modal-change-password {
+        border-radius: 5px;
+        border: none;
+        background: #fff;
+        position: fixed;
+        display: none;
+        opacity: 0; 
+        z-index: 5;
+        padding: 20px 10px 0 10px;
+        width: 500px;
+        margin-left: -250px;
+        left: 50%; 
+    }
+}
+
+/* and account */
+
 /* cart */
 
 
