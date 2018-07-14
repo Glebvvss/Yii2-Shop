@@ -17,7 +17,6 @@
                             <div class="col-md-3 col-sm-3 col-xs-4 left-img">
                                 <img src="/web/images/product/<?= $product['img'] ?>" class="cart-image"><!--  -->
                             </div>
-
                             <div class="col-md-9 col-sm-9 col-xs-8 description-pos">
                                <div class="normallize">
                                     <div style="padding-left: 2px;">
@@ -57,8 +56,8 @@
 
 
 <div id="modal-confirm-order" class="order-modal">
+    
     <? if ( !Yii::$app->user->isGuest ) : ?>
-
         <div id="modal-order-user">
             <? $f = ActiveForm::begin([
                     'action' => Yii::$app->urlManager->createUrl('cart/confirm-order')
@@ -74,9 +73,9 @@
             </div>
             <? ActiveForm::end(); ?>
         </div>
-
+    
     <? else: ?>
-
+    
         <div id="modal-order-guest">
             <? $f = ActiveForm::begin([
                 'action' => Yii::$app->urlManager->createUrl('cart/confirm-order')
@@ -98,5 +97,6 @@
         </div>
 
     <? endif; ?>
+    
 </div>
 <div id="overlay"></div>
