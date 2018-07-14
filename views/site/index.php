@@ -44,8 +44,6 @@ $this->title = 'E-Shop';
 <!-- content-section-starts-here -->
 <div class="container">
 	<div class="main-content">
-
-
 		<div class="online-strip">
 			<div class="col-md-4 follow-us">
 				<h3>follow us : <a class="twitter" href="https://twitter.com/"></a><a class="facebook" href="https://www.facebook.com"></a></h3>
