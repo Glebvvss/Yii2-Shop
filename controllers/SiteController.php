@@ -14,6 +14,7 @@ use yii\widgets\ActiveForm;
 use yii\web\Response;
 use app\models\FeedbackForm;
 use app\models\JoinToMailingList;
+use app\models\ForgetPassword;
 
 class SiteController extends Controller {
 
@@ -60,7 +61,9 @@ class SiteController extends Controller {
             return $this->goHome();
         }
 
+        $forget_password_model = new ForgetPassword();
         return $this->render('login', [
+            'forget_password_model' => $forget_password_model,
             'login_model' => $login_model
         ]);
     }
@@ -125,6 +128,20 @@ class SiteController extends Controller {
         $email = Yii::$app->request->post('email');
         $joinToMailingList = new JoinToMailingList();
         return $joinToMailingList->joinToMailingList( $email );
+    }
+
+    public function actionForgetPassword() {
+        $forget_password_model = new ForgetPassword();
+
+        if ( Yii::$app->request->isAjax && $forget_password_model->load( Yii::$app->request->post() ) ) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($forget_password_model);
+        }
+
+        if ( $forget_password_model->load( Yii::$app->request->post() ) ) {
+            $forget_password_model->generateAndSendNewPassword();
+        }
+        $this->redirect('login');
     }
 
 }
