@@ -15,6 +15,7 @@ use yii\web\Response;
 use app\models\FeedbackForm;
 use app\models\JoinToMailingList;
 use app\models\ForgetPassword;
+use app\models\ChangePassword;
 
 class SiteController extends Controller {
 
@@ -69,7 +70,9 @@ class SiteController extends Controller {
     }
 
     public function actionLogout() {
-        Yii::$app->user->logout();        
+        if ( !Yii::$app->user->isGuest ) {
+            Yii::$app->user->logout();
+        }
         $this->goHome();
     }
 
@@ -105,8 +108,10 @@ class SiteController extends Controller {
             $account_model->updateUser();
         }
 
+        $change_password_model = new ChangePassword();
         $user = $account_model->getUserInformation();
         return $this->render('account', [
+            'change_password_model' => $change_password_model,
             'account_model' => $account_model,
             'user' => $user
         ]);
@@ -117,6 +122,7 @@ class SiteController extends Controller {
         if ( $feedback_model->load( Yii::$app->request->post() ) && $feedback_model->validate() ) {
             $feedback_model->submit();
         }
+
         return $this->render('feedback', [
             'feedback_model' => $feedback_model
         ]);
@@ -142,4 +148,19 @@ class SiteController extends Controller {
         $this->redirect('login');
     }
 
+    public function actionChangePassword() {
+        $change_password_model = new ChangePassword();
+
+        if ( Yii::$app->request->isAjax && $change_password_model->load( Yii::$app->request->post() ) ) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($change_password_model);
+        }
+
+        if ( $change_password_model->load( Yii::$app->request->post() ) ) {
+            $change_password_model->setNewPassword();
+        }
+        $this->redirect('account');
+    }
+
 }
+
