@@ -18,4 +18,4 @@ function modalForgetPassword() {
                 }
             );
         });
-}modalForgetEmail();
+}modalForgetPassword();
