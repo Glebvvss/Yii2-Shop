@@ -40,7 +40,7 @@
         <? $email_form = ActiveForm::begin([
             'enableClientValidation' => false,
             'enableAjaxValidation' => true,
-            'validationUrl' => '/site/login',
+            'validationUrl' => '/site/forget-password',
             'action' => Yii::$app->urlManager->createUrl('site/forget-password')
         ]); ?>
         <?= $email_form->field($forget_password_model, 'email') ?>
