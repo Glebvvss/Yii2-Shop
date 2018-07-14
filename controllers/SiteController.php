@@ -69,9 +69,7 @@ class SiteController extends Controller {
     }
 
     public function actionLogout() {
-        if ( !Yii::$app->user->isGuest ) {
-            Yii::$app->user->logout();
-        }
+        Yii::$app->user->logout();        
         $this->goHome();
     }
 
