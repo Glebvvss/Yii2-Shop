@@ -67,14 +67,12 @@ $this->title = 'E-Shop';
 			<div class="clearfix"></div>
 		</div>
 
-
 		<!--latest items-->
 		<div class="products-grid">
 			<header>
 				<h3 class="head text-center">Latest Products</h3>
 			</header>
-
-            <?php foreach($products as $product) : ?>
+      <?php foreach($products as $product) : ?>
 			<div class="col-md-4 col-sm-6 product simpleCart_shelfItem text-center">
 				<img src="/images/product/<?=$product->img?>" alt="" />
 				<div class="mask">
@@ -83,8 +81,7 @@ $this->title = 'E-Shop';
 				<a class="product_name" href=""><?=$product->name_product?></a>
 				<p onmousedown="return false" class="add-to-cart" style="cursor: pointer;" id="to-cart-<?= $product->id ?>"><i></i> <span class="item_price">$<?= sprintf("%.2f", $product->price/100);  ?></span></p>
 			</div>
-            <?php endforeach; ?>
-
+      <?php endforeach; ?>
 			<div class="clearfix"></div>
 		</div>
 		<!--/latest items-->
