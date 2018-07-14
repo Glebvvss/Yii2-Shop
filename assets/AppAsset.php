@@ -27,14 +27,16 @@ class AppAsset extends AssetBundle
         'css/admin-style.css',
         'css/flexslider.css',
         'css/component.css',
-        'libs/font-awesome/css/fontawesome-all.min.css'
+        'libs/font-awesome/css/fontawesome-all.min.css',
+        'libs/slick/slick.css',
+        'libs/slick/slick-theme.css'
     ];
     public $js = [
         'js/bootstrap-3.1.1.min.js',
         'js/productsPage.js',
         'js/jquery.flexisel.js',
         'js/jquery.flexslider.js',
-        'js/subscribeOnMailDistribution.js',
+        'js/mailingList.js',
         'js/reviews.js',
         'js/cart.js',
         'js/admin/orders.js',
@@ -45,6 +47,9 @@ class AppAsset extends AssetBundle
         'js/admin/categoriesModal.js',
         'js/admin/orderDetails.js',
         'js/admin/preDeleteProduct.js',
+        '//code.jquery.com/jquery-migrate-1.2.1.min.js',
+        'libs/slick/slick.min.js',
+        'js/modalForgetEmail.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
