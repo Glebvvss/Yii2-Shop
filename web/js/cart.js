@@ -106,3 +106,33 @@ function changeQtyByProduct() {
         });
     });
 }changeQtyByProduct();
+
+function adaptationPositionBlocks() {
+    $(document).ready(function() {
+        if ( document.documentElement.clientWidth <= 380 ) {
+            $('.left-img').removeClass('col-xs-4');
+            $('.description-pos').removeClass('col-xs-8');
+        } else {
+            if ( !$('left-img').hasClass('col-xs-4') ) {
+                 $('.left-img').addClass('col-xs-4');
+            }
+            if ( !$('.description-pos').hasClass('col-xs-8') ) {
+                 $('.description-pos').addClass('col-xs-8');
+            }
+        }
+    });
+
+    $(window).resize(function() {
+        if ( document.documentElement.clientWidth <= 380 ) {
+            $('.left-img').removeClass('col-xs-4');
+            $('.description-pos').removeClass('col-xs-8');
+        } else {
+            if ( !$('left-img').hasClass('col-xs-4') ) {
+                 $('.left-img').addClass('col-xs-4');
+            }
+            if ( !$('.description-pos').hasClass('col-xs-8') ) {
+                 $('.description-pos').addClass('col-xs-8');
+            }
+        }
+    });
+}adaptationPositionBlocks();
