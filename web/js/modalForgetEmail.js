@@ -1,4 +1,4 @@
-function modalForgetEmail() {
+function modalForgetPassword() {
     $('#passwprd-forgot').click(function(event) {
         event.preventDefault();
         $('#overlay').fadeIn(400,
