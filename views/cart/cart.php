@@ -11,40 +11,39 @@
             <div class="col-md-12" style="margin-left: 0px;">
                 <? foreach ( $products as $id => $product ) : ?>
                 <div class="col-md-6 item-cart-block">
-                  <div class="position-block">
-                    <div class="close1 remove-position remove" id="product-<?= $id ?>"> </div>
-                    <div>
-                        <div class="col-md-3 col-sm-3 col-xs-4 left-img">
-                            <img src="/web/images/product/<?= $product['img'] ?>" class="cart-image"><!--  -->
-                        </div>
-
-                        <div class="col-md-9 col-sm-9 col-xs-8 description-pos">
-                          <div class="normallize">
-                            <div style="padding-left: 2px;">
-                                <h3><a class="name-product-in-cart" href="#"><?= $product['name_product'] ?></a></h3>
+                    <div class="position-block">
+                        <div class="close1 remove-position remove" id="product-<?= $id ?>"> </div>
+                        <div>
+                            <div class="col-md-3 col-sm-3 col-xs-4 left-img">
+                                <img src="/web/images/product/<?= $product['img'] ?>" class="cart-image"><!--  -->
                             </div>
-                            <ul class="list">
-                                <li><p>Min. order value: <input class="cart-qty-input" product="<?= $product['id_product'] ?>" value="<?= $product['qty'] ?>"></p></li>
-                                <li>
-                                    <div class="inline-size-block">
-                                        <div>Sizes of product: </div>
-                                        <div style="width: inherit;">
-                                            <select class="test-test select-size" id="<?= $id_product ?>">
-                                                <? foreach( $product['sizes'] as $size ) : ?>
-                                                <option value="<?= $size['size'] ?>"><?= $size['size'] ?></option>
-                                                <? endforeach; ?>
-                                            </select>                                            
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="price-indentation">Price : $<?= sprintf("%.2f", $product['price']/100); ?></li>
-                            </ul>
-                          </div>
-                        </div>
 
-                        <div class="clearfix"></div>
+                            <div class="col-md-9 col-sm-9 col-xs-8 description-pos">
+                               <div class="normallize">
+                                    <div style="padding-left: 2px;">
+                                        <h3><a class="name-product-in-cart" href="#"><?= $product['name_product'] ?></a></h3>
+                                    </div>
+                                    <ul class="list">
+                                        <li><p>Min. order value: <input class="cart-qty-input" product="<?= $product['id_product'] ?>" value="<?= $product['qty'] ?>"></p></li>
+                                        <li>
+                                            <div class="inline-size-block">
+                                                <div>Sizes of product: </div>
+                                                <div style="width: inherit;">
+                                                    <select class="test-test select-size" id="<?= $id_product ?>">
+                                                        <? foreach( $product['sizes'] as $size ) : ?>
+                                                        <option value="<?= $size['size'] ?>"><?= $size['size'] ?></option>
+                                                        <? endforeach; ?>
+                                                    </select>                                            
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="price-indentation">Price : $<?= sprintf("%.2f", $product['price']/100); ?></li>
+                                    </ul>
+                               </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
                     </div>
-                  </div>
                 </div>
                 <? endforeach; ?>
             </div>
