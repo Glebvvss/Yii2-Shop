@@ -19,10 +19,8 @@
           <? $login_form = ActiveForm::begin(['errorCssClass' => '']); ?>
             <span>Email Address<label>*</label></span>
             <?= $login_form->field($login_model, 'email')->label(false)->textInput(['class' => '']); ?>
-
             <span>Password<label>*</label></span>
             <?= $login_form->field($login_model, 'password')->label(false)->passwordInput(['class' => '']); ?>
-
             <a class="forgot" id="passwprd-forgot" href="<?= Yii::$app->urlManager->createUrl('site/forget-password') ?>">Forgot Your Password?</a>
             <input type="submit" value="Login">
           <? ActiveForm::end(); ?>
