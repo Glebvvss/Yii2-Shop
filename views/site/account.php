@@ -35,6 +35,7 @@ $this->title = 'E-SHOP | Account';
             <li><?=$f->field($account_model, 'image')->fileInput()->label(false)?></li>
           </ul>
           <input class="" type="submit" value="CONFIRM UPDATES">
+          <div><a id="change-password-btn" href="">Change Password</a></div>
           <? ActiveForm::end(); ?>
           
         </div>
