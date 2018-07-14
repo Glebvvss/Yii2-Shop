@@ -52,3 +52,21 @@ $this->title = 'E-SHOP | Account';
     </div>
   </div>
 </div>
+
+<!-- модальное окно -->
+<div id="modal-change-password">
+  <div><!-- id="modal-order-user" -->
+    <? $change_password_form = ActiveForm::begin([
+      'enableClientValidation' => false,
+      'enableAjaxValidation' => true,
+      'validationUrl' => '/site/change-password',
+      'action' => Yii::$app->urlManager->createUrl('site/change-password')
+    ]); ?>
+    <?= $change_password_form->field($change_password_model, 'current_password') ?>
+    <?= $change_password_form->field($change_password_model, 'new_password') ?>
+    <?= $change_password_form->field($change_password_model, 'confirm_new_password') ?>
+    <div class="flex"><input class="submit-button" type="submit" value="Set Password"></div>
+    <? ActiveForm::end(); ?>
+  </div>
+</div>
+<div id="overlay"></div>
