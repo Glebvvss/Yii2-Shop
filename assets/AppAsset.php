@@ -49,7 +49,7 @@ class AppAsset extends AssetBundle
         'js/admin/preDeleteProduct.js',
         '//code.jquery.com/jquery-migrate-1.2.1.min.js',
         'libs/slick/slick.min.js',
-        'js/modalForgetEmail.js'
+        'js/modalForgetPassword.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
