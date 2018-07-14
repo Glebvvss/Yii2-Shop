@@ -48,8 +48,190 @@ a:hover {
     padding-right: 40px;
 }
 
+@media screen and (max-width: 768px) {
+    .caption-footer-point {
+        text-align: center;
+    }
+
+    .footer-point {
+        width: 100%;
+    }
+
+    .footer-point > li {
+        display: flex;
+    }
+
+    .footer-point > li > a {
+        margin: auto;
+    }
+
+    .about-us-foot {
+        width: 100%;
+    }
+
+    #about-us-text {
+        color: #B3B3B3; 
+        width: 100%; 
+        text-align: center;
+    }
+}
+
+.button-confirm-order {
+    background-color: #816263;
+    color: white;
+    margin: auto auto 20px auto;
+    transition: 0.5s;
+}
+
+.button-confirm-order:hover {
+    background-color: black;
+    color: white;
+}
+
+#about-us-text {
+    color: #B3B3B3; 
+}
+
+/* login */
+@media screen and (max-width: 600px) {
+    #modal-forgot-password {
+        border-radius: 5px;
+        border: none;
+        background: #fff;
+        position: fixed;
+        display: none;
+        opacity: 0; 
+        z-index: 5;
+        padding: 20px 10px 0 10px;
+        width: 90%;
+        left: 5%; 
+    }
+}
+
+
+@media screen and (min-width: 601px) {
+    #modal-forgot-password {
+        border-radius: 5px;
+        border: none;
+        background: #fff;
+        position: fixed;
+        display: none;
+        opacity: 0; 
+        z-index: 5;
+        padding: 20px 10px 0 10px;
+        width: 500px;
+        margin-left: -250px;
+        left: 50%; 
+    }
+}
+
+.flex {
+    display: flex;
+}
+
+.submit-button {
+    margin: auto auto 15px auto;
+    background-color: #816263;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+}
+
+.submit-button:hover {
+    background-color: black;
+    color: white;
+}
+/* end login */
 
 /* cart */
+
+
+.position-block {
+    background-color: #f5f5f5;
+    margin: 5px;
+    padding: 5px;
+}
+
+.list {
+    list-style-type: none;
+}
+
+@media screen and (max-width: 1200px) and (min-width: 992px) {
+    .normallize {
+        margin-left: 30px;
+    }
+}
+
+@media screen and (max-width: 470px) and (min-width: 320px) {
+    .normallize {
+        margin-left: 30px;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 390px) {
+    .left-img {
+        margin-left: 30px;
+    }
+}
+
+@media screen and (min-width: 380px) and (max-width: 395px) {
+    .cart-qty-input {
+        margin-left: 7px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .close1 {
+        top: 18px;
+    }
+}
+
+@media screen and (min-width: 993px) {
+    .close1 {
+        top: 20px;
+    }
+}
+
+@media screen and (min-width: 381px) {
+    .price-indentation {
+        margin-top: 45px;
+    }
+}
+
+.select-size {
+    margin-left: 7px;
+}
+
+.normallize {
+    left: 100px;
+}
+
+.item-cart-block {
+    padding-left: 0px; 
+    padding-right: 0px;
+}
+
+.remove {
+    z-index: 2;
+    margin-right: 5px;
+}
+
+.name-product-in-cart {
+    color: #816263;
+}
+
+
+.name-product-in-cart:hover {
+    color: #816263;
+}
+
+.inline-size-block div {
+    display: inline;
+}
+
+
+
 .cart-qty-input {
     text-align: center;
     width: 30px;
@@ -97,6 +279,7 @@ a:hover {
 }
 
 .confirm-order-btn a {
+    margin-top: 15px;
     background-color: #816263;
     color: white;
 }
@@ -111,18 +294,17 @@ a:hover {
 }
 
 #modal-confirm-order {
-    width: 500px;
     border-radius: 5px;
     border: none;
     background: #fff;
-    position: fixed; /* чтoбы oкнo былo в видимoй зoне в любoм месте */
-    left: 50%; /* пoлoвинa экрaнa слевa */
-    margin-top: -150px;
-    margin-left: -250px;
-    display: none; /* в oбычнoм сoстoянии oкнa не дoлжнo быть */
-    opacity: 0; /* пoлнoстью прoзрaчнo для aнимирoвaния */
-    z-index: 5; /* oкнo дoлжнo быть нaибoлее бoльшем слoе */
-    padding: 20px 10px;
+    position: fixed;
+    margin-top: -200px;
+    display: none;
+    opacity: 0; 
+    z-index: 5;
+    padding: 20px 10px 0 10px;
+    width: 90%;
+    left: 5%; 
 }
 
 #modal-confirm-user {
