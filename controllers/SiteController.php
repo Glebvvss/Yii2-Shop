@@ -136,30 +136,32 @@ class SiteController extends Controller {
 
     public function actionForgetPassword() {
         $forget_password_model = new ForgetPassword();
-
-        if ( Yii::$app->request->isAjax && $forget_password_model->load( Yii::$app->request->post() ) ) {
+        if ( $forget_password_model->load( Yii::$app->request->post() ) ) {
+            $this->redirect('login');
+        }
+        
+        if ( Yii::$app->request->isAjax ) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($forget_password_model);
-        }
-
-        if ( $forget_password_model->load( Yii::$app->request->post() ) ) {
+        } else {
             $forget_password_model->generateAndSendNewPassword();
+            $this->redirect('login');
         }
-        $this->redirect('login');
     }
 
     public function actionChangePassword() {
         $change_password_model = new ChangePassword();
-
-        if ( Yii::$app->request->isAjax && $change_password_model->load( Yii::$app->request->post() ) ) {
+        if ( !$change_password_model->load( Yii::$app->request->post() ) ) {
+            $this->redirect('account');    
+        }
+        
+        if ( Yii::$app->request->isAjax ) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($change_password_model);
-        }
-
-        if ( $change_password_model->load( Yii::$app->request->post() ) ) {
+        } else {
             $change_password_model->setNewPassword();
-        }
-        $this->redirect('account');
+            $this->redirect('account');
+        }        
     }
 
 }
