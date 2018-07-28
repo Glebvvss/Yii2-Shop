@@ -64,8 +64,8 @@ class OrderController extends Controller {
         $this->layout = 'admin';
 
         $messageFromUser = Orders::find()->select('message')
-            ->where(['id' => $id_order])
-            ->one();
+                                         ->where(['id' => $id_order])
+                                         ->one();
 
         $orderDetails = new OrderDetails();
         $dataProvider = $orderDetails->getDetailsOfOrder( $id_order );
