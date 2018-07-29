@@ -15,9 +15,21 @@ use yii\data\Pagination;
 use app\models\ProductInfo;
 use app\models\builders\ReviewOperationsBuilder;
 use app\models\db\Categories;
+use app\models\db\Products;
 
 class ShopController extends Controller {
+     
+    public function actionIndex() {
+        $products = Products::find()
+            ->orderBy(['id' => SORT_DESC])
+            ->limit(12)
+            ->all();
 
+        return $this->render('index', [
+            'products' => $products
+        ]);
+    }
+    
     public function actionProducts() {
         $id_category = (int) Yii::$app->request->get('id_category');
         $products_per_page = (int) Yii::$app->request->get('products_per_page');
