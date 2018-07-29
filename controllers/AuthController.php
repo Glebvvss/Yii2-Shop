@@ -17,7 +17,7 @@ use app\models\JoinToMailingList;
 use app\models\ForgetPassword;
 use app\models\ChangePassword;
 
-class SiteController extends Controller {
+class AuthController extends Controller {
 
     public function behaviors()
     {
