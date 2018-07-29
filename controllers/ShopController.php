@@ -66,7 +66,7 @@ class ShopController extends Controller {
         $reviewOperations = $builder->idProduct($id_product)
                                     ->build();
 
-        $reviews = $reviewOperations->selectReviews();
+        $reviews = $reviewOperations->selectReviewsByProduct();
         $product = ProductInfo::getInfo($id_product);
         return $this->render( $template_page_html, [
             'id_product' => $id_product,
