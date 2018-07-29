@@ -1,6 +1,6 @@
-var formId, idProductForDelete;
+var idProductForDelete;
 
-//open model page
+//open modal page
 $('.pre-delete-product').click( function(e){
     e.preventDefault();
     var clickedId = $(this).attr('id');
@@ -16,13 +16,7 @@ $('.pre-delete-product').click( function(e){
         });
 });
 
-//action delete product from db
-$('#del-product').click(function() {
-    var url = "/admin/product/delete-product?id_product=" + idProductForDelete;
-    $(location).attr('href',url);
-});
-
-//close model page
+//close modal page
 $('#dont-del-product, #overlay').click( function(){
     $('#modal_form_delete_product')
         .animate({opacity: 0, top: '45%'}, 200,
@@ -31,4 +25,10 @@ $('#dont-del-product, #overlay').click( function(){
                 $('#overlay').fadeOut(400);
             }
         );
+});
+
+//action delete product from db
+$('#del-product').click(function() {
+    var url = "/admin/product/delete-product?id_product=" + idProductForDelete;
+    $(location).attr('href',url);
 });
