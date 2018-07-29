@@ -2,13 +2,12 @@ function hideAndShowSubReviewsCRUD() {
     //hide form sub-reviews by default
     $('.review-on-review').hide();
 
-    //show selected element for writing subreview
+    //show selected textarea element for writing subreview
     $('.reply').click(function () {
         var fullIdForShowTextArea = $(this).attr('id');
         var numberOfIdForShowTextArea = fullIdForShowTextArea.split('-');
         $('#crud-' + numberOfIdForShowTextArea[1]).show();
     });
-
 
     //hide element if click was realize out of open textarea reply
     $(document).mouseup(function (e) {
@@ -31,8 +30,8 @@ function numberOfId(id) {
 
 function addReview() {
     $('.add-review').click(function () {
-        var idOfClickerClass = $(this).attr('id');
-        var idParentReview = numberOfIdParent(idOfClickerClass);
+        var idOfClickedClass = $(this).attr('id');
+        var idParentReview = numberOfIdParent(idOfClickedClass);
         var idProduct = $('#ajax-update').attr('data-id');
         var review = $('#textarea-' + idParentReview).val();
         $.ajax({
@@ -55,8 +54,8 @@ function addReview() {
 
 function deleteReview() {
     $('.delete-review').click(function () {
-        var idOfClickerClass = $(this).attr('id');
-        var idReview = numberOfId(idOfClickerClass);
+        var idOfClickedClass = $(this).attr('id');
+        var idReview = numberOfId(idOfClickedClass);
         var idProduct = $('#ajax-update').attr('data-id');
         $.ajax({
             url: '/shop/delete-review-ajax',
