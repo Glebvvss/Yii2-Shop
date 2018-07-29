@@ -93,7 +93,7 @@ class ShopController extends Controller {
 
         $reviewOperations->addReview();
         $reviews = $reviewOperations->selectReviews();
-        return $this->render('product-single-ajax-update', [
+        return $this->render('reviews-component-ajax', [
             'id_product' => $id_product,
             'reviews' => $reviews
         ]);
@@ -111,7 +111,7 @@ class ShopController extends Controller {
 
         $reviewOperations->deleteReview();
         $reviews = $reviewOperations->selectReviews();
-        return $this->render('product-single-ajax-update', [
+        return $this->render('reviews-component-ajax', [
             'id_product' => $id_product,
             'reviews' => $reviews
         ]);
