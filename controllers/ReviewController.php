@@ -1,5 +1,13 @@
 <?php
 
+namespace app\controllers;
+
+use Yii;
+use yii\web\Controller;
+use app\models\builders\ReviewOperationsBuilder;
+
+class ReviewController extends Controller {
+
     public function actionAddReviewAjax() {
         if ( !Yii::$app->request->isAjax ) {
             $this->redirect('');
@@ -41,3 +49,5 @@
             'reviews' => $reviews
         ]);
     }
+    
+}
