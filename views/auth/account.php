@@ -14,7 +14,7 @@ $this->title = 'E-SHOP | Account';
           <? $f = ActiveForm::begin([
             'enableClientValidation' => false,
             'enableAjaxValidation' => true,
-            'validationUrl' => '/site/account',
+            'validationUrl' => '/auth/account',
             'options' => ['enctype' => 'multipart/form-data'],
             'errorCssClass' => ''
           ]); ?>
@@ -60,8 +60,8 @@ $this->title = 'E-SHOP | Account';
     <? $change_password_form = ActiveForm::begin([
       'enableClientValidation' => false,
       'enableAjaxValidation' => true,
-      'validationUrl' => '/site/change-password',
-      'action' => Yii::$app->urlManager->createUrl('site/change-password')
+      'validationUrl' => '/auth/change-password',
+      'action' => Yii::$app->urlManager->createUrl('auth/change-password')
     ]); ?>
     <?= $change_password_form->field($change_password_model, 'current_password') ?>
     <?= $change_password_form->field($change_password_model, 'new_password') ?>
