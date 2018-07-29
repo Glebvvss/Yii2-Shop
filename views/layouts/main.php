@@ -40,15 +40,15 @@ AppAsset::register($this);
 		 <div class="header-top-left">
 		<ul>
 		<? if ( !Yii::$app->user->isGuest ) : ?>
-			<li><a href="<?= Yii::$app->urlManager->createUrl('site/logout') ?>"><span class="glyphicon glyphicon-user"> </span>Logout</a></li>
+			<li><a href="<?= Yii::$app->urlManager->createUrl('auth/logout') ?>"><span class="glyphicon glyphicon-user"> </span>Logout</a></li>
 		<? else : ?>
-			<li><a href="<?= Yii::$app->urlManager->createUrl('site/login') ?>"><span class="glyphicon glyphicon-user"> </span>Login</a></li>
+			<li><a href="<?= Yii::$app->urlManager->createUrl('auth/login') ?>"><span class="glyphicon glyphicon-user"> </span>Login</a></li>
 		<? endif; ?>
 		<? if ( Yii::$app->user->isGuest ) : ?>
-			<li><a href="<?= Yii::$app->urlManager->createUrl('site/registration') ?>"><span class="glyphicon glyphicon-lock"> </span>Create an Account</a></li>
+			<li><a href="<?= Yii::$app->urlManager->createUrl('auth/registration') ?>"><span class="glyphicon glyphicon-lock"> </span>Create an Account</a></li>
 		<? endif; ?>
 		<? if ( !Yii::$app->user->isGuest ) : ?>
-			<li><a href="<?= Yii::$app->urlManager->createUrl('site/account') ?>"><i class="fas fa-pencil-alt font-awersome-icon"></i>Edit Account</a></li>
+			<li><a href="<?= Yii::$app->urlManager->createUrl('auth/account') ?>"><i class="fas fa-pencil-alt font-awersome-icon"></i>Edit Account</a></li>
 		<? endif; ?>
 		</ul>
 
@@ -96,7 +96,7 @@ AppAsset::register($this);
 				<span class="icon-bar"></span>
 					</button>
 					<div class="logo">
-					<h1><a href=<?= Yii::$app->urlManager->createUrl('site/index') ?>><span>E</span> -Shop</a></h1>
+					<h1><a href=<?= Yii::$app->urlManager->createUrl('shop/index') ?>><span>E</span> -Shop</a></h1>
 				</div>
 			</div>
 			<!--Widget for menu of website-->
