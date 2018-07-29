@@ -41,17 +41,6 @@ class AuthController extends Controller {
         ];
     }
 
-    public function actionIndex() {
-        $products = Products::find()
-            ->orderBy(['id' => SORT_DESC])
-            ->limit(12)
-            ->all();
-
-        return $this->render('index', [
-            'products' => $products
-        ]);
-    }
-
     public function actionLogin() {
         if ( !Yii::$app->user->isGuest ) {
             $this->goBack();
