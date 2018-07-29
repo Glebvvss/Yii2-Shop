@@ -12,7 +12,7 @@ use Yii;
 use app\models\db\Reviews;
 use app\models\builders\ReviewOperationsBuilder;
 
-class ReviewOperations {
+class CRUDReviewOperations {
 
     private $id;
     private $id_parent;
@@ -26,13 +26,7 @@ class ReviewOperations {
         $this->review = trim($builder->review);
     }
 
-    public function countReviewsPerProduct() {
-        return Reviews::find()->where(['id_product' => $this->id_product])
-                              ->count();
-    }
-
-
-    public function selectReviews() {
+    public function selectReviewsByProduct() {
         return Reviews::find()->where(['id_product' => $this->id_product])
                               ->joinWith('users')
                               ->orderBy(['id' => SORT_DESC])
