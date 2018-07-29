@@ -38,7 +38,7 @@ class UserController extends Controller {
         ]);
     }
 
-    public function actionSetAdmin() {
+    public function actionSetAdminRole() {
         $id_user = (int) Yii::$app->request->get('id_user');
 
         if ( !$id_user || !is_int($id_user) ) {
@@ -50,7 +50,7 @@ class UserController extends Controller {
         $this->redirect('/admin/user/users');
     }
 
-    public function actionSetUser() {
+    public function actionSetUserRole() {
         $id_user = Yii::$app->request->get('id_user');
 
         if ( !$id_user || !is_int($id_user) ) {
