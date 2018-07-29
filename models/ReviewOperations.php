@@ -12,7 +12,7 @@ use Yii;
 use app\models\db\Reviews;
 use app\models\builders\ReviewOperationsBuilder;
 
-class CRUDReviewOperations {
+class ReviewOperations {
 
     private $id;
     private $id_parent;
