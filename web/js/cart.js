@@ -5,7 +5,7 @@
         id = id.split('-');
         var idProduct = id[2];
         $.ajax({
-            url: 'http://basic/cart/add-to-cart-ajax',
+            url: '/cart/add-to-cart-ajax',
             type: 'GET',
             data: {
                 id_product: idProduct
@@ -49,7 +49,7 @@ function removeFromCart() {
         var arrayClickedId = clickedId.split('-');
         var idProduct = arrayClickedId[1];
         $.ajax({
-            url: 'http://basic/cart/delete-from-cart-ajax',
+            url: '/cart/delete-from-cart-ajax',
             type: 'POST',
             dataType: 'json',
             data: {
@@ -97,7 +97,7 @@ function changeQtyByProduct() {
         var qty = $(this).val();
 
         $.ajax({
-            url: 'http://basic/cart/change-qty-product',
+            url: '/cart/change-qty-product',
             type: 'GET',
             data: {
                 id_product: idProduct,
