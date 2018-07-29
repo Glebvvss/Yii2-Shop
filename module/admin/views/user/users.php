@@ -43,13 +43,13 @@ echo yii\grid\GridView::widget([
 
 <? function setAdmin($id_user) { ?>
     <? ob_start(); ?>
-        <a href="<?= Yii::$app->urlManager->createUrl(['/admin/user/set-admin', 'id_user' => $id_user]) ?>">set admin</a>
+        <a href="<?= Yii::$app->urlManager->createUrl(['/admin/user/set-admin-role', 'id_user' => $id_user]) ?>">set admin</a>
     <? return ob_get_clean(); ?>
 <? } ?>
 
 <? function unsetAdmin($id_user) { ?>
     <? ob_start(); ?>
-    <a href="<?= Yii::$app->urlManager->createUrl(['/admin/user/set-user', 'id_user' => $id_user]) ?>">unset admin</a>
+    <a href="<?= Yii::$app->urlManager->createUrl(['/admin/user/set-user-role', 'id_user' => $id_user]) ?>">unset admin</a>
     <? return ob_get_clean(); ?>
 <? } ?>
 
