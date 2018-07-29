@@ -15,7 +15,7 @@
           <? $f = ActiveForm::begin([
             'enableClientValidation' => false,
             'enableAjaxValidation' => true,
-            'validationUrl' => '/site/registration',
+            'validationUrl' => '/auth/registration',
             'options' => ['enctype' => 'multipart/form-data'],
             'errorCssClass' => ''
           ]); ?>
