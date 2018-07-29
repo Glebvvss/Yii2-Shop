@@ -46,7 +46,7 @@ $config = [
                 //cart
                 'cart' => 'cart/cart',
 
-                'registration' => 'site/registration',
+                'registration' => 'auth/registration',
                 //'registration' => 'site/registration',
             ],
         ],
