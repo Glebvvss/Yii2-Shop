@@ -106,23 +106,6 @@ class AuthController extends Controller {
         ]);
     }
 
-    public function actionFeedback() {
-        $feedback_model = new FeedbackForm();
-        if ( $feedback_model->load( Yii::$app->request->post() ) && $feedback_model->validate() ) {
-            $feedback_model->submit();
-        }
-
-        return $this->render('feedback', [
-            'feedback_model' => $feedback_model
-        ]);
-    }
-
-    public function actionJoinToMailingList() {
-        $email = Yii::$app->request->post('email');
-        $joinToMailingList = new JoinToMailingList();
-        return $joinToMailingList->joinToMailingList( $email );
-    }
-
     public function actionForgetPassword() {
         $forget_password_model = new ForgetPassword();
         if ( $forget_password_model->load( Yii::$app->request->post() ) ) {
