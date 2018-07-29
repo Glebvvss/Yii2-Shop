@@ -18,7 +18,7 @@ $('.pre-delete-product').click( function(e){
 
 //action delete product from db
 $('#del-product').click(function() {
-    var url = "http://basic/admin/product/delete-product?id_product=" + idProductForDelete;
+    var url = "/admin/product/delete-product?id_product=" + idProductForDelete;
     $(location).attr('href',url);
 });
 
