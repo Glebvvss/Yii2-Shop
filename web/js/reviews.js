@@ -35,7 +35,7 @@ function addReview() {
         var idProduct = $('#ajax-update').attr('data-id');
         var review = $('#textarea-' + idParentReview).val();
         $.ajax({
-            url: '/shop/add-review-ajax',
+            url: '/review/add-review-ajax',
             type: 'POST',
             data: {
                 id_parent_review: idParentReview,
@@ -58,7 +58,7 @@ function deleteReview() {
         var idReview = numberOfId(idOfClickedClass);
         var idProduct = $('#ajax-update').attr('data-id');
         $.ajax({
-            url: '/shop/delete-review-ajax',
+            url: '/review/delete-review-ajax',
             type: 'POST',
             data: {
                 id_product: idProduct,
