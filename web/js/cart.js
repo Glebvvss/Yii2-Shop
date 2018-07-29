@@ -1,25 +1,25 @@
-//add product tp cart
-$('.add-to-cart').click(function(e) {
-    e.preventDefault();
-    var id = $(this).attr('id');
-    id = id.split('-');
-    var idProduct = id[2];
-    $.ajax({
-        url: 'http://basic/cart/add-to-cart-ajax',
-        type: 'GET',
-        data: {
-            id_product: idProduct
-        },
-        dataType: 'json',
-        success: function(obj) {
-            addToCartResultMessage();
-            var cartSum = parseInt(obj.cartSum)/100;
-            $('#sum-of-cart').text('$' + cartSum.toFixed(2));
-            $('#count-of-cart').text(obj.cartQty);
-        }
+(function addProductToCart() {
+    $('.add-to-cart').click(function(e) {
+        e.preventDefault();
+        var id = $(this).attr('id');
+        id = id.split('-');
+        var idProduct = id[2];
+        $.ajax({
+            url: 'http://basic/cart/add-to-cart-ajax',
+            type: 'GET',
+            data: {
+                id_product: idProduct
+            },
+            dataType: 'json',
+            success: function(obj) {
+                addToCartResultMessage();
+                var cartSum = parseInt(obj.cartSum)/100;
+                $('#sum-of-cart').text('$' + cartSum.toFixed(2));
+                $('#count-of-cart').text(obj.cartQty);
+            }
+        });
     });
-});
-
+})();
 
 function addToCartResultMessage(result) {
     showAddToCartResultMessage();
