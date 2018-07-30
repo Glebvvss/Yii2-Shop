@@ -18,17 +18,6 @@ use app\models\db\Categories;
 use app\models\db\Products;
 
 class ShopController extends Controller {
-     
-    public function actionIndex() {
-        $products = Products::find()
-            ->orderBy(['id' => SORT_DESC])
-            ->limit(12)
-            ->all();
-
-        return $this->render('index', [
-            'products' => $products
-        ]);
-    }
     
     public function actionProducts() {
         $id_category = (int) Yii::$app->request->get('id_category');
