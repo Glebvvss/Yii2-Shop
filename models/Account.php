@@ -43,7 +43,7 @@ class Account extends Model {
             $this->uploadImageFile();
         }
 
-        $this->updateUserDb();
+        $this->updateUserInfoInDb();
         return;
     }
 
@@ -54,7 +54,7 @@ class Account extends Model {
         }
     }
 
-    private function updateUserDb() {
+    private function updateUserInfoInDb() {
         $user = Users::find()->where(['id' => Yii::$app->user->getId()])->one();
 
         if ( $this->image_name ) {
