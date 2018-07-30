@@ -28,14 +28,14 @@ class ShopController extends Controller {
         $tamplate_page_html = 'products';
 
         $category = Categories::findOne($id_category);
-        $getProducts = new GetProductsBuilder();
-        $getProductsObj = $getProducts->sortDirection($sort_direction)
-                                      ->idCategory($id_category)
-                                      ->sortType($sort_type)
-                                      ->tag($tag)
-                                      ->build();
+        $builder = new GetProductsBuilder();
+        $getProducts = $builder->sortDirection($sort_direction)
+                               ->idCategory($id_category)
+                               ->sortType($sort_type)
+                               ->tag($tag)
+                               ->build();
 
-        $query = $getProductsObj->getProducts();
+        $query = $getProducts->getProducts();
 
         //create pagination
         if ( !$products_per_page ) $products_per_page = 9;
