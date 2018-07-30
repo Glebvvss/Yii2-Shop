@@ -9,9 +9,6 @@
             data: {
                 id_category: idCategory
             },
-            success: function(page) {
-
-            }
         });
     });
 }());
