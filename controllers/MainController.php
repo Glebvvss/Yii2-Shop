@@ -22,13 +22,13 @@ class MainController extends Controller {
     }
 
     public function actionFeedback() {
-        $feedback_model = new FeedbackForm();
-        if ( $feedback_model->load( Yii::$app->request->post() ) && $feedback_model->validate() ) {
-            $feedback_model->submit();
+        $feedback_form = new FeedbackForm();
+        if ( $feedback_form->load( Yii::$app->request->post() ) && $feedback_form->validate() ) {
+            $feedback_form->submit();
         }
 
         return $this->render('feedback', [
-            'feedback_model' => $feedback_model
+            'feedback_form' => $feedback_form
         ]);
     }
 
